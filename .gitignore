@@ -1,3 +1,6 @@
 ﻿.settings
 bin/*
 /bin
+*.iml
+.idea/*
+out/*
