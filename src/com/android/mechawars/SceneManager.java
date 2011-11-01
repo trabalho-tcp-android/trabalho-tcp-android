@@ -1,6 +1,8 @@
 package com.android.mechawars;
 
 import com.android.mechawars.ffBox.Box;
+import com.android.mechawars.ffBox.SimpleTextBox;
+import com.android.mechawars.ffBox.TextBox;
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
@@ -8,7 +10,7 @@ import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.util.HorizontalAlign;
 
 public class SceneManager {
-    private MechawarsActivity base;
+    public MechawarsActivity base;
 
 	public SceneManager(MechawarsActivity base) {
 		this.base = base;
@@ -24,8 +26,13 @@ public class SceneManager {
         scene.attachChild(textCenter);
         base.getEngine().setScene(scene);
 
-        Rectangle menu = Box.createEntity(0, 0, 700, 200);
-        menu.setPosition(MechawarsActivity.getCenterX()-menu.getWidth()/2,MechawarsActivity.getCenterY()-menu.getHeight()/2);
-        scene.attachChild(menu);
+        SimpleTextBox menu = new SimpleTextBox(0.5f,3);
+        menu.setPosition(SimpleTextBox.CENTER_CENTER);
+        scene.attachChild(menu.getDrawableEntity());
+        scene.attachChild(menu.getLine(0));
+        //menu.getLine(0).setPosition(0,0);
+        scene.attachChild(menu.getLine(1));
+        scene.attachChild(menu.getLine(2));
+
 	}
 }
