@@ -12,7 +12,7 @@ import org.anddev.andengine.util.HorizontalAlign;
 public class SceneManager {
     public MechawarsActivity base;
 
-	public SceneManager(MechawarsActivity base) {
+    public SceneManager(MechawarsActivity base) {
 		this.base = base;
 	}
 
@@ -26,13 +26,9 @@ public class SceneManager {
         scene.attachChild(textCenter);
         base.getEngine().setScene(scene);
 
-        SimpleTextBox menu = new SimpleTextBox(0.5f,3);
+        SimpleTextBox menu = new SimpleTextBox(0.5f, 3, base.getEngine().getScene());
+
         menu.setPosition(SimpleTextBox.CENTER_CENTER);
         scene.attachChild(menu.getDrawableEntity());
-        scene.attachChild(menu.getLine(0));
-        //menu.getLine(0).setPosition(0,0);
-        scene.attachChild(menu.getLine(1));
-        scene.attachChild(menu.getLine(2));
-
 	}
 }

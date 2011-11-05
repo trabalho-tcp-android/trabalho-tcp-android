@@ -4,6 +4,7 @@ import android.util.Log;
 import com.android.mechawars.MechawarsActivity;
 import org.anddev.andengine.entity.primitive.Line;
 import org.anddev.andengine.entity.primitive.Rectangle;
+import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.opengl.font.Font;
@@ -27,33 +28,52 @@ public class TextBox {
     private int width;
     private ChangeableText[] lines;
     private int letterWidth;
+    protected Scene scene;
 
-    public TextBox(int width,int numLines,Font font) {
+    public TextBox(int width,int numLines,Font font,Scene scene,boolean visible) {
+        this.scene = scene;
         this.font = font;
         this.numLines = numLines;
         this.lines = new ChangeableText[numLines];
         this.width = width;
         this.lineHeight = new Float(font.getLineHeight()*1.2f).intValue();
         this.box = Box.createEntity(0,0,width,lineHeight*numLines+boxPadding*2);
-        this.setPosition(BOTTOM_CENTER);
         this.letterWidth = new Float(new Text(0,0,font,"QWER").getWidth()/4).intValue();
         this.maxChars = (width-boxPadding*2)/letterWidth;
         Log.w("MechaWars","MaxChars from textBox "+this.maxChars);
 
+        scene.attachChild(this.box);
+        this.box.setVisible(visible);
         for(int i=0;i<numLines;i++) {
             float posY = this.box.getY()+this.boxPadding+(i*this.lineHeight);
             ChangeableText line = new ChangeableText(this.box.getX()+this.boxPadding,posY,this.font,"1234567890123456789012",this.maxChars);
             line.setPosition(this.box.getX()+this.boxPadding,posY);
             lines[i] = line;
+            scene.attachChild(line);
+            line.setVisible(visible);
         }
+        this.setPosition(BOTTOM_CENTER);
     }
 
-    public TextBox(float widthPercent, int numLines) {
-        this(new Float(widthPercent*MechawarsActivity.getCameraWidth()).intValue(),numLines,MechawarsActivity.getBasicFont());
+    public TextBox(float widthPercent, int numLines, Scene scene, boolean visible) {
+        this(new Float(widthPercent*MechawarsActivity.getCameraWidth()).intValue(),numLines,MechawarsActivity.getBasicFont(),scene,visible);
     }
 
-    public TextBox(int width,int numLines) {
-        this(width, numLines, MechawarsActivity.getBasicFont());
+    public TextBox(int width,int numLines, Scene scene) {
+        this(width, numLines, MechawarsActivity.getBasicFont(),scene,true);
+    }
+
+    public boolean isVisible() {
+        return this.box.isVisible();
+    }
+
+    public boolean setVisibility(boolean visibility,String te) {
+        this.box.setVisible(visibility);
+        this.linesSet(te);
+    }
+
+    public boolean linesSet(String te) {
+        lines[0].te();
     }
 
     public int getLetterWidth() {
@@ -85,6 +105,7 @@ public class TextBox {
     }
 
     public ChangeableText getLine(int line) {
+        if(line>numLines) throw new ArrayStoreException("Tentando pegar uma linha que nao existe "+line);
         return this.lines[line];
     }
 
@@ -106,13 +127,12 @@ public class TextBox {
                 break;
         }
 
-        this.getLine(0).setPosition(0,0);
         //Reseta o posicionamento das linhas
-        /*for(int i=0;i<numLines;i++) {
+        for(int i=0;i<numLines;i++) {
             float posY = this.box.getY()+this.boxPadding+(i*this.lineHeight);
             ChangeableText line = this.lines[i];
-            //line.setPosition(this.box.getX()+this.boxPadding,posY);
-        }      */
+            line.setPosition(this.box.getX()+this.boxPadding,posY);
+        }
     }
 
     public Rectangle getDrawableEntity() {
