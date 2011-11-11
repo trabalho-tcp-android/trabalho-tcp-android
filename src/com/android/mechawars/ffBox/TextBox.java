@@ -50,7 +50,7 @@ public class TextBox {
             line.setPosition(this.box.getX()+this.boxPadding,posY);
             lines[i] = line;
             scene.attachChild(line);
-            line.setVisible(visible);
+            //line.setVisible(visible);
         }
         this.setPosition(BOTTOM_CENTER);
     }
@@ -63,17 +63,20 @@ public class TextBox {
         this(width, numLines, MechawarsActivity.getBasicFont(),scene,true);
     }
 
+    public void setVisibility(boolean visibility) {
+        this.box.setVisible(visibility);
+        for(int i=0;i<numLines;i++) {
+            float posY = this.box.getY()+this.boxPadding+(i*this.lineHeight);
+            ChangeableText line = new ChangeableText(this.box.getX()+this.boxPadding,posY,this.font,"1234567890123456789012",this.maxChars);
+            line.setPosition(this.box.getX()+this.boxPadding,posY);
+            lines[i] = line;
+            scene.attachChild(line);
+            line.setVisible(visibility);
+        }
+    }
+
     public boolean isVisible() {
         return this.box.isVisible();
-    }
-
-    public boolean setVisibility(boolean visibility,String te) {
-        this.box.setVisible(visibility);
-        this.linesSet(te);
-    }
-
-    public boolean linesSet(String te) {
-        lines[0].te();
     }
 
     public int getLetterWidth() {

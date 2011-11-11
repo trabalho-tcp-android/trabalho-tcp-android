@@ -2,10 +2,14 @@ package com.android.mechawars;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.widget.Toast;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.handler.timer.ITimerCallback;
 import org.anddev.andengine.engine.handler.timer.TimerHandler;
+import org.anddev.andengine.entity.scene.menu.MenuScene;
+import org.anddev.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
+import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
 import org.anddev.andengine.opengl.font.Font;
 import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
@@ -37,6 +41,9 @@ import org.helllabs.android.xmp.ModPlayer;
 
 import java.io.IOException;
 
+/**
+ * @author Rodrigo Dlugokenski
+ */
 public class MechawarsActivity extends BaseGameActivity {
 
     private static final int CAMERA_WIDTH = 800;
@@ -212,4 +219,5 @@ public class MechawarsActivity extends BaseGameActivity {
     private void startPlayingMod() {
         this.mModPlayer.play(FileUtils.getAbsolutePathOnExternalStorage(this, MOD_DIRECTORY + MOD_FILENAME));
     }
+
 }

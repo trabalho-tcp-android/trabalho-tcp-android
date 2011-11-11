@@ -4,7 +4,7 @@ import org.anddev.andengine.entity.scene.Scene;
 
 public class SimpleTextBox extends TextBox {
     public SimpleTextBox(float widthPercent, int numLines, Scene scene) {
-        super(widthPercent, numLines,scene);
+        super(widthPercent, numLines,scene,true);
     }
 
     public SimpleTextBox(int width, int numLines, Scene scene) {

@@ -62,5 +62,9 @@ public class Box {
         return instances.get(name);
     }
 
+    public static int getLinePadding() {
+        return linePadding;
+    }
+
 
 }

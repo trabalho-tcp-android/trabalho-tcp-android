@@ -1,0 +1,21 @@
+{
+    mainMenu: {
+        width: 0.5,
+        position: 4,
+        type: "Menu",
+        items: {
+            0: {
+                label: "Continuar um jogo",
+                onSelect: [
+                    ["changeScreen","continueGame"]
+                ],
+                onUnselect: []
+            },
+            1: {
+                label: "Novo jogo",
+                onSelect: [],
+                onUnselect: []
+            }
+        }
+    }
+}
