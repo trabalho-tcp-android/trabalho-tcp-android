@@ -1,24 +1,18 @@
 package com.android.mechawars.ffBox.ffMenu;
 
 import android.util.Log;
-import android.widget.Toast;
 import com.android.mechawars.MechawarsActivity;
-import com.android.mechawars.R;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.ffBox.Box;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.anddev.andengine.entity.primitive.Rectangle;
-import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.menu.MenuScene;
 import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
 import org.anddev.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
 import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.opengl.font.Font;
-import org.json.JSONObject;
+import org.anddev.andengine.util.Debug;
 
 import javax.microedition.khronos.opengles.GL10;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -28,11 +22,11 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
     private MechawarsActivity base;
     private Font font;
     private int numLines;
-    private int width;
+    protected int width;
     private int lineHeight;
     private int height;
     private Rectangle box;
-    private int letterWidth;
+    protected int letterWidth;
     private int maxChars;
     protected int boxPadding = Box.getLinePadding() * 4;
     private final ArrayList<IMenuItem> mMenuItems = new ArrayList<IMenuItem>();
@@ -55,10 +49,9 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
      *
      * @param widthPercent Percentage of the screen width to be occupied by the menu
      * @param numLines     Number of menu lines
-     * @param base         Activity base
      */
-    public Menu(float widthPercent, int numLines) {
-        this(new Float(widthPercent * MechawarsActivity.getCameraWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), SceneManager.getBase());
+    public Menu(float widthPercent, int numLines, int position) {
+        this(new Float(widthPercent * MechawarsActivity.getCameraWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), position, SceneManager.getBase());
     }
 
     /**
@@ -67,10 +60,9 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
      * @param widthPercent
      * @param numLines
      * @param base
-     * @param dummyText
      */
-    public Menu(float widthPercent, int numLines, MechawarsActivity base, boolean dummyText) {
-        this(new Float(widthPercent * MechawarsActivity.getCameraWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), base);
+    public Menu(float widthPercent, int numLines, int position, MechawarsActivity base) {
+        this(new Float(widthPercent * MechawarsActivity.getCameraWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), position, base);
     }
 
     /**
@@ -81,17 +73,15 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
      * @param font     Loaded font to create the texts
      * @param base     Activity base
      */
-    public Menu(int width, int numLines, Font font, MechawarsActivity base) {
+    public Menu(int width, int numLines, Font font, int position, MechawarsActivity base) {
         this.base = base;
         this.font = font;
         this.numLines = numLines;
         this.width = width;
 
-        this.height = this.lineHeight * numLines;
-        Log.w("MechaWars", "Menu Height " + height);
+        this.height = this.getLineHeight() * numLines;
         this.box = Box.createEntity(0, 0, width, lineHeight * numLines + boxPadding * 2);
         this.letterWidth = new Float(new Text(0, 0, font, "QWER").getWidth() / 4).intValue();
-        Log.w("MechaWars", "MaxChars from Menu " + this.maxChars);
 
         base.getEngine().getScene().attachChild(this.box);
         this.menuScene = new MenuScene(base.getEngine().getCamera(), this);
@@ -102,7 +92,7 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
 
         menuScene.setBackgroundEnabled(false);
 
-        this.setPosition(BOTTOM_CENTER);
+        this.setPosition(position);
 
     }
 
@@ -195,6 +185,10 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
 
     public MenuScene getMenuScene() {
         return menuScene;
+    }
+
+    protected Font getFont() {
+        return font;
     }
 
     /**

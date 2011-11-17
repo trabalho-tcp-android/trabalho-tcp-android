@@ -1,6 +1,7 @@
 package com.android.mechawars;
 
 import com.android.mechawars.ffBox.ffMenu.Menu;
+import com.android.mechawars.ffBox.ffMenu.MenuManager;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.entity.text.Text;
@@ -20,8 +21,10 @@ public class SceneManager {
         return base;
     }
 
-    public void loadMain() {
-		//Nova cena, menu principal
+    /**
+     * Menu principal
+     */
+    public static void loadMain() {
 		final Scene scene = new Scene();
         scene.setBackground(new ColorBackground(0f, 0f, 0f));
 
@@ -31,9 +34,22 @@ public class SceneManager {
 
         base.getEngine().setScene(scene);
 
-        Menu menu = new Menu(0.5f,4,base);
-        menu.setPosition(Menu.CENTER_CENTER);
-        menu.attachToScene();
-        menu.setMenuLineText(2,"> TROLOLO");
+        MenuManager.instance().fromJSON("mainMenu").attachToScene();
+        
+//        Menu test = MenuManager.instance().getMenu("mainMenu");
+//        test.getMenuScene();
 	}
+
+    public static void loadOptions() {
+        final Scene scene = new Scene();
+        scene.setBackground(new ColorBackground(0f, 0.31f, 0.53f));
+        
+        final Text sceneTitle = new Text(MechawarsActivity.getCenterX(),4,MechawarsActivity.mFont,"Opções do Jogo",HorizontalAlign.CENTER);
+        sceneTitle.setPosition(MechawarsActivity.getCenterX()-sceneTitle.getWidth()/2,10);
+        scene.attachChild(sceneTitle);
+
+        base.getEngine().setScene(scene);
+
+        MenuManager.instance().fromJSON("optionsMenu").attachToScene();
+    }
 }

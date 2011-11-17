@@ -2,14 +2,10 @@ package com.android.mechawars;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.widget.Toast;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.handler.timer.ITimerCallback;
 import org.anddev.andengine.engine.handler.timer.TimerHandler;
-import org.anddev.andengine.entity.scene.menu.MenuScene;
-import org.anddev.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
-import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
 import org.anddev.andengine.opengl.font.Font;
 import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
@@ -17,6 +13,7 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
+import org.anddev.andengine.util.Debug;
 import org.anddev.andengine.util.FileUtils;
 import org.anddev.andengine.util.HorizontalAlign;
 import org.anddev.andengine.util.modifier.IModifier;
@@ -57,15 +54,16 @@ public class MechawarsActivity extends BaseGameActivity {
 	protected Font mFontBold;
 	private BitmapTextureAtlas mBitmap;
 	private TextureRegion mRobotTextureRegion;
-	private Font mFontBoldGray;
-    private SceneManager sm;
+	protected Font mFontBoldGray;
+    private static SceneManager sceneManager;
     private ModPlayer mModPlayer = ModPlayer.getInstance();
 
 
     @Override
     public Engine onLoadEngine() {
-            this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-            return new Engine(new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera));
+        Debug.setDebugTag("MechaWars"); Debug.setDebugLevel(Debug.DebugLevel.WARNING);
+        this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+        return new Engine(new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera));
     }
  
     @Override
@@ -105,7 +103,7 @@ public class MechawarsActivity extends BaseGameActivity {
             }
             this.startPlayingMod();
         }
-        this.sm = new SceneManager(this);
+        sceneManager =  new SceneManager(this);
     }
  
     @Override
@@ -161,7 +159,7 @@ public class MechawarsActivity extends BaseGameActivity {
     			@Override
     			public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
     				//Troca de cena
-                    MechawarsActivity.this.sm.loadMain();
+                    SceneManager.loadMain();
     			}
     		}, EaseLinear.getInstance());
             
@@ -214,6 +212,10 @@ public class MechawarsActivity extends BaseGameActivity {
 
     public static Font getBasicFont() {
         return mFont;
+    }
+
+    public static SceneManager getSceneManager() {
+        return sceneManager;
     }
 
     private void startPlayingMod() {

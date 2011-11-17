@@ -1,21 +1,48 @@
 {
     mainMenu: {
-        width: 0.5,
+        width: 0.3,
         position: 4,
-        type: "Menu",
-        items: {
-            0: {
-                label: "Continuar um jogo",
-                onSelect: [
-                    ["changeScreen","continueGame"]
-                ],
-                onUnselect: []
+        type: "SimpleMenu",
+        items: [
+            {
+                label: "Continuar",
+                onSelected: [],
+                onUnselected: [
+                    ["changeScene","ContinueGame",[1,1]]
+                ]
             },
-            1: {
-                label: "Novo jogo",
-                onSelect: [],
-                onUnselect: []
+            {
+                label: "Novo Jogo",
+                onSelected: [],
+                onUnselected: [
+                    ["changeScene","NewGame"]
+                ]
+            },
+            {
+                label: "Opções",
+                onUnselected: [
+                    ["changeScene","Options"]
+                ]
+            },
+            {
+                label: "Sair",
+                onUnselected: [
+                    ["quitGame"]
+                ]
             }
-        }
+        ]
+    },
+    optionsMenu: {
+        width: 1,
+        position: 7,
+        type: "SimpleMenu",       //"OptionsMenu"
+        items: [
+            {
+                label: "Voltar",
+                onUnselected: [
+                    ["changeScene","Main"]
+                ]
+            }
+        ]
     }
 }
