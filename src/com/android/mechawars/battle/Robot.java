@@ -1,7 +1,7 @@
 package com.android.mechawars.battle;
 
 public class Robot {
-	private int maxHp;teste;
+	private int maxHp;
 	private int currentHp;
 	private int maxWeapon;
 	private String imagePath;
