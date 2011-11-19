@@ -12,6 +12,8 @@ public class CharacterNPC {
 	private String characterName;
 	public AnimatedSprite characterSprite;
 	
+	private String characterTexturePath;
+	
 	private float characterX;
 	private int characterColumn;
 	
@@ -37,6 +39,23 @@ public class CharacterNPC {
 		characterSprite.animate(animation);
 		//Add the character to the scene after this method is computed
 	}
+	
+	public CharacterNPC(final String name, final int posX, final int posY, final float tileWidth, final String npcTexturePath,final long[] animation){
+		this.characterName = name;
+		
+		characterX = ((float)posX)*tileWidth;
+		characterY = ((float)posY)*tileWidth;
+		
+		characterColumn = posX;
+		characterRow = posY;
+		
+		mapTileWidth = tileWidth;
+		
+		characterTexturePath = npcTexturePath;
+		
+		characterSprite.animate(animation);
+		//Add the character to the scene after this method is computed
+	}	
 	
 	public String characterName(){
 		return characterName;

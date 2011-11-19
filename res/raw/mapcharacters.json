@@ -1,6 +1,7 @@
 {
 	characters:[
 		{
+			name: "Leeroy Jenkins",
 			position: ["x","y"],
 			type: "Dialog",
 			sprite: "enemy.png",
@@ -15,7 +16,12 @@
 					ID: "Weapon";//Weapon
 					Quantity: "1"				
 				}
-			]
+			],
+			
+			tileWidth:"10",
+			animation:[0,0,0,0,0,0,0,200,0,0,0,0],
+			textureRegionX:"128",
+			textureRegionY:"128"
 		}
 	]
 }
