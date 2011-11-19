@@ -1,6 +1,7 @@
 ﻿.settings
 bin/*
-/bin
+bin
 *.iml
 .idea/*
 out/*
+/bin
