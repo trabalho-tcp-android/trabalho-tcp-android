@@ -52,7 +52,7 @@ import android.widget.Toast;
  * @author Nicolas Gramlich
  * @since 13:58:48 - 19.07.2010
  */
-public class AndEngineTestActivity extends BaseGameActivity implements IOnSceneTouchListener{
+public class MechaWarsMapActivity extends BaseGameActivity implements IOnSceneTouchListener{
 	// ===========================================================
 	// Constants
 	// ===========================================================
