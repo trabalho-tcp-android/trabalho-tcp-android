@@ -1,0 +1,21 @@
+{
+	characters:[
+		{
+			position: ["x","y"],
+			type: "Dialog",
+			sprite: "enemy.png",
+			
+			inventory:[
+				
+				{
+					ID: "Potion",//Potion
+					Quantity: "1"
+				},
+				{
+					ID: "Weapon";//Weapon
+					Quantity: "1"				
+				}
+			]
+		}
+	]
+}
