@@ -15,6 +15,9 @@ public class LoadAssets {
 	
 	private int playerTextureAtlasSize; //Must be a power of two
 	
+	public static final float playerTileAdjustmentOffsetX = 5;
+	public static final float playerTileAdjustmentOffsetY = 7;
+	
 	//Digital controller details
 	private String controllerBody;
 	private String controllerBodyKnob;

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.android.mechawars.map.*;
+
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.BoundCamera;
 import org.anddev.andengine.engine.camera.hud.HUD;
@@ -116,8 +117,8 @@ public class AndEngineTestActivity extends BaseGameActivity implements IOnSceneT
 	
 	
 	//Sprite position adjustment
-	private final float offsetSpriteX = 5;
-	private final float offsetSpriteY = 7;
+	private final float offsetSpriteX = LoadAssets.playerTileAdjustmentOffsetX;
+	private final float offsetSpriteY = LoadAssets.playerTileAdjustmentOffsetY;
 	
 	
 	

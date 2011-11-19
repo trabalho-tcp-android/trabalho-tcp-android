@@ -6,8 +6,8 @@ import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 public class CharacterNPC {
 	
-	private final float offsetX = 5;
-	private final float offsetY = 7;
+	private final float offsetX = LoadAssets.playerTileAdjustmentOffsetX;
+	private final float offsetY = LoadAssets.playerTileAdjustmentOffsetY;
 	
 	private String characterName;
 	public AnimatedSprite characterSprite;
