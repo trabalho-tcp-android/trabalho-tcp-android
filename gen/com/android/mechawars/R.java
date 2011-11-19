@@ -18,7 +18,8 @@ public final class R {
     }
     public static final class raw {
         public static final int chapter1=0x7f040000;
-        public static final int menus=0x7f040001;
+        public static final int mapcharacters=0x7f040001;
+        public static final int menus=0x7f040002;
     }
     public static final class string {
         public static final int app_name=0x7f050001;
