@@ -171,7 +171,7 @@ public class MechawarsActivity extends BaseGameActivity {
     		textCenter.registerEntityModifier(prFadeInModifier);
     		
     		//Cria um timer para o fadeOut
-    		this.getEngine().registerUpdateHandler(new TimerHandler(1.5f, new ITimerCallback() {
+    		this.getEngine().registerUpdateHandler(new TimerHandler(6f, new ITimerCallback() {
                 @Override
                 public void onTimePassed(final TimerHandler pTimerHandler) {
                 	robotCreations.registerEntityModifier(prFadeOutModifier);

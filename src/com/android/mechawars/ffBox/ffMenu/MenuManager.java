@@ -60,7 +60,6 @@ public final class MenuManager {
      */
     public Menu fromJSON(String jsonNode, int jsonResource) {
         try {
-            String x = "";
             InputStream is = SceneManager.getBase().getResources().openRawResource(jsonResource);
             byte[] buffer = new byte[is.available()];
             while (is.read(buffer) != -1) ;

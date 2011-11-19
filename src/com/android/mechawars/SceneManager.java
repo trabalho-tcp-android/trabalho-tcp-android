@@ -1,5 +1,6 @@
 package com.android.mechawars;
 
+import com.android.mechawars.ffBox.ffDialog.DialogManager;
 import com.android.mechawars.ffBox.ffMenu.Menu;
 import com.android.mechawars.ffBox.ffMenu.MenuManager;
 import org.anddev.andengine.entity.scene.Scene;
@@ -51,5 +52,17 @@ public class SceneManager {
         base.getEngine().setScene(scene);
 
         MenuManager.instance().fromJSON("optionsMenu").attachToScene();
+    }
+
+    public static void loadNewGame() {
+        final Scene scene = new Scene();
+        scene.setBackground(new ColorBackground(0f, 0f, 0f));
+        final Text sceneTitle = new Text(MechawarsActivity.getCenterX(),4,MechawarsActivity.mFont,"Teste dialogo 1",HorizontalAlign.CENTER);
+        sceneTitle.setPosition(MechawarsActivity.getCenterX()-sceneTitle.getWidth()/2,10);
+        scene.attachChild(sceneTitle);
+
+        base.getEngine().setScene(scene);
+
+        DialogManager.instance().fromJSON("testDialog1");
     }
 }

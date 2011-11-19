@@ -1,0 +1,27 @@
+{
+    testDialog1: {
+        position: 7,
+        label: "NPC-One",
+        portrait: "npcOne",
+        lines: [
+            ["Lorem ipsum dolor sit amet, consectetur\n adipisicing elit, sed do eiusmod tem"],
+            ["incididunt ut labore et dolore magna aliqua.\n Ut enim ad minim veniam, quis nostrud"]
+        ],
+        onEnd: [
+            ["switchDialog","testDialog2"]
+        ]
+    },
+    testDialog2: {
+        position: 7,
+        label: "_myself",
+        portrait: "myself",
+        lines: [
+            ["At vero eos et accusamus et iusto\n odio dignissimos ducimus"],
+            ["qui blanditiis praesentium voluptatum\n deleniti atque corrupti quos dolores"]
+        ],
+        onEnd: [
+            //["callBattle","battle1"],
+            //["openMenu","lojinha1"]
+        ]
+    }
+}
