@@ -159,7 +159,8 @@ public class MechawarsActivity extends BaseGameActivity {
     			@Override
     			public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
     				//Troca de cena
-                    SceneManager.loadMain();
+                    //SceneManager.loadMain();
+                    SceneManager.loadNewGame();
     			}
     		}, EaseLinear.getInstance());
             
@@ -171,7 +172,7 @@ public class MechawarsActivity extends BaseGameActivity {
     		textCenter.registerEntityModifier(prFadeInModifier);
     		
     		//Cria um timer para o fadeOut
-    		this.getEngine().registerUpdateHandler(new TimerHandler(6f, new ITimerCallback() {
+    		this.getEngine().registerUpdateHandler(new TimerHandler(1.5f, new ITimerCallback() {
                 @Override
                 public void onTimePassed(final TimerHandler pTimerHandler) {
                 	robotCreations.registerEntityModifier(prFadeOutModifier);

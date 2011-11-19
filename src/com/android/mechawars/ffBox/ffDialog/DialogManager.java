@@ -39,7 +39,6 @@ public class DialogManager {
     
     public Dialog fromJSON(String jsonNode, int jsonRes) {
         try {
-            String x = "";
             InputStream is = SceneManager.getBase().getResources().openRawResource(jsonRes);
             byte[] buffer = new byte[is.available()];
             while (is.read(buffer) != -1) ;
