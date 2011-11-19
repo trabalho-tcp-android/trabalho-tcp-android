@@ -39,8 +39,8 @@ public class Dialog {
 
         this.height = this.getLineHeight() * numLines;
 
-        float centerX = MechawarsActivity.getCenterX() - this.box.getWidth() / 2;
-        float centerY = MechawarsActivity.getCenterY() - this.box.getHeight() / 2;
+        float centerX = MechawarsActivity.getCenterX() - this.width / 2;
+        float centerY = MechawarsActivity.getCenterY() - this.height / 2;
         float pX, pY;
         switch (position) {
             case 1:
@@ -58,20 +58,19 @@ public class Dialog {
         this.box = Box.createEntity(pX, pY, width, lineHeight * numLines + boxPadding * 2);
         this.letterWidth = new Float(new Text(0, 0, font, "QWER").getWidth() / 4).intValue();
 
-        this.dialogScene = new Scene();
         //this.dialogScene.attachChild(this.box);
         SceneManager.getBase().getEngine().getScene().attachChild(this.box);
-        dialogScene.setBackgroundEnabled(false);
-        
+
         for(String itemText : itemsText) {
-            itemsText.add(itemText);
             String text = "["+label+"] "+itemText;
             DialogItem dialogItem = new DialogItem(box.getX()+boxPadding,box.getY()+boxPadding,text, new ArrayList<ArrayList<String>>());
+            dialogItems.size();
             dialogItems.add(dialogItem);
+            String x = "";
         }
 
-        this.dialogScene.attachChild(dialogItems.get(0));
-        SceneManager.getBase().getEngine().getScene().attachChild(dialogItems.get(0));
+        //this.dialogScene.attachChild(dialogItems.get(0));
+        //SceneManager.getBase().getEngine().getScene().attachChild(dialogItems.get(0));
 
         //SceneManager.getBase().getEngine().getScene().attachChild(dialogScene);
     }
