@@ -31,11 +31,11 @@ public class CharacterGroupParser {
 		return newGroupManager;
 	}
 	
-	private CharacterGroupManager parseCharacters(){
+	public CharacterGroupManager parseCharacters(){
 		return parseCharacters(R.raw.mapcharacters);
 	}
 	
-	private CharacterGroupManager parseCharacters(int jsonResource){
+	public CharacterGroupManager parseCharacters(int jsonResource){
 		
         try {
             InputStream is = SceneManager.getBase().getResources().openRawResource(jsonResource);
@@ -61,7 +61,7 @@ public class CharacterGroupParser {
 	
 	private CharacterGroupManager buildCharacterGroupManager(JSONArray characters){
 		
-		CharacterGroupManager x = new CharacterGroupManager(10,10);
+		CharacterGroupManager createdGroupManager = new CharacterGroupManager(10,10);
 		
 		int i;
 		for(i = 0; i < characters.length(); i++){
@@ -76,7 +76,7 @@ public class CharacterGroupParser {
 				long[] characterAnimation = characterAnimationInitializer(animationObject);
 				
 				CharacterNPC newCharacter = new CharacterNPC(characterObject.optString("name","<Unknown>_"+i), characterPosition.getInt(0), characterPosition.getInt(1),(float) characterObject.getLong("tileWidth"), characterObject.optString("sprite","enemy.png"), characterAnimation);
-				x.addCharacterNPC(newCharacter);
+				createdGroupManager.addCharacterNPC(newCharacter);
 				
 			} catch (JSONException e) {
 				Debug.e("Malformed JSON: ",e);
@@ -84,7 +84,7 @@ public class CharacterGroupParser {
 
 		}
 		
-		return x;	
+		return createdGroupManager;	
 	}
 	
 	private long[] characterAnimationInitializer(JSONArray animationObject) throws JSONException{
