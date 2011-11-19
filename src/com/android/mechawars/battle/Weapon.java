@@ -2,7 +2,7 @@ package com.android.mechawars.battle;
 
 public class Weapon {
 	
-	private int damage;
+	private int damage;teste;
 	private int maxAmmunition;
 	private int currentAmmunition;
 	private String imagePath;
