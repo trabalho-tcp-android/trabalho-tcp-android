@@ -40,6 +40,7 @@ public class CharacterNPC {
 		//Add the character to the scene after this method is computed
 	}
 	
+	//TODO : Handle this case, when we have to load the texture!!!!! (THE TEXTURE AIN'T BEEN INITIALIZED!)
 	public CharacterNPC(final String name, final int posX, final int posY, final float tileWidth, final String npcTexturePath,final long[] animation){
 		this.characterName = name;
 		

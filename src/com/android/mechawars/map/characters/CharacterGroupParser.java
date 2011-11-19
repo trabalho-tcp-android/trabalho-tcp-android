@@ -70,7 +70,11 @@ public class CharacterGroupParser {
 				JSONObject characterObject = characters.getJSONObject(i);
 				JSONArray characterPosition = characterObject.getJSONArray("position");
 				
-				final long[] characterAnimation = new long[]{};
+				JSONArray animationObject = characterObject.getJSONArray("animation");
+				
+				//Animation array initialization
+				long[] characterAnimation = characterAnimationInitializer(animationObject);
+				
 				CharacterNPC newCharacter = new CharacterNPC(characterObject.optString("name","<Unknown>_"+i), characterPosition.getInt(0), characterPosition.getInt(1),(float) characterObject.getLong("tileWidth"), characterObject.optString("sprite","enemy.png"), characterAnimation);
 				x.addCharacterNPC(newCharacter);
 				
@@ -80,9 +84,19 @@ public class CharacterGroupParser {
 
 		}
 		
-		return x;
-		
+		return x;	
 	}
 	
+	private long[] characterAnimationInitializer(JSONArray animationObject) throws JSONException{
+		
+		long[] characterAnimation = new long[animationObject.length()];
+		
+		int j;
+		for(j = 0; j < animationObject.length(); j++){
+			characterAnimation[j] = animationObject.getLong(j);
+		}
+		
+		return characterAnimation;
+	}
 	
 }
