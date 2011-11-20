@@ -31,11 +31,11 @@ public class CharacterGroupParser {
 		return newGroupManager;
 	}
 	
-	public CharacterGroupManager parseCharacters(){
-		return parseCharacters(R.raw.mapcharacters);
+	public CharacterGroupManager parseCharacters(final int mapColumns, final int mapRows){
+		return parseCharacters(R.raw.mapcharacters,mapColumns,mapRows);
 	}
 	
-	public CharacterGroupManager parseCharacters(int jsonResource){
+	public CharacterGroupManager parseCharacters(int jsonResource, final int mapColumns, final int mapRows){
 		
         try {
             InputStream is = SceneManager.getBase().getResources().openRawResource(jsonResource);
@@ -46,7 +46,7 @@ public class CharacterGroupParser {
             
             JSONArray characters = jsonFile.getJSONArray("characters");
 
-            return this.updateGroupManager(buildCharacterGroupManager(characters));
+            return this.updateGroupManager(buildCharacterGroupManager(characters,mapColumns,mapRows));
             
             
         } catch (IOException fe) {
@@ -55,13 +55,14 @@ public class CharacterGroupParser {
             Debug.e("Malformed JSON: ",je);
         }
 		
-		CharacterGroupManager x = new CharacterGroupManager(10,10);
-		return x;
+		CharacterGroupManager fallbackGroup = new CharacterGroupManager(10,10);
+		System.out.println("An Error occurred while loading the JSON character file.");
+		return fallbackGroup;
 	}
 	
-	private CharacterGroupManager buildCharacterGroupManager(JSONArray characters){
+	private CharacterGroupManager buildCharacterGroupManager(JSONArray characters, final int mapColumns, final int mapRows){
 		
-		CharacterGroupManager createdGroupManager = new CharacterGroupManager(10,10);
+		CharacterGroupManager createdGroupManager = new CharacterGroupManager(mapColumns,mapRows);
 		
 		int i;
 		for(i = 0; i < characters.length(); i++){
