@@ -76,7 +76,9 @@ public class CharacterGroupParser {
 				//Animation array initialization
 				long[] characterAnimation = characterAnimationInitializer(animationObject);
 				
-				CharacterNPC newCharacter = new CharacterNPC(characterObject.optString("name","<Unknown>_"+i), characterPosition.getInt(0), characterPosition.getInt(1),(float) characterObject.getLong("tileWidth"), characterObject.optString("sprite","enemy.png"), characterAnimation);
+				
+				//TODO: Fix the character animations loading part
+				CharacterNPC newCharacter = new CharacterNPC(characterObject.optString("name","<Unknown>_"+i), characterPosition.getInt(0), characterPosition.getInt(1),(float) characterObject.getLong("tileWidth"), characterObject.optString("sprite","enemy.png"),characterObject.optInt("textureRegionX",512),characterObject.optInt("textureRegionY",512), characterAnimation);
 				createdGroupManager.addCharacterNPC(newCharacter);
 				
 			} catch (JSONException e) {

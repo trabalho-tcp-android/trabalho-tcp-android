@@ -99,5 +99,6 @@ public class CharacterGroupManager {
 		}
 		return null;
 		
-	}	
+	}
+	
 }

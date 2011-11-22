@@ -74,7 +74,7 @@ public class MechaWarsMapActivity extends BaseGameActivity implements IOnSceneTo
 	
 	AnimatedSprite player;
 	
-	LinkedList<AnimatedSprite> enemyList;
+
 	
 	
 	//DIGITAL CONTROLLER
