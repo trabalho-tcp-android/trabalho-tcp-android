@@ -48,7 +48,7 @@ public class CharacterGroupManager {
 			//Resetting the position on which the character was on the property map
 			characterPositionMatrix.setTileValue(characterToBeKilled.getCharacterColumn(), characterToBeKilled.getCharacterRow(),false);
 		
-			characterToBeKilled.characterSprite.detachSelf();
+			characterToBeKilled.detachCharacterSprite();
 		
 		}
 				
@@ -56,11 +56,11 @@ public class CharacterGroupManager {
 	
 	//Adds each and every character in the list to the scene
 	public void addCharactersToScene(Scene gameScene){
-		int listIndex = 0;
+		int listIndex;
 		
 		for(listIndex = 0; listIndex < listOfCharacters.size(); listIndex++){
 			
-			gameScene.attachChild(listOfCharacters.get(listIndex).characterSprite);
+			gameScene.attachChild(listOfCharacters.get(listIndex).getCharacterSprite());
 			System.out.println("Character " + listOfCharacters.get(listIndex).characterName() + " added successfully to the scene.");
 		}
 	}
@@ -73,10 +73,10 @@ public class CharacterGroupManager {
 	
 	public void removeCharactersFromMap(){
 		
-		int i;//List iterator
+		int listIndex;//List iterator
 		
-		for(i = 0; i < listOfCharacters.size(); i++){
-			listOfCharacters.get(i).characterSprite.detachSelf();
+		for(listIndex = 0; listIndex < listOfCharacters.size(); listIndex++){
+			listOfCharacters.get(listIndex).detachCharacterSprite();
 		}
 		
 		listOfCharacters.clear();

@@ -16,28 +16,9 @@ public class CharacterNPC {
 	
 	private String characterName;
 	
-	public AnimatedSprite characterSprite;
+	private CharacterResources characterResources;
 	
-	private String characterTexturePath;
-	
-	private float characterX;
-	
-	private int characterColumn;
-	
-	private float characterY;
-	
-	private int characterRow;
-	
-	private float mapTileWidth;
-	
-	
-	private long[] characterAnimation;
-	
-	private int characterSpritePixelWidth;
-	private int characterSpritePixelHeight;
-	
-	private LoadCharacterSprites npcResourceLoader;
-	
+	/*
 	//Character constructor
 	public CharacterNPC(final String name, final int posX, final int posY, final float tileWidth, final TiledTextureRegion npcTexture,final long[] animation){
 		this.characterName = name;
@@ -55,22 +36,13 @@ public class CharacterNPC {
 		characterSprite.animate(animation);
 		//Add the character to the scene after this method is computed
 	}
-	
+	*/
 	//TODO : Handle this case, when we have to load the texture!!!!! (THE TEXTURE AIN'T BEEN INITIALIZED!)
-	public CharacterNPC(final String name, final int posX, final int posY, final float tileWidth, final String npcTexturePath,final int spriteSizeX,final int spriteSizeY,final long[] animation){
+	public CharacterNPC(final String name, final int posX, final int posY, final float tileWidth,final float tileHeight, final String npcTexturePath,final int spriteSizeX,final int spriteSizeY,Animations animationSet,String initialAnimation){
 		this.characterName = name;
 		
-		characterX = ((float)posX)*tileWidth;
-		characterY = ((float)posY)*tileWidth;
+		this.characterResources = new CharacterResources(posX, posY, tileWidth, tileHeight, npcTexturePath, spriteSizeX, spriteSizeY, animationSet, initialAnimation);
 		
-		characterColumn = posX;
-		characterRow = posY;
-		
-		mapTileWidth = tileWidth;
-		
-		characterTexturePath = npcTexturePath;
-		
-		characterAnimation = animation;
 		//Add the character to the scene after this method is computed
 	}	
 	
@@ -79,27 +51,65 @@ public class CharacterNPC {
 	}
 	
 	public void setPosition(float pX, float pY){
-		this.characterSprite.setPosition(pX, pY);
+		this.characterResources.setCharacterPosition(pX, pY);
 	}
 	
 	public void setPositionOnMap(int column, int row){
-		this.characterSprite.setPosition(((float)column)*mapTileWidth + offsetX, ((float)row)*mapTileWidth - offsetY);
+		this.characterResources.setCharacterPosition(column, row);
 	}
 	
 	public int getCharacterColumn(){
-		return characterColumn;
+		return this.characterResources.getColumn();
 	}
 	
 	public int getCharacterRow(){
-		return characterRow;
+		return this.characterResources.getRow();
 	}
 	
 	public String getCharacterTexturePath(){
-		return characterTexturePath;
+		return this.characterResources.getCharacterTexturePath();
 	}
 	
 	public void loadNPCTextures(Engine gameEngine, Context gameContext){
 		
-		npcResourceLoader.loadTexture(gameEngine, this.characterTexturePath, gameContext, characterSpritePixelWidth, characterSpritePixelHeight, spriteSheetColumns, spriteSheetRows)
+		this.characterResources.loadTexture(gameEngine, gameContext);
+	}
+	
+	public void detachCharacterSprite(){
+		this.characterResources.detachCharacterNPC();
+	}
+	
+	public AnimatedSprite getCharacterSprite(){
+		return this.characterResources.getCharacterSprite();
 	}
 }
+
+
+//private String characterName;
+//
+//private AnimatedSprite characterSprite;
+//
+//private String characterTexturePath;
+//
+//private float characterX;
+//
+//private int characterColumn;
+//
+//private float characterY;
+//
+//private int characterRow;
+//
+//private float mapTileWidth;
+//
+//
+//private Animations characterAnimationSet;
+//
+//private int characterSpritePixelWidth;
+//
+//private int characterSpritePixelHeight;
+//
+//private LoadCharacterSprites npcResourceLoader;
+//
+//private int spriteSheetColumns;
+//
+//private int spriteSheetRows;

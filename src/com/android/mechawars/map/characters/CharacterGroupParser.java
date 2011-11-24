@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.android.mechawars.R;
 import com.android.mechawars.SceneManager;
+import com.android.mechawars.map.Animations;
 import com.android.mechawars.map.CharacterGroupManager;
 import com.android.mechawars.map.CharacterNPC;
 
@@ -71,14 +72,16 @@ public class CharacterGroupParser {
 				JSONObject characterObject = characters.getJSONObject(i);
 				JSONArray characterPosition = characterObject.getJSONArray("position");
 				
-				JSONArray animationObject = characterObject.getJSONArray("animation");
+				JSONObject animationObject = characterObject.getJSONObject("characterAnimations");
 				
 				//Animation array initialization
-				long[] characterAnimation = characterAnimationInitializer(animationObject);
+				Animations characterAnimationsSet = characterAnimationsInitializer(animationObject);
+				
+				String initialAnimation = animationObject.optString("startingAnimation","ANIMATE_FACING_DOWN");
 				
 				
-				//TODO: Fix the character animations loading part
-				CharacterNPC newCharacter = new CharacterNPC(characterObject.optString("name","<Unknown>_"+i), characterPosition.getInt(0), characterPosition.getInt(1),(float) characterObject.getLong("tileWidth"), characterObject.optString("sprite","enemy.png"),characterObject.optInt("textureRegionX",512),characterObject.optInt("textureRegionY",512), characterAnimation);
+				//TODO: Fix the character animations loading part - Hope it's been done!
+				CharacterNPC newCharacter = new CharacterNPC(characterObject.optString("name","<Unknown>_"+i), characterPosition.getInt(0), characterPosition.getInt(1),(float) characterObject.getLong("tileWidth"),(float) characterObject.getLong("tileWidth"), characterObject.optString("sprite","enemy.png"),characterObject.optInt("textureRegionX",512),characterObject.optInt("textureRegionY",512), characterAnimationsSet,initialAnimation);
 				createdGroupManager.addCharacterNPC(newCharacter);
 				
 			} catch (JSONException e) {
@@ -90,7 +93,27 @@ public class CharacterGroupParser {
 		return createdGroupManager;	
 	}
 	
-	private long[] characterAnimationInitializer(JSONArray animationObject) throws JSONException{
+	
+	//Initializes the array of animations for the currently being loaded character
+	private Animations characterAnimationsInitializer(JSONObject animationObject) throws JSONException{
+		
+		long[] animationFacingUp = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingUp"));
+		long[] animationFacingDown = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingDown"));
+		long[] animationFacingLeft = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingLeft"));
+		long[] animationFacingRight = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingRight"));
+		
+		long[] animationFacingUpWalking = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingUpWalking"));
+		long[] animationFacingDownWalking = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingDownWalking"));
+		long[] animationFacingLeftWalking = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingLeftWalking"));
+		long[] animationFacingRightWalking = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingRightWalking"));
+		
+	
+		Animations characterAnimationSet = new Animations(animationFacingUp,animationFacingRight,animationFacingLeft,animationFacingDown,animationFacingUpWalking,animationFacingRightWalking,animationFacingLeftWalking,animationFacingDownWalking);
+		
+		return characterAnimationSet;
+	}
+	
+	private long[] characterAnimationArrayInitializer(JSONArray animationObject) throws JSONException{
 		
 		long[] characterAnimation = new long[animationObject.length()];
 		
