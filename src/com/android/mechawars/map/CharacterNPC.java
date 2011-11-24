@@ -38,13 +38,20 @@ public class CharacterNPC {
 	}
 	*/
 	//TODO : Handle this case, when we have to load the texture!!!!! (THE TEXTURE AIN'T BEEN INITIALIZED!)
-	public CharacterNPC(final String name, final int posX, final int posY, final float tileWidth,final float tileHeight, final String npcTexturePath,final int spriteSizeX,final int spriteSizeY,Animations animationSet,String initialAnimation){
+	public CharacterNPC(final String name, final int posX, final int posY, final float tileWidth,final float tileHeight, final String npcTexturePath,final int spriteSizeX,final int spriteSizeY,Animations animationSet,String initialAnimation, int spriteSheetColumns, int spriteSheetRows){
 		this.characterName = name;
 		
-		this.characterResources = new CharacterResources(posX, posY, tileWidth, tileHeight, npcTexturePath, spriteSizeX, spriteSizeY, animationSet, initialAnimation);
-		
+		this.characterResources = new CharacterResources(posX, posY, tileWidth, tileHeight, npcTexturePath, spriteSizeX, spriteSizeY, animationSet, initialAnimation, spriteSheetColumns, spriteSheetRows);
 		//Add the character to the scene after this method is computed
-	}	
+	}
+	
+	public CharacterNPC(final String name,CharacterResources resourcesToBeLoaded){
+		
+		this.characterName = name;
+		
+		this.characterResources = resourcesToBeLoaded;
+		
+	}
 	
 	public String characterName(){
 		return characterName;

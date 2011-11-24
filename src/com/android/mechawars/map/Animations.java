@@ -47,23 +47,26 @@ public class Animations {
 		//FACING DOWN		
 		characterAnimations.add(animDownIndex,animDown);
 		
-		//FACING LEFT		
-		characterAnimations.add(animLeftIndex,animLeft);
-		
 		//FACING RIGHT		
 		characterAnimations.add(animRightIndex,animRight);
+		
+		//FACING LEFT		
+		characterAnimations.add(animLeftIndex,animLeft);
 		
 		//FACING UP WALKING		
 		characterAnimations.add(animWalkUpIndex,animWalkUp);
 		
-		//FACING LEFT WALKING			
-		characterAnimations.add(animWalkLeftIndex,animWalkLeft);
+		//FACING DOWN WALKING	
+		characterAnimations.add(animWalkDownIndex,animWalkDown);
 		
 		//FACING RIGHT WALKING	
 		characterAnimations.add(animWalkRightIndex,animWalkRight);
 		
-		//FACING DOWN WALKING	
-		characterAnimations.add(animWalkDownIndex,animWalkDown);
+		//FACING LEFT WALKING			
+		characterAnimations.add(animWalkLeftIndex,animWalkLeft);
+		
+		
+
 		
 		
 	}

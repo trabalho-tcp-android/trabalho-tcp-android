@@ -3,7 +3,10 @@ package com.android.mechawars.map;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.entity.scene.Scene;
+
+import android.content.Context;
 
 public class CharacterGroupManager {
 	
@@ -55,12 +58,18 @@ public class CharacterGroupManager {
 	}
 	
 	//Adds each and every character in the list to the scene
-	public void addCharactersToScene(Scene gameScene){
+	public void addCharactersToScene(Scene gameScene,Engine gameEngine,Context gameContext){
 		int listIndex;
+		CharacterNPC currentCharacter;
 		
 		for(listIndex = 0; listIndex < listOfCharacters.size(); listIndex++){
 			
-			gameScene.attachChild(listOfCharacters.get(listIndex).getCharacterSprite());
+			currentCharacter = listOfCharacters.get(listIndex);
+			
+			currentCharacter.loadNPCTextures(gameEngine, gameContext);
+			
+			gameScene.attachChild(currentCharacter.getCharacterSprite());
+			
 			System.out.println("Character " + listOfCharacters.get(listIndex).characterName() + " added successfully to the scene.");
 		}
 	}

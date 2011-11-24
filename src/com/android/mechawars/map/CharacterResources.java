@@ -11,17 +11,15 @@ import android.content.Context;
 
 public class CharacterResources {
 	//Character texture resources
-	private LoadCharacterSprites characterResourceLoader;	
-
-	private TiledTextureRegion characterTextureRegion;
-	
+	private LoadCharacterSprites characterResourceLoader = new LoadCharacterSprites();	
 	
 	private AnimatedSprite characterSprite;
 	
 	private String characterTexturePath;
 	
-	private float offsetX;
-	private float offsetY;
+	private float offsetX = LoadAssets.playerTileAdjustmentOffsetX;
+	
+	private float offsetY = LoadAssets.playerTileAdjustmentOffsetY;
 	
 	private float mapTileWidth;
 	
@@ -39,16 +37,17 @@ public class CharacterResources {
 	private int spriteSheetRows;
 	
 	private int[] characterPosition = {0,0};
+	
 	private float[] characterCoordinates = {0,0};
 	
 	private String characterInitialAnimation;
 	
 	
 	
-	public CharacterResources(final int posX, final int posY, final float tileWidth,final float tileHeight, final String npcTexturePath,final int spriteSizeX,final int spriteSizeY,Animations animationSet,String initialAnimation){
+	public CharacterResources(final int posX, final int posY, final float tileWidth,final float tileHeight, final String npcTexturePath,final int spriteSizeX,final int spriteSizeY,Animations animationSet,String initialAnimation, int spriteSheetColumns, int spriteSheetRows){
 		
-		characterCoordinates[0] = ((float)posX)*tileWidth;
-		characterCoordinates[1] = ((float)posY)*tileWidth;
+		characterCoordinates[0] = ((float)posX)*tileWidth + offsetX;
+		characterCoordinates[1] = ((float)posY)*tileWidth - offsetY;
 		
 		characterPosition[0] = posX;
 		characterPosition[1] = posY;
@@ -61,12 +60,20 @@ public class CharacterResources {
 		
 		characterInitialAnimation = initialAnimation;
 		
+		characterSpritePixelWidth = spriteSizeX;
+		
+		characterSpritePixelHeight = spriteSizeY;
+		
+		this.spriteSheetColumns = spriteSheetColumns;
+		
+		this.spriteSheetRows = spriteSheetRows;
+		
 	}
 	
 	public void loadTexture(Engine gameEngine,Context callerContext){
 		
 		characterResourceLoader.loadTexture(gameEngine, this.characterTexturePath, callerContext, characterSpritePixelWidth, characterSpritePixelHeight, spriteSheetColumns, spriteSheetRows);
-		
+		initializeSprite(characterInitialAnimation);
 	}
 	
 
@@ -103,6 +110,7 @@ public class CharacterResources {
 	
 	
 	//These methods are concerned about the character coordinates on the scenario
+	//TODO: Fix the integer positions too!!
 	public void updateCharacterCoordinates(final float posX,final float posY){
 		
 		characterCoordinates[0] = posX;
@@ -123,13 +131,13 @@ public class CharacterResources {
 	//Sprite methods
 	//Initializes the Sprite	
 	public void initializeSprite(String initialAnimation){
-		characterSprite = new AnimatedSprite(characterCoordinates[0],characterCoordinates[1],characterTextureRegion);
+		characterSprite = new AnimatedSprite(characterCoordinates[0],characterCoordinates[1],characterResourceLoader.getTextureRegion());
 		characterSprite.animate(characterAnimationSet.getAnimation(initialAnimation));
 	}
 	
 
 	public void initializeSprite(){
-		characterSprite = new AnimatedSprite(characterCoordinates[0],characterCoordinates[1],characterTextureRegion);
+		characterSprite = new AnimatedSprite(characterCoordinates[0],characterCoordinates[1],characterResourceLoader.getTextureRegion());
 		characterSprite.animate(characterAnimationSet.getAnimation(characterInitialAnimation));
 	}
 	
@@ -146,7 +154,7 @@ public class CharacterResources {
 	public void setCharacterPosition(int Column, int Row){
 		
 		this.characterCoordinates[0] = ((float)Column)*mapTileWidth + offsetX;
-		this.characterCoordinates[1] = ((float)Row)*mapTileHeight + offsetY;
+		this.characterCoordinates[1] = ((float)Row)*mapTileHeight - offsetY;
 		
 		this.characterSprite.setPosition(characterCoordinates[0],characterCoordinates[1]);
 

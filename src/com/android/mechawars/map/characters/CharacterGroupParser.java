@@ -13,12 +13,13 @@ import com.android.mechawars.SceneManager;
 import com.android.mechawars.map.Animations;
 import com.android.mechawars.map.CharacterGroupManager;
 import com.android.mechawars.map.CharacterNPC;
+import com.android.mechawars.map.CharacterResources;
 
 public class CharacterGroupParser {
 	
 	private static CharacterGroupParser instance = new CharacterGroupParser();
 	
-	private CharacterGroupManager charactersOnMapGroup;
+	private static CharacterGroupManager charactersOnMapGroup;
 	
 	public static CharacterGroupParser instance(){
 		return instance;
@@ -27,19 +28,19 @@ public class CharacterGroupParser {
 	private CharacterGroupParser(){
 	}
 	
-	private CharacterGroupManager updateGroupManager(CharacterGroupManager newGroupManager){
+	private static CharacterGroupManager updateGroupManager(CharacterGroupManager newGroupManager){
 		charactersOnMapGroup = newGroupManager;
 		return newGroupManager;
 	}
 	
-	public CharacterGroupManager parseCharacters(final int mapColumns, final int mapRows){
+	public static CharacterGroupManager parseCharacters(final int mapColumns, final int mapRows){
 		return parseCharacters(R.raw.mapcharacters,mapColumns,mapRows);
 	}
 	
-	public CharacterGroupManager parseCharacters(int jsonResource, final int mapColumns, final int mapRows){
+	public static CharacterGroupManager parseCharacters(int jsonResource, final int mapColumns, final int mapRows){
 		
         try {
-            InputStream is = SceneManager.getBase().getResources().openRawResource(jsonResource);
+            InputStream is = SceneManager.getMapBase().getResources().openRawResource(jsonResource);
             byte[] buffer = new byte[is.available()];
             while (is.read(buffer) != -1) ;
             String jsontext = new String(buffer);
@@ -47,7 +48,7 @@ public class CharacterGroupParser {
             
             JSONArray characters = jsonFile.getJSONArray("characters");
 
-            return this.updateGroupManager(buildCharacterGroupManager(characters,mapColumns,mapRows));
+            return updateGroupManager(buildCharacterGroupManager(characters,mapColumns,mapRows));
             
             
         } catch (IOException fe) {
@@ -61,7 +62,7 @@ public class CharacterGroupParser {
 		return fallbackGroup;
 	}
 	
-	private CharacterGroupManager buildCharacterGroupManager(JSONArray characters, final int mapColumns, final int mapRows){
+	private static CharacterGroupManager buildCharacterGroupManager(JSONArray characters, final int mapColumns, final int mapRows){
 		
 		CharacterGroupManager createdGroupManager = new CharacterGroupManager(mapColumns,mapRows);
 		
@@ -79,9 +80,22 @@ public class CharacterGroupParser {
 				
 				String initialAnimation = animationObject.optString("startingAnimation","ANIMATE_FACING_DOWN");
 				
+				JSONArray spriteSheetDimensions = characterObject.getJSONArray("spriteSheetDimensions");
 				
 				//TODO: Fix the character animations loading part - Hope it's been done!
-				CharacterNPC newCharacter = new CharacterNPC(characterObject.optString("name","<Unknown>_"+i), characterPosition.getInt(0), characterPosition.getInt(1),(float) characterObject.getLong("tileWidth"),(float) characterObject.getLong("tileWidth"), characterObject.optString("sprite","enemy.png"),characterObject.optInt("textureRegionX",512),characterObject.optInt("textureRegionY",512), characterAnimationsSet,initialAnimation);
+				CharacterResources newResources = new CharacterResources(characterPosition.getInt(0), characterPosition.getInt(1),
+						 												(float) characterObject.getLong("tileWidth"),
+																		(float) characterObject.getLong("tileHeight"),
+																		characterObject.optString("sprite","enemy.png"),
+																		characterObject.optInt("textureRegionX",512),
+																		characterObject.optInt("textureRegionY",512),
+																		characterAnimationsSet,initialAnimation,
+																		spriteSheetDimensions.getInt(0),
+																		spriteSheetDimensions.getInt(1));
+				
+				CharacterNPC newCharacter = new CharacterNPC(characterObject.optString("name","<Unknown>_"+i),
+															 newResources);
+				
 				createdGroupManager.addCharacterNPC(newCharacter);
 				
 			} catch (JSONException e) {
@@ -95,7 +109,7 @@ public class CharacterGroupParser {
 	
 	
 	//Initializes the array of animations for the currently being loaded character
-	private Animations characterAnimationsInitializer(JSONObject animationObject) throws JSONException{
+	private static Animations characterAnimationsInitializer(JSONObject animationObject) throws JSONException{
 		
 		long[] animationFacingUp = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingUp"));
 		long[] animationFacingDown = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingDown"));
@@ -113,7 +127,7 @@ public class CharacterGroupParser {
 		return characterAnimationSet;
 	}
 	
-	private long[] characterAnimationArrayInitializer(JSONArray animationObject) throws JSONException{
+	private static long[]  characterAnimationArrayInitializer(JSONArray animationObject) throws JSONException{
 		
 		long[] characterAnimation = new long[animationObject.length()];
 		

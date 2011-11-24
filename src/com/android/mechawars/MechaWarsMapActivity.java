@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import javax.microedition.khronos.opengles.GL10;
 
 import com.android.mechawars.map.*;
+import com.android.mechawars.map.characters.CharacterGroupParser;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.BoundCamera;
@@ -95,7 +96,7 @@ public class MechaWarsMapActivity extends BaseGameActivity implements IOnSceneTo
 	private int playerDirection = dDOWN;
 
 	
-	
+	private static SceneManager sceneManager;
 	
 	//SCENE
 	private Scene scene;
@@ -198,6 +199,9 @@ public class MechaWarsMapActivity extends BaseGameActivity implements IOnSceneTo
 		this.mEngine.getTextureManager().loadTexture(this.mBitmapTextureAtlas);
 		this.mEngine.getTextureManager().loadTexture(this.mDigitalScreenControllerTexture);
 		this.mEngine.getTextureManager().loadTexture(this.mBitmapTAEnemy);
+		
+		
+		sceneManager =  new SceneManager(this);
 	}
 
 	@Override
@@ -496,14 +500,21 @@ public class MechaWarsMapActivity extends BaseGameActivity implements IOnSceneTo
 	
 	public void loadEnemies(){
 		
-		CharacterNPC test = new CharacterNPC("Leeroy Jenkins",5,4,TileWidth, this.mEnemyTextureRegion,ANIMATE_FACING_DOWN);
+		characManager = CharacterGroupParser.parseCharacters(this.mTMXTiledMap.getTileColumns()+1, this.mTMXTiledMap.getTileRows()+1);
 		
-		characManager = new CharacterGroupManager(this.mTMXTiledMap.getTileColumns()+1, this.mTMXTiledMap.getTileRows()+1);
+		
+		characManager.addCharactersToScene(this.scene,this.mEngine,this);
+		
+		System.out.println("TILE WIDTH: " + this.mTMXTiledMap.getTileWidth() + "; TILE HEIGHT: " + this.mTMXTiledMap.getTileHeight());
+		
+		//CharacterNPC test = new CharacterNPC("Leeroy Jenkins",5,4,TileWidth, this.mEnemyTextureRegion,ANIMATE_FACING_DOWN);
+		
+		//characManager = new CharacterGroupManager(this.mTMXTiledMap.getTileColumns()+1, this.mTMXTiledMap.getTileRows()+1);
 				
-		characManager.addCharacterNPC(test);
+		//characManager.addCharacterNPC(test);
 		
 		//Adding characters to the scene
-		characManager.addCharactersToScene(this.scene);
+		//characManager.addCharactersToScene(this.scene);
 	}	
 	
 	
