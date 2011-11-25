@@ -76,7 +76,7 @@ public class CharacterGroupParser {
 				JSONObject animationObject = characterObject.getJSONObject("characterAnimations");
 				
 				//Animation array initialization
-				Animations characterAnimationsSet = characterAnimationsInitializer(animationObject);
+				Animations characterAnimationsSet = new Animations(animationObject);
 				
 				String initialAnimation = animationObject.optString("startingAnimation","ANIMATE_FACING_DOWN");
 				
@@ -105,38 +105,6 @@ public class CharacterGroupParser {
 		}
 		
 		return createdGroupManager;	
-	}
-	
-	
-	//Initializes the array of animations for the currently being loaded character
-	private static Animations characterAnimationsInitializer(JSONObject animationObject) throws JSONException{
-		
-		long[] animationFacingUp = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingUp"));
-		long[] animationFacingDown = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingDown"));
-		long[] animationFacingLeft = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingLeft"));
-		long[] animationFacingRight = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingRight"));
-		
-		long[] animationFacingUpWalking = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingUpWalking"));
-		long[] animationFacingDownWalking = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingDownWalking"));
-		long[] animationFacingLeftWalking = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingLeftWalking"));
-		long[] animationFacingRightWalking = characterAnimationArrayInitializer(animationObject.getJSONArray("animationFacingRightWalking"));
-		
-	
-		Animations characterAnimationSet = new Animations(animationFacingUp,animationFacingRight,animationFacingLeft,animationFacingDown,animationFacingUpWalking,animationFacingRightWalking,animationFacingLeftWalking,animationFacingDownWalking);
-		
-		return characterAnimationSet;
-	}
-	
-	private static long[]  characterAnimationArrayInitializer(JSONArray animationObject) throws JSONException{
-		
-		long[] characterAnimation = new long[animationObject.length()];
-		
-		int j;
-		for(j = 0; j < animationObject.length(); j++){
-			characterAnimation[j] = animationObject.getLong(j);
-		}
-		
-		return characterAnimation;
 	}
 	
 }

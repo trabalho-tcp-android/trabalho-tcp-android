@@ -11,32 +11,10 @@ import com.android.mechawars.map.characters.LoadCharacterSprites;
 
 public class CharacterNPC {
 	
-	private final float offsetX = LoadAssets.playerTileAdjustmentOffsetX;
-	private final float offsetY = LoadAssets.playerTileAdjustmentOffsetY;
+	protected String characterName;
 	
-	private String characterName;
+	protected CharacterResources characterResources;
 	
-	private CharacterResources characterResources;
-	
-	/*
-	//Character constructor
-	public CharacterNPC(final String name, final int posX, final int posY, final float tileWidth, final TiledTextureRegion npcTexture,final long[] animation){
-		this.characterName = name;
-		
-		characterX = ((float)posX)*tileWidth;
-		characterY = ((float)posY)*tileWidth;
-		
-		characterColumn = posX;
-		characterRow = posY;
-		
-		mapTileWidth = tileWidth;
-		
-		characterSprite = new AnimatedSprite(characterX + offsetX, characterY - offsetY, npcTexture);
-		
-		characterSprite.animate(animation);
-		//Add the character to the scene after this method is computed
-	}
-	*/
 	//TODO : Handle this case, when we have to load the texture!!!!! (THE TEXTURE AIN'T BEEN INITIALIZED!)
 	public CharacterNPC(final String name, final int posX, final int posY, final float tileWidth,final float tileHeight, final String npcTexturePath,final int spriteSizeX,final int spriteSizeY,Animations animationSet,String initialAnimation, int spriteSheetColumns, int spriteSheetRows){
 		this.characterName = name;
@@ -89,34 +67,14 @@ public class CharacterNPC {
 	public AnimatedSprite getCharacterSprite(){
 		return this.characterResources.getCharacterSprite();
 	}
+	
+	public void changeCharacterName(String newName){
+		this.characterName = newName;
+	}
+	
+	public void changeAnimation(String newAnimation,Boolean loopAnimation){
+		
+		this.characterResources.changeCharacterAnimation(newAnimation, loopAnimation);
+		
+	}
 }
-
-
-//private String characterName;
-//
-//private AnimatedSprite characterSprite;
-//
-//private String characterTexturePath;
-//
-//private float characterX;
-//
-//private int characterColumn;
-//
-//private float characterY;
-//
-//private int characterRow;
-//
-//private float mapTileWidth;
-//
-//
-//private Animations characterAnimationSet;
-//
-//private int characterSpritePixelWidth;
-//
-//private int characterSpritePixelHeight;
-//
-//private LoadCharacterSprites npcResourceLoader;
-//
-//private int spriteSheetColumns;
-//
-//private int spriteSheetRows;

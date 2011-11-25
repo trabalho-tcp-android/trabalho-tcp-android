@@ -507,14 +507,6 @@ public class MechaWarsMapActivity extends BaseGameActivity implements IOnSceneTo
 		
 		System.out.println("TILE WIDTH: " + this.mTMXTiledMap.getTileWidth() + "; TILE HEIGHT: " + this.mTMXTiledMap.getTileHeight());
 		
-		//CharacterNPC test = new CharacterNPC("Leeroy Jenkins",5,4,TileWidth, this.mEnemyTextureRegion,ANIMATE_FACING_DOWN);
-		
-		//characManager = new CharacterGroupManager(this.mTMXTiledMap.getTileColumns()+1, this.mTMXTiledMap.getTileRows()+1);
-				
-		//characManager.addCharacterNPC(test);
-		
-		//Adding characters to the scene
-		//characManager.addCharactersToScene(this.scene);
 	}	
 	
 	

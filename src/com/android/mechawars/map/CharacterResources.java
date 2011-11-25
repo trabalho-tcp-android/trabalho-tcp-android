@@ -1,6 +1,7 @@
 package com.android.mechawars.map;
 
 import org.anddev.andengine.engine.Engine;
+import org.anddev.andengine.entity.modifier.MoveModifier;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
@@ -17,9 +18,9 @@ public class CharacterResources {
 	
 	private String characterTexturePath;
 	
-	private float offsetX = LoadAssets.playerTileAdjustmentOffsetX;
+	private final float offsetX = LoadAssets.playerTileAdjustmentOffsetX;
 	
-	private float offsetY = LoadAssets.playerTileAdjustmentOffsetY;
+	private final float offsetY = LoadAssets.playerTileAdjustmentOffsetY;
 	
 	private float mapTileWidth;
 	
@@ -98,23 +99,14 @@ public class CharacterResources {
 	
 	public float getCharacterInTilePositionX(){
 		
-		return ((float)getColumn())*mapTileWidth;
+		return ((float)getColumn())*mapTileWidth + offsetX;
 		
 	}
 	
 	public float getCharacterInTilePositionY(){
 		
-		return ((float)getRow())*mapTileHeight;
+		return ((float)getRow())*mapTileHeight - offsetX;
 		
-	}
-	
-	
-	//These methods are concerned about the character coordinates on the scenario
-	//TODO: Fix the integer positions too!!
-	public void updateCharacterCoordinates(final float posX,final float posY){
-		
-		characterCoordinates[0] = posX;
-		characterCoordinates[1] = posY;
 	}
 	
 	public float getPosX(){
@@ -171,5 +163,37 @@ public class CharacterResources {
 	
 	public String getCharacterTexturePath(){
 		return characterTexturePath;
+	}
+	
+	//Sets a new animation for the character
+	public void changeCharacterAnimation(String animation,Boolean loopAnimation){
+		
+		this.characterSprite.animate(this.characterAnimationSet.getAnimation(animation), loopAnimation);
+		
+	}
+	
+	public void moveCharacterSprite(float duration, int column, int row){
+		
+		float finalPositionX = (float)column*mapTileWidth + offsetX;
+		float finalPositionY = (float)column*mapTileHeight + offsetY;
+		
+		MoveModifier pathModifier = new MoveModifier(duration,this.characterSprite.getX(),finalPositionX,this.characterSprite.getY(),finalPositionY);
+		
+		
+		//Testing the correct animation to be executed
+		if(column < this.characterPosition[0])
+			changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_LEFT, false);
+		if(column > this.characterPosition[0])
+			changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_RIGHT, false);
+		if(row < this.characterPosition[0])
+			changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_UP, false);
+		if(row > this.characterPosition[0])
+			changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_DOWN, false);
+		
+		this.characterSprite.registerEntityModifier(pathModifier);
+		
+		setCharacterPosition(column, row);
+		
+		
 	}
 }

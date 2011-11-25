@@ -18,6 +18,26 @@ public class LoadAssets {
 	public static final float playerTileAdjustmentOffsetX = 5;
 	public static final float playerTileAdjustmentOffsetY = 7;
 	
+	//Animation identifiers
+	public final static String ANIMATE_FACING_UP = "ANIMATE_FACING_UP";
+	
+	public final static String ANIMATE_FACING_DOWN = "ANIMATE_FACING_DOWN";
+		
+	public final static String ANIMATE_FACING_RIGHT = "ANIMATE_FACING_RIGHT";
+	
+	public final static String ANIMATE_FACING_LEFT = "ANIMATE_FACING_LEFT";
+	
+	public final static String ANIMATE_WALKING_FACING_UP = "ANIMATE_WALKING_FACING_UP";
+	
+	public final static String ANIMATE_WALKING_FACING_DOWN = "ANIMATE_WALKING_FACING_DOWN";
+	
+	public final static String ANIMATE_WALKING_FACING_RIGHT = "ANIMATE_WALKING_FACING_RIGHT";
+	
+	public final static String ANIMATE_WALKING_FACING_LEFT = "ANIMATE_WALKING_FACING_LEFT";
+	
+	//Player movement duration
+	public final static float movementTiming = 0.6f;
+	
 	//Digital controller details
 	private String controllerBody;
 	private String controllerBodyKnob;
