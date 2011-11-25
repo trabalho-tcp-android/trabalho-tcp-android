@@ -133,18 +133,14 @@ public class MechaWarsMapActivity extends BaseGameActivity implements IOnSceneTo
 	private CharacterGroupManager characManager;
 	
 	
-	private float TileWidth;
+
 	
 	
 	
 	
 	
 	//Character animations
-	private final static long[] ANIMATE_FACING_DOWN  =  {0,0,0,0,0,0,0,200,0,0,0,0};
-	private final static long[] ANIMATE_FACING_UP    =  {0,200,0,0,0,0,0,0,0,0,0,0};
-	private final static long[] ANIMATE_FACING_LEFT  =  {0,0,0,0,0,0,0,0,0,0,200,0};
-	private final static long[] ANIMATE_FACING_RIGHT =  {0,0,0,0,200,0,0,0,0,0,0,0};
-	
+	private final static long[] ANIMATE_FACING_DOWN  =  {0,0,0,0,0,0,0,200,0,0,0,0};	
 	
 	
 	private LoadAssets assetConstants;
@@ -236,35 +232,10 @@ public class MechaWarsMapActivity extends BaseGameActivity implements IOnSceneTo
 		
 		//Setup for the Digital Controller
 		setupController();
-		
-		
-		/* Now we are going to create a rectangle that will  always highlight the tile below the feet of the pEntity. */
-		/*final Rectangle currentTileRectangle = new Rectangle(0, 0, this.mTMXTiledMap.getTileWidth(), this.mTMXTiledMap.getTileHeight());
-		currentTileRectangle.setColor(1, 0, 0, 0.25f);
-		scene.attachChild(currentTileRectangle);
-
-		scene.registerUpdateHandler(new IUpdateHandler() {
-			@Override
-			public void reset() { }
-
-			@Override
-			public void onUpdate(final float pSecondsElapsed) {
-				final float[] playerFootCordinates = player.convertLocalToSceneCoordinates(12, 31);
-
-				final TMXTile tmxTile = tmxLayer.getTMXTileAt(playerFootCordinates[Constants.VERTEX_INDEX_X], playerFootCordinates[Constants.VERTEX_INDEX_Y]);
-				if(tmxTile != null) {
-					// tmxTile.setTextureRegion(null); <-- Rubber-style removing of tiles =D
-					currentTileRectangle.setPosition(tmxTile.getTileX(), tmxTile.getTileY());
-					
-				}
-			}
-		});*/
+				
 		scene.attachChild(player);
 		
-		
-		//Gives us a way to locate the NPCs in the map
-		TileWidth = this.mTMXTiledMap.getTileWidth();
-		
+				
 		loadEnemies();
 		
 		this.mDigitalScreenController.getControlBase().setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
@@ -287,15 +258,6 @@ public class MechaWarsMapActivity extends BaseGameActivity implements IOnSceneTo
 		test.setPosition(0,0);
 		
 		this.mBoundChaseCamera.setHUD(test);
-		
-		
-		
-		//lol.onAreaTouched(pSceneTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY)
-		
-		
-		//scene.attachChild(test);
-		
-		//scene.attachChild(lol);
 		
 		return scene;
 	}
@@ -504,8 +466,6 @@ public class MechaWarsMapActivity extends BaseGameActivity implements IOnSceneTo
 		
 		
 		characManager.addCharactersToScene(this.scene,this.mEngine,this);
-		
-		System.out.println("TILE WIDTH: " + this.mTMXTiledMap.getTileWidth() + "; TILE HEIGHT: " + this.mTMXTiledMap.getTileHeight());
 		
 	}	
 	

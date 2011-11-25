@@ -62,6 +62,7 @@ public class CharacterGroupParser {
 		return fallbackGroup;
 	}
 	
+	//Loads the each and every character from the scene (except for the player)
 	private static CharacterGroupManager buildCharacterGroupManager(JSONArray characters, final int mapColumns, final int mapRows){
 		
 		CharacterGroupManager createdGroupManager = new CharacterGroupManager(mapColumns,mapRows);
@@ -71,27 +72,9 @@ public class CharacterGroupParser {
 
 			try {
 				JSONObject characterObject = characters.getJSONObject(i);
-				JSONArray characterPosition = characterObject.getJSONArray("position");
-				
-				JSONObject animationObject = characterObject.getJSONObject("characterAnimations");
-				
-				//Animation array initialization
-				Animations characterAnimationsSet = new Animations(animationObject);
-				
-				String initialAnimation = animationObject.optString("startingAnimation","ANIMATE_FACING_DOWN");
-				
-				JSONArray spriteSheetDimensions = characterObject.getJSONArray("spriteSheetDimensions");
 				
 				//TODO: Fix the character animations loading part - Hope it's been done!
-				CharacterResources newResources = new CharacterResources(characterPosition.getInt(0), characterPosition.getInt(1),
-						 												(float) characterObject.getLong("tileWidth"),
-																		(float) characterObject.getLong("tileHeight"),
-																		characterObject.optString("sprite","enemy.png"),
-																		characterObject.optInt("textureRegionX",512),
-																		characterObject.optInt("textureRegionY",512),
-																		characterAnimationsSet,initialAnimation,
-																		spriteSheetDimensions.getInt(0),
-																		spriteSheetDimensions.getInt(1));
+				CharacterResources newResources = getCharacterResources(characterObject);
 				
 				CharacterNPC newCharacter = new CharacterNPC(characterObject.optString("name","<Unknown>_"+i),
 															 newResources);
@@ -105,6 +88,64 @@ public class CharacterGroupParser {
 		}
 		
 		return createdGroupManager;	
+	}
+	
+	//Loads the resources for the given character
+	private static CharacterResources getCharacterResources(JSONObject characterObject) throws JSONException{
+
+
+			JSONArray characterPosition = characterObject.getJSONArray("position");
+			
+			JSONObject animationObject = characterObject.getJSONObject("characterAnimations");
+			
+			//Animation array initialization
+			Animations characterAnimationsSet = new Animations(animationObject);
+			
+			String initialAnimation = animationObject.optString("startingAnimation","ANIMATE_FACING_DOWN");
+			
+			JSONArray spriteSheetDimensions = characterObject.getJSONArray("spriteSheetDimensions");
+			
+			//TODO: Fix the character animations loading part - Hope it's been done!
+			CharacterResources newResources = new CharacterResources(characterPosition.getInt(0), characterPosition.getInt(1),
+					 												(float) characterObject.getLong("tileWidth"),
+																	(float) characterObject.getLong("tileHeight"),
+																	characterObject.optString("sprite","enemy.png"),
+																	characterObject.optInt("textureRegionX",512),
+																	characterObject.optInt("textureRegionY",512),
+																	characterAnimationsSet,initialAnimation,
+																	spriteSheetDimensions.getInt(0),
+																	spriteSheetDimensions.getInt(1));
+			return newResources;
+			
+		
+	}
+	
+	public static CharacterResources getPlayerResources(){
+		
+		
+        try {
+            InputStream is = SceneManager.getMapBase().getResources().openRawResource(R.raw.mapcharacters);
+            byte[] buffer = new byte[is.available()];
+            while (is.read(buffer) != -1) ;
+            String jsontext = new String(buffer);
+            JSONObject jsonFile = new JSONObject(jsontext);
+            
+            JSONObject player = jsonFile.getJSONObject("player");
+
+            return getCharacterResources(player);
+            
+            
+        } catch (IOException fe) {
+            Debug.e("Cannot load the player file", fe);
+        } catch (JSONException je) {
+            Debug.e("Malformed JSON: ",je);
+        }
+        
+        //TODO: make a better fallback?
+        //Error moment
+		return null;
+		
+		
 	}
 	
 }

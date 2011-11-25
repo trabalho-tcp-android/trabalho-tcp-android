@@ -7,7 +7,12 @@ public class LoadAssets {
 	
 	
 	//Map details
-	private String mapPath;
+	//TODO: fix these two things
+	public final static String mapPath = "tmx/myTest.tmx";
+	
+	public final static String playerName = "Dovahkiin";
+	
+	
 	private String characterImagePath;
 	
 	private int playerStartingPositionX;
@@ -43,8 +48,7 @@ public class LoadAssets {
 	private String controllerBodyKnob;
 	
 	public LoadAssets(){
-		
-		mapPath = "tmx/myTest.tmx";
+	
 		characterImagePath = "player.png";
 		playerStartingPositionX = 0;
 		playerStartingPositionY = 0;

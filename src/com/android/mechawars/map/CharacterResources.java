@@ -143,16 +143,16 @@ public class CharacterResources {
 		return this.characterSprite;
 	}
 	
-	public void setCharacterPosition(int Column, int Row){
+	public void setCharacterPosition(int column, int row){
 		
-		this.characterCoordinates[0] = ((float)Column)*mapTileWidth + offsetX;
-		this.characterCoordinates[1] = ((float)Row)*mapTileHeight - offsetY;
+		this.characterCoordinates[0] = ((float)column)*mapTileWidth + offsetX;
+		this.characterCoordinates[1] = ((float)row)*mapTileHeight - offsetY;
 		
 		this.characterSprite.setPosition(characterCoordinates[0],characterCoordinates[1]);
 
 		
-		this.characterPosition[0] = Column;
-		this.characterPosition[1] = Row;
+		this.characterPosition[0] = column;
+		this.characterPosition[1] = row;
 	}
 	
 	

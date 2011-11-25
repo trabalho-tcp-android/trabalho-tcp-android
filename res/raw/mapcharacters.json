@@ -96,6 +96,53 @@
 			tileHeight:"32",
 			textureRegionX:"128",
 			textureRegionY:"128"
-		}
+		},
+		{
+			name: "Koothrapali",
+			position: ["2","6"],
+			type: "Dialog",
+			sprite: "enemy.png",
+			
+			inventory:[
+				
+				{
+					ID: "Potion",//Potion
+					Quantity: "1"
+				},
+				{
+					ID: "Weapon";//Weapon
+					Quantity: "1"				
+				}
+			],
+			
+			
+			//This next structure holds the character animation set.
+			characterAnimations:{
+				//Initial character animation.
+				startingAnimation:"ANIMATE_FACING_DOWN",
+				
+				//Character standing animations.
+				animationFacingUp:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingDown:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingLeft:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingRight:[0,0,0,0,0,0,0,200,0,0,0,0],
+				
+				//Character standing animations.
+				animationFacingUpWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingDownWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingLeftWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingRightWalking:[0,0,0,0,0,0,0,200,0,0,0,0]
+			
+			},
+			
+			
+			
+			
+			spriteSheetDimensions: [3,4],
+			tileWidth:"32",
+			tileHeight:"32",
+			textureRegionX:"128",
+			textureRegionY:"128"
+		}		
 	]
 }
