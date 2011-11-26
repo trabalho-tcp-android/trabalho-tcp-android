@@ -52,6 +52,12 @@ public class LoadAssets {
 	public final static String controllerBody = "onscreen_control_base.png";
 	public final static String controllerBodyKnob = "onscreen_control_knob.png";
 	
+	
+	//Button details
+	public final static int buttonWidth = 256;
+	public final static int buttonHeight = 256;
+	public final static String buttonPath = "button.png";
+	
 	public LoadAssets(){
 	
 		characterImagePath = "player.png";
