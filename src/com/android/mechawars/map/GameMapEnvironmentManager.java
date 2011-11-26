@@ -10,14 +10,18 @@ import org.anddev.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.anddev.andengine.engine.camera.hud.controls.BaseOnScreenControl.IOnScreenControlListener;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
+import org.anddev.andengine.entity.sprite.TiledSprite;
+import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import com.android.mechawars.map.characters.CharacterGroupManager;
 import com.android.mechawars.map.characters.CharacterGroupParser;
 import com.android.mechawars.map.characters.Player;
+import com.android.mechawars.map.controller.GameInteractionButton;
 
 
 import android.content.Context;
@@ -28,7 +32,8 @@ public class GameMapEnvironmentManager {
 	MapManager gameMap;
 	
 	CharacterGroupManager npcGroup;
-	
+	//BUTTON
+	private GameInteractionButton gameIntButton;
 	
 	//CONTROLLER
 	private DigitalOnScreenControl digitalController;
@@ -52,7 +57,9 @@ public class GameMapEnvironmentManager {
 	public GameMapEnvironmentManager(Engine gameMapEngine,Scene gameMapScene, BoundCamera gameCamera, Context gameMapContext){
 		
 		initializeMapEnvironment(gameMapEngine, gameMapScene, gameMapContext);
+		setButton(gameMapEngine, gameMapScene, gameMapContext, gameCamera);
 		setController(gameMapEngine, gameMapScene, gameMapContext, gameCamera);
+		
 	}
 	
 	public void initializeMapEnvironment(Engine gameEngine,Scene gameMapScene,Context gameMapContext){
@@ -83,15 +90,22 @@ public class GameMapEnvironmentManager {
 		Boolean canMove = !gameMap.isTheTileBlocked(characterNextColumn,characterNextRow) && !npcGroup.isOccupied(characterNextColumn, characterNextRow);
 		
 		if(canMove){
-				gamePlayer.movePlayer(characterNextColumn, characterNextRow);
+				if(!gamePlayer.getCharacterSprite().isAnimationRunning()){
+					gamePlayer.movePlayer(characterNextColumn, characterNextRow);
+					this.gameIntButton.setButtonPosition(gamePlayer.getCharacterSprite().getX(), gamePlayer.getCharacterSprite().getY());
+				}
 		}
 		else{
 			gamePlayer.turnPlayer(getXVariation(),getYVariation());
+			//Testing whether the next tile is occupied by another character.
+			if(npcGroup.isOccupied(characterNextColumn, characterNextRow)){
+				System.out.println("Character found! (" + npcGroup.getCharacterAt(characterNextColumn, characterNextRow) + ")");
+			}
 			
 		}
 	}
 	
-	public void setController(Engine gameMapEngine,Scene gameMapScene,Context gameMapContext, BoundCamera gameCamera){
+	public void setController(Engine gameMapEngine, Scene gameMapScene,Context gameMapContext, BoundCamera gameCamera){
 		
 		loadTextures(gameMapEngine,gameMapContext);
 		
@@ -167,5 +181,9 @@ public class GameMapEnvironmentManager {
 		gamePlayer.changeAnimation(gamePlayer.getInitialAnimation(), false);
 		npcGroup.animateSprites();
 		
+	}
+	
+	public void setButton(Engine gameEngine, Scene gameMapScene,Context gameMapContext, BoundCamera gameMapCamera) {
+		gameIntButton = new GameInteractionButton(gameEngine, gameMapScene, gameMapContext, gameMapCamera);
 	}
 }

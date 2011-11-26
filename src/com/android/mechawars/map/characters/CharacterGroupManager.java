@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.entity.scene.Scene;
 
+import com.android.mechawars.map.TileOccupiedMatrix;
 import com.android.mechawars.map.TilePropertyMatrix;
 
 import android.content.Context;
@@ -14,7 +15,7 @@ public class CharacterGroupManager {
 	
 	private HashMap<String,CharacterNPC> hashTableOfCharacters; //Useful for querying for a given character on the scene
 	private LinkedList<CharacterNPC> listOfCharacters;          //Useful for iterating 
-	private TilePropertyMatrix characterPositionMatrix;
+	private TileOccupiedMatrix characterPositionMatrix;
 	
 	
 	//Constructor
@@ -23,7 +24,7 @@ public class CharacterGroupManager {
 		hashTableOfCharacters = new HashMap<String,CharacterNPC>();
 		listOfCharacters = new LinkedList<CharacterNPC>();
 		
-		characterPositionMatrix = new TilePropertyMatrix(mapColumns, mapRows);
+		characterPositionMatrix = new TileOccupiedMatrix(mapColumns, mapRows);
 	}
 	
 	
@@ -92,7 +93,7 @@ public class CharacterGroupManager {
 	
 	//This method returns the information whether a 
 	public Boolean isOccupied(final int posColumn, final int posRow){
-		
+	
 		return characterPositionMatrix.isBlocked(posColumn, posRow);
 	}
 	
@@ -123,6 +124,12 @@ public class CharacterGroupManager {
 			}
 		}
 		return null;
+		
+	}
+	
+	public String getCharacterAt(int column,int row){
+		
+		return getCharacter(column,row).characterName;
 		
 	}
 	

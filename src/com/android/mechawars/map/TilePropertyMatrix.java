@@ -5,9 +5,9 @@ import java.util.LinkedList;
 //This class holds a matrix containing the "walkability" property of the map tiles.
 public class TilePropertyMatrix {
 	
-	private Boolean mapMatrix[][];
-	private int columnBounds;
-	private int rowBounds;
+	protected Boolean mapMatrix[][];
+	protected int columnBounds;
+	protected int rowBounds;
 	
 	
 	//Constructor for when we have the list of blocked areas 
