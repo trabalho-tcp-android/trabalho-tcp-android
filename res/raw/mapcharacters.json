@@ -26,16 +26,16 @@
 				startingAnimation:"ANIMATE_FACING_DOWN",
 				
 				//Character standing animations.
-				animationFacingUp:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingUp:[0,200,0,0,0,0,0,0,0,0,0,0],
 				animationFacingDown:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingLeft:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingRight:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingLeft:[0,0,0,0,0,0,0,0,0,0,200,0],
+				animationFacingRight:[0,0,0,0,200,0,0,0,0,0,200,0],
 				
 				//Character standing animations.
-				animationFacingUpWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingDownWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingLeftWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingRightWalking:[0,0,0,0,0,0,0,200,0,0,0,0]
+				animationFacingUpWalking:[200,200,200,0,0,0,0,0,0,0,0,0],
+				animationFacingDownWalking:[0,0,0,0,0,0,200,200,200,0,0,0],
+				animationFacingLeftWalking:[0,0,0,0,0,0,0,0,0,200,200,200],
+				animationFacingRightWalking:[0,0,0,200,200,200,0,0,0,0,0,0]
 			
 			},
 			
@@ -75,16 +75,16 @@
 				startingAnimation:"ANIMATE_FACING_DOWN",
 				
 				//Character standing animations.
-				animationFacingUp:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingUp:[0,200,0,0,0,0,0,0,0,0,0,0],
 				animationFacingDown:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingLeft:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingRight:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingLeft:[0,0,0,0,0,0,0,0,0,0,200,0],
+				animationFacingRight:[0,0,0,0,200,0,0,0,0,0,200,0],
 				
 				//Character standing animations.
-				animationFacingUpWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingDownWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingLeftWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingRightWalking:[0,0,0,0,0,0,0,200,0,0,0,0]
+				animationFacingUpWalking:[200,200,200,0,0,0,0,0,0,0,0,0],
+				animationFacingDownWalking:[0,0,0,0,0,0,200,200,200,0,0,0],
+				animationFacingLeftWalking:[0,0,0,0,0,0,0,0,0,200,200,200],
+				animationFacingRightWalking:[0,0,0,200,200,200,0,0,0,0,0,0]
 			
 			},
 			
@@ -122,16 +122,16 @@
 				startingAnimation:"ANIMATE_FACING_DOWN",
 				
 				//Character standing animations.
-				animationFacingUp:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingUp:[0,200,0,0,0,0,0,0,0,0,0,0],
 				animationFacingDown:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingLeft:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingRight:[0,0,0,0,0,0,0,200,0,0,0,0],
+				animationFacingLeft:[0,0,0,0,0,0,0,0,0,0,200,0],
+				animationFacingRight:[0,0,0,0,200,0,0,0,0,0,200,0],
 				
 				//Character standing animations.
-				animationFacingUpWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingDownWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingLeftWalking:[0,0,0,0,0,0,0,200,0,0,0,0],
-				animationFacingRightWalking:[0,0,0,0,0,0,0,200,0,0,0,0]
+				animationFacingUpWalking:[200,200,200,0,0,0,0,0,0,0,0,0],
+				animationFacingDownWalking:[0,0,0,0,0,0,200,200,200,0,0,0],
+				animationFacingLeftWalking:[0,0,0,0,0,0,0,0,0,200,200,200],
+				animationFacingRightWalking:[0,0,0,200,200,200,0,0,0,0,0,0]
 			
 			},
 			

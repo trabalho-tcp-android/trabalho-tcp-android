@@ -115,6 +115,17 @@ public class CharacterGroupParser {
 																	characterAnimationsSet,initialAnimation,
 																	spriteSheetDimensions.getInt(0),
 																	spriteSheetDimensions.getInt(1));
+			
+			System.out.println("Player: " + characterPosition.getInt(0)+  characterPosition.getInt(1)+ 
+						(float) characterObject.getLong("tileWidth")+ 
+					(float) characterObject.getLong("tileHeight")+ 
+					characterObject.optString("sprite","enemy.png")+ 
+					characterObject.optInt("textureRegionX",512)+ 
+					characterObject.optInt("textureRegionY",512)+ 
+					characterAnimationsSet+ initialAnimation+ 
+					spriteSheetDimensions.getInt(0)+ 
+					spriteSheetDimensions.getInt(1));
+			
 			return newResources;
 			
 		
@@ -131,7 +142,7 @@ public class CharacterGroupParser {
             JSONObject jsonFile = new JSONObject(jsontext);
             
             JSONObject player = jsonFile.getJSONObject("player");
-
+            
             return getCharacterResources(player);
             
             

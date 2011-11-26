@@ -77,4 +77,10 @@ public class CharacterNPC {
 		this.characterResources.changeCharacterAnimation(newAnimation, loopAnimation);
 		
 	}
+	
+	public String getInitialAnimation(){
+		
+		return this.characterResources.getInitialAnimationLabel();
+		
+	}
 }

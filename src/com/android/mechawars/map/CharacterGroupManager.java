@@ -70,7 +70,21 @@ public class CharacterGroupManager {
 			
 			gameScene.attachChild(currentCharacter.getCharacterSprite());
 			
+			currentCharacter.changeAnimation(currentCharacter.getInitialAnimation(), false);
+			
 			System.out.println("Character " + listOfCharacters.get(listIndex).characterName() + " added successfully to the scene.");
+		}
+	}
+	
+	public void animateSprites(){
+		int listIndex;
+		CharacterNPC currentCharacter;
+		
+		for(listIndex = 0; listIndex < listOfCharacters.size(); listIndex++){
+			
+			currentCharacter = listOfCharacters.get(listIndex);
+			
+			currentCharacter.changeAnimation(currentCharacter.getInitialAnimation(), false);
 		}
 	}
 	

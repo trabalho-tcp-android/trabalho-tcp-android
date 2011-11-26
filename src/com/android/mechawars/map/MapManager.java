@@ -67,14 +67,14 @@ public class MapManager {
 	
 	//This method is used for querying about the walkability of a given position on the map.
 	public Boolean isTheTileBlocked(int column,int row){
-		return (this.blockedAreasOnMap.isBlocked(column,row) && !isItBeyondFrontier(column,row));
+		return (this.blockedAreasOnMap.isBlocked(column,row));
 	}
 	
 	//Testing whether some coordinates trespass the map frontiers.
 	public Boolean isItBeyondFrontier(int column, int row){
 		
 		//Gets the "up" and "left" frontiers.
-		Boolean minimumFrontier = ((column < 0) && (row < 0));
+		Boolean minimumFrontier = ((column < 0) || (row < 0));
 		
 		//Gets the "down" and "right" frontiers. Here, we don't have to make the adjustment to the gameMap methods around the map size.
 		Boolean maximumFrontier = (((getMapColumns() - 1) < column)||((getMapRows() - 1) < row));

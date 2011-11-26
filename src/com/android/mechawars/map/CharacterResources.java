@@ -1,6 +1,7 @@
 package com.android.mechawars.map;
 
 import org.anddev.andengine.engine.Engine;
+import org.anddev.andengine.entity.layer.tiled.tmx.TMXTile;
 import org.anddev.andengine.entity.modifier.MoveModifier;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
@@ -54,6 +55,8 @@ public class CharacterResources {
 		characterPosition[1] = posY;
 		
 		mapTileWidth = tileWidth;
+		
+		mapTileHeight = tileHeight;
 		
 		characterTexturePath = npcTexturePath;
 		
@@ -124,13 +127,15 @@ public class CharacterResources {
 	//Initializes the Sprite	
 	public void initializeSprite(String initialAnimation){
 		characterSprite = new AnimatedSprite(characterCoordinates[0],characterCoordinates[1],characterResourceLoader.getTextureRegion());
-		characterSprite.animate(characterAnimationSet.getAnimation(initialAnimation));
+		//TODO: kill the next line of code.
+		System.out.println("Called Animation: " + initialAnimation);
+		characterSprite.animate(characterAnimationSet.getAnimation(initialAnimation),false);
 	}
 	
 
 	public void initializeSprite(){
 		characterSprite = new AnimatedSprite(characterCoordinates[0],characterCoordinates[1],characterResourceLoader.getTextureRegion());
-		characterSprite.animate(characterAnimationSet.getAnimation(characterInitialAnimation));
+		characterSprite.animate(characterAnimationSet.getAnimation(characterInitialAnimation),false);
 	}
 	
 	
@@ -174,26 +179,32 @@ public class CharacterResources {
 	
 	public void moveCharacterSprite(float duration, int column, int row){
 		
-		float finalPositionX = (float)column*mapTileWidth + offsetX;
-		float finalPositionY = (float)column*mapTileHeight + offsetY;
+		
+		float finalPositionX = (float)column*mapTileWidth  + offsetX;
+		float finalPositionY = (float)row*mapTileHeight - offsetY;
 		
 		MoveModifier pathModifier = new MoveModifier(duration,this.characterSprite.getX(),finalPositionX,this.characterSprite.getY(),finalPositionY);
 		
-		
+		if(!this.characterSprite.isAnimationRunning()){
 		//Testing the correct animation to be executed
-		if(column < this.characterPosition[0])
-			changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_LEFT, false);
-		if(column > this.characterPosition[0])
-			changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_RIGHT, false);
-		if(row < this.characterPosition[0])
-			changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_UP, false);
-		if(row > this.characterPosition[0])
-			changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_DOWN, false);
+			if(finalPositionX < this.characterSprite.getX())
+				changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_LEFT, false);
+			if(finalPositionX > this.characterSprite.getX())
+				changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_RIGHT, false);
+			if(finalPositionY < this.characterSprite.getY())
+				changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_UP, false);
+			if(finalPositionY > this.characterSprite.getY())
+				changeCharacterAnimation(LoadAssets.ANIMATE_WALKING_FACING_DOWN, false);
+			
+			this.characterSprite.registerEntityModifier(pathModifier);
+			
+			updateCharacterPosition(column, row);
+		}
 		
-		this.characterSprite.registerEntityModifier(pathModifier);
+	}
+	
+	public String getInitialAnimationLabel(){
 		
-		setCharacterPosition(column, row);
-		
-		
+		return this.characterInitialAnimation;
 	}
 }

@@ -5,6 +5,11 @@ public class LoadAssets {
 	
 	//Camera details
 	
+	public static final int CAMERA_WIDTH = 400;
+	public static final int CAMERA_HEIGHT = 300;
+	
+	//Controller refresh updates timing
+	public final static float controllerRefreshTime = 0.1f;
 	
 	//Map details
 	//TODO: fix these two things
@@ -44,8 +49,8 @@ public class LoadAssets {
 	public final static float movementTiming = 0.6f;
 	
 	//Digital controller details
-	private String controllerBody;
-	private String controllerBodyKnob;
+	public final static String controllerBody = "onscreen_control_base.png";
+	public final static String controllerBodyKnob = "onscreen_control_knob.png";
 	
 	public LoadAssets(){
 	
@@ -56,8 +61,6 @@ public class LoadAssets {
 		playerTextureAtlasSize = 128;
 		
 		
-		controllerBody = "onscreen_control_base.png";//lolmybad.png";
-		controllerBodyKnob = "onscreen_control_knob.png";		
 		
 		
 	}
