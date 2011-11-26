@@ -3,7 +3,9 @@ package com.android.mechawars.actionsRunner;
 import android.content.Intent;
 import android.widget.Toast;
 import android.os.Bundle;
+import android.app.Activity;
 
+import com.android.mechawars.MechaWarsMapActivity;
 import com.android.mechawars.MechawarsActivity;
 import com.android.mechawars.SceneManager;
 import org.anddev.andengine.util.Debug;
@@ -54,10 +56,19 @@ public class ActionsList {
         SceneManager.getBase().finish();
         return true;
     }
-    
-    public static boolean callActivity(ArrayList<String> parameters) {
-        Debug.i("Calling "+ parameters.get(0));
-        //Intent activity1 = new Intent("MechaWars"+parameters.get(0)+"Activity");
+
+
+    public static boolean callMapActivity(ArrayList<String> parameters) {
+        Debug.i("Trying to call map activity");
+        Intent map = new Intent(SceneManager.getBase(), MechaWarsMapActivity.class);
+
+        SceneManager.getBase().startActivity(map);
+
+        return true;
+    }
+
+    public static boolean inflictDamage(ArrayList<String> parameters) {
+        Toast.makeText(SceneManager.getBase(), "Trying to inflict"+parameters.get(1)+" damage on someone: "+parameters.get(0), Toast.LENGTH_SHORT).show();
         return true;
     }
 

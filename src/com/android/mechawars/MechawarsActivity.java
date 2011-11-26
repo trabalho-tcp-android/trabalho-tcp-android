@@ -2,6 +2,7 @@ package com.android.mechawars;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.content.Intent;
 import com.android.mechawars.utils.DbUtils;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, MechawarsActivity!</string>
-    <string name="app_name">Mecha Wars</string>
+    <string name="app_name">MechaWars</string>
+    <string name="map_name">MechaWars Map</string>
 </resources>

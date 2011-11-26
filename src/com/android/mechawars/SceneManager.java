@@ -3,6 +3,7 @@ package com.android.mechawars;
 import com.android.mechawars.ffBox.ffDialog.DialogManager;
 import com.android.mechawars.ffBox.ffMenu.Menu;
 import com.android.mechawars.ffBox.ffMenu.MenuManager;
+import com.android.mechawars.inventory.InventoryItem;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.entity.text.Text;
@@ -50,9 +51,9 @@ public class SceneManager {
         base.getEngine().setScene(scene);
 
         MenuManager.instance().fromJSON("mainMenu").attachToScene();
-        
-//        Menu test = MenuManager.instance().getMenu("mainMenu");
-//        test.getMenuScene();
+        InventoryItem test = new InventoryItem("testWeapon");
+                test.activate();
+
 	}
 
     public static void loadOptions() {
@@ -77,6 +78,6 @@ public class SceneManager {
 
         base.getEngine().setScene(scene);
 
-        DialogManager.instance().fromJSON("testDialog1");
+        DialogManager.instance().fromJSON("testDialog1").attachToScene();
     }
 }

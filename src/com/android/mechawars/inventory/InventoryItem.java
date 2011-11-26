@@ -9,9 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class InventoryItem {
+public class InventoryItem implements Serializable {
     
     protected int id;
     protected String name;
