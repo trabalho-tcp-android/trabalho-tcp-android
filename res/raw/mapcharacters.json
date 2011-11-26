@@ -1,24 +1,21 @@
 {
 
-	player:
-		{
+	player: {
 			name: "Player",
 			position: ["6","5"],
 			type: "Dialog",
 			sprite: "player.png",
-			
 			inventory:[
 				
 				{
-					ID: "Potion",//Potion
-					Quantity: "1"
+					name: "minorPotion",//Potion
+					quantity: "1"
 				},
 				{
-					ID: "Weapon";//Weapon
-					Quantity: "1"				
+					name: "testWeapon",//Weapon
+					quantity: "1"
 				}
 			],
-			
 			
 			//This next structure holds the character animation set.
 			characterAnimations:{
@@ -38,16 +35,12 @@
 				animationFacingRightWalking:[0,0,0,0,0,0,0,200,0,0,0,0]
 			
 			},
-			
-			
-			
-			
 			spriteSheetDimensions: [3,4],
 			tileWidth:"32",
 			tileHeight:"32",
 			textureRegionX:"128",
 			textureRegionY:"128"
-		},
+    },
 
 	characters:[
 		{
@@ -59,12 +52,12 @@
 			inventory:[
 				
 				{
-					ID: "Potion",//Potion
-					Quantity: "1"
+					name: "Potion",//Potion
+					quantity: "1"
 				},
 				{
-					ID: "Weapon";//Weapon
-					Quantity: "1"				
+					name: "Weapon",//Weapon
+					quantity: "1"				
 				}
 			],
 			
@@ -106,12 +99,12 @@
 			inventory:[
 				
 				{
-					ID: "Potion",//Potion
-					Quantity: "1"
+					name: "Potion",//Potion
+					quantity: "1"
 				},
 				{
-					ID: "Weapon";//Weapon
-					Quantity: "1"				
+					name: "Weapon",//Weapon
+					quantity: "1"				
 				}
 			],
 			
