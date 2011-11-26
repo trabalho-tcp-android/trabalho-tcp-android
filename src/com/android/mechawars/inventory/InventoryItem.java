@@ -1,6 +1,9 @@
 package com.android.mechawars.inventory;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import com.android.mechawars.actionsRunner.ActionsManager;
+import com.android.mechawars.utils.DbUtils;
 import org.anddev.andengine.util.Debug;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +21,20 @@ public class InventoryItem {
     private final ArrayList<ArrayList<String>> itemActions = new ArrayList<ArrayList<String>>();
 
     public InventoryItem(String name) {
+        SQLiteDatabase db = DbUtils.getDatabase();
+        Cursor results = db.rawQuery("SELECT * FROM items WHERE name = \'" + name +"\'", null);
+        results.moveToFirst();
+        this.id = results.getInt(0);
+        this.name = results.getString(1);
+        this.prettyName = results.getString(2);
+        this.description = results.getString(3);
 
+        try {
+            JSONArray actions = new JSONArray(results.getString(4));
+            setActions(actions);
+        } catch (JSONException e) {
+            Debug.e("Parsing error on actions from item "+name);
+        }
     }
 
     public InventoryItem(int id, String name, String prettyName) {
@@ -38,13 +54,6 @@ public class InventoryItem {
 
     public String getName() {
         return name;
-    }
-
-    protected void setActionsFromJSON(JSONObject itemJSON) {
-        if(!itemJSON.isNull("onSelected")) {
-            setActions(itemJSON.optJSONArray("actions"));
-        }
-
     }
 
     public void setActions(ArrayList<ArrayList<String>> actions) {

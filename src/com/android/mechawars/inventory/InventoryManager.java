@@ -29,7 +29,7 @@ public class InventoryManager {
 
     private InventoryManager() {}
 
-    public static Inventory getInventory(String charName) {
+    public Inventory getInventory(String charName) {
         return inventories.get(charName);
     }
 

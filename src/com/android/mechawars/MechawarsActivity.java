@@ -2,6 +2,7 @@ package com.android.mechawars;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import com.android.mechawars.utils.DbUtils;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.handler.timer.ITimerCallback;
@@ -51,32 +52,33 @@ public class MechawarsActivity extends BaseGameActivity {
     protected Texture mFontTexture;
     protected static Font mFont;
     protected Font titleFont;
-	protected Font mFontBold;
-	private BitmapTextureAtlas mBitmap;
-	private TextureRegion mRobotTextureRegion;
-	protected Font mFontBoldGray;
+    protected Font mFontBold;
+    private BitmapTextureAtlas mBitmap;
+    private TextureRegion mRobotTextureRegion;
+    protected Font mFontBoldGray;
     private static SceneManager sceneManager;
     private ModPlayer mModPlayer = ModPlayer.getInstance();
 
 
     @Override
     public Engine onLoadEngine() {
-        Debug.setDebugTag("MechaWars"); Debug.setDebugLevel(Debug.DebugLevel.WARNING);
+        Debug.setDebugTag("MechaWars");
+        Debug.setDebugLevel(Debug.DebugLevel.WARNING);
         this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
         return new Engine(new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera));
     }
- 
+
     @Override
     public void onLoadResources() {
         this.mFontTexture = new BitmapTextureAtlas(1024, 1024, TextureOptions.BILINEAR);
         Texture mTitleFontTexture = new BitmapTextureAtlas(512, 512, TextureOptions.BILINEAR);
-        Texture mFontMonoTexture = new BitmapTextureAtlas(256,256,TextureOptions.BILINEAR);
+        Texture mFontMonoTexture = new BitmapTextureAtlas(256, 256, TextureOptions.BILINEAR);
 
         mFont = new Font(mFontMonoTexture, Typeface.createFromAsset(getAssets(), "fonts/UbuntuMono-B.ttf"), 32, true, Color.WHITE);
-        this.titleFont = new Font(mTitleFontTexture,Typeface.createFromAsset(getAssets(),"fonts/FFFAccess.ttf"),64,true,Color.WHITE);
+        this.titleFont = new Font(mTitleFontTexture, Typeface.createFromAsset(getAssets(), "fonts/FFFAccess.ttf"), 64, true, Color.WHITE);
         this.mFontBold = new Font(this.mFontTexture, Typeface.createFromAsset(getAssets(), "fonts/Ubuntu-B.ttf"), 32, true, Color.BLACK);
         this.mFontBoldGray = new Font(this.mFontTexture, Typeface.createFromAsset(getAssets(), "fonts/Ubuntu-B.ttf"), 64, true, Color.DKGRAY);
- 
+
         this.getEngine().getTextureManager().loadTexture(this.mFontTexture);
         this.getEngine().getTextureManager().loadTexture(mFontMonoTexture);
         this.getEngine().getTextureManager().loadTexture(mTitleFontTexture);
@@ -84,103 +86,115 @@ public class MechawarsActivity extends BaseGameActivity {
         this.getEngine().getFontManager().loadFont(this.titleFont);
         this.getEngine().getFontManager().loadFont(this.mFontBold);
         this.getEngine().getFontManager().loadFont(this.mFontBoldGray);
-            
-    	this.mBitmap = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-    	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+
+        this.mBitmap = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
         this.mRobotTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmap, this, "robotCreations.png", 0, 0);
 
         this.getEngine().getTextureManager().loadTexture(this.mBitmap);
 
         //Musica da abertura
-        if(FileUtils.isFileExistingOnExternalStorage(this, MOD_DIRECTORY + MOD_FILENAME)) {
+        if (FileUtils.isFileExistingOnExternalStorage(this, MOD_DIRECTORY + MOD_FILENAME)) {
             this.startPlayingMod();
         } else {
             FileUtils.ensureDirectoriesExistOnExternalStorage(MechawarsActivity.this, MOD_DIRECTORY);
             try {
                 FileUtils.copyToExternalStorage(MechawarsActivity.this, MOD_DIRECTORY + MOD_FILENAME, MOD_DIRECTORY + MOD_FILENAME);
             } catch (IOException musicException) {
-                Log.e("MechaWars","Music file not found "+musicException.getMessage(),musicException);
+                Log.e("MechaWars", "Music file not found " + musicException.getMessage(), musicException);
             }
             this.startPlayingMod();
         }
-        sceneManager =  new SceneManager(this);
+        sceneManager = new SceneManager(this);
     }
- 
+
     @Override
     public Scene onLoadScene() {
-            this.getEngine().registerUpdateHandler(new FPSCounter());
-    		final int centerX = (CAMERA_WIDTH - this.mRobotTextureRegion.getWidth()) / 2;
-            final int centerY = (CAMERA_HEIGHT - this.mRobotTextureRegion.getHeight()) / 2;
- 
-            // Create the scene we'll be using for the loading screen
-            final Scene scene = new Scene();
-            scene.setBackground(new ColorBackground(1f, 1f, 1f));
- 
-            // Cria o simbolo do robo e Texto
-            final Sprite robotCreations = new Sprite(centerX, centerY-100, this.mRobotTextureRegion);
-            final Text textCenter = new Text(CAMERA_WIDTH, CAMERA_HEIGHT+50, this.mFontBoldGray, "RobotCreations!", HorizontalAlign.LEFT);
-            textCenter.setPosition((CAMERA_WIDTH / 2) - textCenter.getWidth() / 2f, centerY + 25);
+        this.getEngine().registerUpdateHandler(new FPSCounter());
+        final int centerX = (CAMERA_WIDTH - this.mRobotTextureRegion.getWidth()) / 2;
+        final int centerY = (CAMERA_HEIGHT - this.mRobotTextureRegion.getHeight()) / 2;
 
-            //Cria um timer para segurar a tela em branco e evitar um pulo de lag do aparelho
-            this.getEngine().registerUpdateHandler(new TimerHandler(0.5f, new ITimerCallback() {
-                @Override
-                public void onTimePassed(final TimerHandler pTimerHandler) {
-                    scene.attachChild(textCenter);
-                    scene.attachChild(robotCreations);
+        // Create the scene we'll be using for the loading screen
+        final Scene scene = new Scene();
+        scene.setBackground(new ColorBackground(1f, 1f, 1f));
 
-                }
-            }));
-            
-    		/* Modificador para o efeito de aparecer e desaparecer */
-            final FadeInModifier prFadeInModifier = new FadeInModifier(2f, new IEntityModifierListener() {
-    			@Override
-    			public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {}
+        // Cria o simbolo do robo e Texto
+        final Sprite robotCreations = new Sprite(centerX, centerY - 100, this.mRobotTextureRegion);
+        final Text textCenter = new Text(CAMERA_WIDTH, CAMERA_HEIGHT + 50, this.mFontBoldGray, "RobotCreations!", HorizontalAlign.LEFT);
+        textCenter.setPosition((CAMERA_WIDTH / 2) - textCenter.getWidth() / 2f, centerY + 25);
 
-    			@Override
-    			public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
+        //Cria um timer para segurar a tela em branco e evitar um pulo de lag do aparelho
+        this.getEngine().registerUpdateHandler(new TimerHandler(0.5f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                scene.attachChild(textCenter);
+                scene.attachChild(robotCreations);
+            }
+        }));
 
-    			}
-    		}, EaseLinear.getInstance());
-            
-            final FadeOutModifier prFadeOutModifier = new FadeOutModifier(1f, new IEntityModifierListener() {
-    			@Override
-    			public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {}
+        //Copia o banco de dados
+        if (true || !FileUtils.isFileExistingOnExternalStorage(this,"databases/mechawars.db")) {
+            FileUtils.ensureDirectoriesExistOnExternalStorage(this, "databases/");
+            try {
+                FileUtils.copyToExternalStorage(this, "databases/mechawars.db", "databases/mechawars.db");
+            } catch (IOException dbEx) {
+                Debug.e("Database copy failed: " + dbEx.getMessage(), dbEx);
+            }
+        }
 
-    			@Override
-    			public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
+        /* Modificador para o efeito de aparecer e desaparecer */
+        final FadeInModifier prFadeInModifier = new FadeInModifier(2f, new IEntityModifierListener() {
+            @Override
+            public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
+            }
 
-    			}
-    		}, EaseLinear.getInstance());
+            @Override
+            public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
 
-            final FadeOutModifier prFadeOutModifierChangeScene = new FadeOutModifier(1f, new IEntityModifierListener() {
-    			@Override
-    			public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {}
+            }
+        }, EaseLinear.getInstance());
 
-    			@Override
-    			public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
-    				//Troca de cena
-                    SceneManager.loadMain();
-    			}
-    		}, EaseLinear.getInstance());
-            
+        final FadeOutModifier prFadeOutModifier = new FadeOutModifier(1f, new IEntityModifierListener() {
+            @Override
+            public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
+            }
 
-    		//Aplica o fadeIn
-    		robotCreations.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-    		textCenter.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-    		robotCreations.registerEntityModifier(prFadeInModifier);
-    		textCenter.registerEntityModifier(prFadeInModifier);
-    		
-    		//Cria um timer para o fadeOut
-    		this.getEngine().registerUpdateHandler(new TimerHandler(1.5f, new ITimerCallback() {
-                @Override
-                public void onTimePassed(final TimerHandler pTimerHandler) {
-                	robotCreations.registerEntityModifier(prFadeOutModifier);
-            		textCenter.registerEntityModifier(prFadeOutModifierChangeScene);
+            @Override
+            public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
 
-                }
-            }));
- 
-            return scene;
+            }
+        }, EaseLinear.getInstance());
+
+        final FadeOutModifier prFadeOutModifierChangeScene = new FadeOutModifier(1f, new IEntityModifierListener() {
+            @Override
+            public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
+            }
+
+            @Override
+            public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
+                //Troca de cena
+                SceneManager.loadMain();
+            }
+        }, EaseLinear.getInstance());
+
+
+        //Aplica o fadeIn
+        robotCreations.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        textCenter.setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        robotCreations.registerEntityModifier(prFadeInModifier);
+        textCenter.registerEntityModifier(prFadeInModifier);
+
+        //Cria um timer para o fadeOut
+        this.getEngine().registerUpdateHandler(new TimerHandler(1.5f, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                robotCreations.registerEntityModifier(prFadeOutModifier);
+                textCenter.registerEntityModifier(prFadeOutModifierChangeScene);
+
+            }
+        }));
+
+        return scene;
     }
 
     @Override
@@ -199,11 +213,11 @@ public class MechawarsActivity extends BaseGameActivity {
     }
 
     public static int getCenterX() {
-        return CAMERA_WIDTH/2;
+        return CAMERA_WIDTH / 2;
     }
 
     public static int getCenterY() {
-        return CAMERA_HEIGHT/2;
+        return CAMERA_HEIGHT / 2;
     }
 
     public static int getCameraHeight() {
