@@ -22,8 +22,8 @@ import org.anddev.andengine.ui.activity.BaseGameActivity;
  */
 public class MechaWarsMapActivity extends BaseGameActivity{
 
-	private static final int CAMERA_WIDTH = 400;
-	private static final int CAMERA_HEIGHT = 300;
+	private static final int CAMERA_WIDTH = LoadAssets.CAMERA_WIDTH;
+	private static final int CAMERA_HEIGHT = LoadAssets.CAMERA_HEIGHT;
 
 
 	private BoundCamera mBoundChaseCamera;

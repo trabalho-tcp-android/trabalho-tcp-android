@@ -15,7 +15,9 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
+import com.android.mechawars.map.characters.CharacterGroupManager;
 import com.android.mechawars.map.characters.CharacterGroupParser;
+import com.android.mechawars.map.characters.Player;
 
 
 import android.content.Context;
@@ -78,10 +80,14 @@ public class GameMapEnvironmentManager {
 	private void moveGamePlayer(){
 		int characterNextColumn = gamePlayer.getCharacterColumn() + getXVariation();
 		int characterNextRow = gamePlayer.getCharacterRow() + getYVariation();
+		Boolean canMove = !gameMap.isTheTileBlocked(characterNextColumn,characterNextRow) && !npcGroup.isOccupied(characterNextColumn, characterNextRow);
 		
-		if(!gameMap.isTheTileBlocked(characterNextColumn,characterNextRow)){
-			if(!npcGroup.isOccupied(characterNextColumn, characterNextRow))
+		if(canMove){
 				gamePlayer.movePlayer(characterNextColumn, characterNextRow);
+		}
+		else{
+			gamePlayer.turnPlayer(getXVariation(),getYVariation());
+			
 		}
 	}
 	

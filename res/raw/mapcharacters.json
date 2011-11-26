@@ -26,7 +26,7 @@
 				animationFacingUp:[0,200,0,0,0,0,0,0,0,0,0,0],
 				animationFacingDown:[0,0,0,0,0,0,0,200,0,0,0,0],
 				animationFacingLeft:[0,0,0,0,0,0,0,0,0,0,200,0],
-				animationFacingRight:[0,0,0,0,200,0,0,0,0,0,200,0],
+				animationFacingRight:[0,0,0,0,200,0,0,0,0,0,0,0],
 				
 				//Character standing animations.
 				animationFacingUpWalking:[200,200,200,0,0,0,0,0,0,0,0,0],
@@ -71,7 +71,7 @@
 				animationFacingUp:[0,200,0,0,0,0,0,0,0,0,0,0],
 				animationFacingDown:[0,0,0,0,0,0,0,200,0,0,0,0],
 				animationFacingLeft:[0,0,0,0,0,0,0,0,0,0,200,0],
-				animationFacingRight:[0,0,0,0,200,0,0,0,0,0,200,0],
+				animationFacingRight:[0,0,0,0,200,0,0,0,0,0,0,0],
 				
 				//Character standing animations.
 				animationFacingUpWalking:[200,200,200,0,0,0,0,0,0,0,0,0],
@@ -118,7 +118,7 @@
 				animationFacingUp:[0,200,0,0,0,0,0,0,0,0,0,0],
 				animationFacingDown:[0,0,0,0,0,0,0,200,0,0,0,0],
 				animationFacingLeft:[0,0,0,0,0,0,0,0,0,0,200,0],
-				animationFacingRight:[0,0,0,0,200,0,0,0,0,0,200,0],
+				animationFacingRight:[0,0,0,0,200,0,0,0,0,0,0,0],
 				
 				//Character standing animations.
 				animationFacingUpWalking:[200,200,200,0,0,0,0,0,0,0,0,0],

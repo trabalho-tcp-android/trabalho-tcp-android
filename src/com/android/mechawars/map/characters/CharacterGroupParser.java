@@ -11,9 +11,6 @@ import org.json.JSONObject;
 import com.android.mechawars.R;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.map.Animations;
-import com.android.mechawars.map.CharacterGroupManager;
-import com.android.mechawars.map.CharacterNPC;
-import com.android.mechawars.map.CharacterResources;
 
 public class CharacterGroupParser {
 	

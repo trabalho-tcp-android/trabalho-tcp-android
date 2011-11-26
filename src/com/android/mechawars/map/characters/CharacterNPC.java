@@ -1,4 +1,4 @@
-package com.android.mechawars.map;
+package com.android.mechawars.map.characters;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
@@ -7,7 +7,7 @@ import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import android.content.Context;
 
-import com.android.mechawars.map.characters.LoadCharacterSprites;
+import com.android.mechawars.map.Animations;
 
 public class CharacterNPC {
 	

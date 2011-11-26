@@ -1,7 +1,10 @@
-package com.android.mechawars.map;
+package com.android.mechawars.map.characters;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.entity.scene.Scene;
+
+import com.android.mechawars.map.LoadAssets;
+import com.android.mechawars.map.TilePropertyMatrix;
 
 import android.content.Context;
 
@@ -33,6 +36,11 @@ public class Player extends CharacterNPC{
 	//Use this method when you want the map blocked tile features have been treated already.
 	public void movePlayer(int nextColumn,int nextRow){
 		this.characterResources.moveCharacterSprite(movementDuration, nextColumn, nextRow);
+	}
+	
+	//This next method allows the player sprite to change its orientation according to the necessity.
+	public void turnPlayer(int varX, int varY){
+		this.characterResources.turnSprite(varX, varY);
 	}
 
 }

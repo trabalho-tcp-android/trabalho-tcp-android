@@ -1,10 +1,12 @@
-package com.android.mechawars.map;
+package com.android.mechawars.map.characters;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.entity.scene.Scene;
+
+import com.android.mechawars.map.TilePropertyMatrix;
 
 import android.content.Context;
 

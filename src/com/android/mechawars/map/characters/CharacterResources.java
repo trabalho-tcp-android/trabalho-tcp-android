@@ -1,17 +1,17 @@
-package com.android.mechawars.map;
+package com.android.mechawars.map.characters;
 
 import org.anddev.andengine.engine.Engine;
-import org.anddev.andengine.entity.layer.tiled.tmx.TMXTile;
 import org.anddev.andengine.entity.modifier.MoveModifier;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
-import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
-import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
-import com.android.mechawars.map.characters.LoadCharacterSprites;
+
+import com.android.mechawars.map.Animations;
+import com.android.mechawars.map.LoadAssets;
 
 import android.content.Context;
 
 public class CharacterResources {
+
 	//Character texture resources
 	private LoadCharacterSprites characterResourceLoader = new LoadCharacterSprites();	
 	
@@ -43,7 +43,7 @@ public class CharacterResources {
 	private float[] characterCoordinates = {0,0};
 	
 	private String characterInitialAnimation;
-	
+		
 	
 	
 	public CharacterResources(final int posX, final int posY, final float tileWidth,final float tileHeight, final String npcTexturePath,final int spriteSizeX,final int spriteSizeY,Animations animationSet,String initialAnimation, int spriteSheetColumns, int spriteSheetRows){
@@ -201,6 +201,20 @@ public class CharacterResources {
 			updateCharacterPosition(column, row);
 		}
 		
+	}
+	
+	public void turnSprite(int varX, int varY){
+		if(!this.characterSprite.isAnimationRunning()){
+		//Testing the correct orientation to be shown.
+			if(varX < 0)
+				changeCharacterAnimation(LoadAssets.ANIMATE_FACING_LEFT, false);
+			if(varX > 0)
+				changeCharacterAnimation(LoadAssets.ANIMATE_FACING_RIGHT, false);
+			if(varY < 0)
+				changeCharacterAnimation(LoadAssets.ANIMATE_FACING_UP, false);
+			if(varY > 0)
+				changeCharacterAnimation(LoadAssets.ANIMATE_FACING_DOWN, false);
+		}
 	}
 	
 	public String getInitialAnimationLabel(){
