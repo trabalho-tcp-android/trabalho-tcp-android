@@ -15,7 +15,7 @@
                 label: "Novo Jogo",
                 onSelected: [],
                 onUnselected: [
-                    ["changeScene","NewGame"]
+                    ["callActivity","Map"]
                 ]
             },
             {

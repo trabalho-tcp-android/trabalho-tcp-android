@@ -159,8 +159,7 @@ public class MechawarsActivity extends BaseGameActivity {
     			@Override
     			public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
     				//Troca de cena
-                    //SceneManager.loadMain();
-                    SceneManager.loadNewGame();
+                    SceneManager.loadMain();
     			}
     		}, EaseLinear.getInstance());
             

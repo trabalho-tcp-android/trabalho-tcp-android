@@ -80,8 +80,8 @@ public class TilePropertyMatrix {
 		else
 		{
 			System.out.println("Coordinates for requested tile are out of bounds!");
+			return true;
 			
 		}
-		return false;
 	}
 }

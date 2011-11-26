@@ -1,9 +1,14 @@
-package com.android.mechawars.map;
+package com.android.mechawars.map.characters;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.entity.scene.Scene;
+
+import com.android.mechawars.map.TilePropertyMatrix;
+
+import android.content.Context;
 
 public class CharacterGroupManager {
 	
@@ -48,20 +53,40 @@ public class CharacterGroupManager {
 			//Resetting the position on which the character was on the property map
 			characterPositionMatrix.setTileValue(characterToBeKilled.getCharacterColumn(), characterToBeKilled.getCharacterRow(),false);
 		
-			characterToBeKilled.characterSprite.detachSelf();
+			characterToBeKilled.detachCharacterSprite();
 		
 		}
 				
 	}
 	
 	//Adds each and every character in the list to the scene
-	public void addCharactersToScene(Scene gameScene){
-		int listIndex = 0;
+	public void addCharactersToScene(Scene gameScene,Engine gameEngine,Context gameContext){
+		int listIndex;
+		CharacterNPC currentCharacter;
 		
 		for(listIndex = 0; listIndex < listOfCharacters.size(); listIndex++){
 			
-			gameScene.attachChild(listOfCharacters.get(listIndex).characterSprite);
+			currentCharacter = listOfCharacters.get(listIndex);
+			
+			currentCharacter.loadNPCTextures(gameEngine, gameContext);
+			
+			gameScene.attachChild(currentCharacter.getCharacterSprite());
+			
+			currentCharacter.changeAnimation(currentCharacter.getInitialAnimation(), false);
+			
 			System.out.println("Character " + listOfCharacters.get(listIndex).characterName() + " added successfully to the scene.");
+		}
+	}
+	
+	public void animateSprites(){
+		int listIndex;
+		CharacterNPC currentCharacter;
+		
+		for(listIndex = 0; listIndex < listOfCharacters.size(); listIndex++){
+			
+			currentCharacter = listOfCharacters.get(listIndex);
+			
+			currentCharacter.changeAnimation(currentCharacter.getInitialAnimation(), false);
 		}
 	}
 	
@@ -73,10 +98,10 @@ public class CharacterGroupManager {
 	
 	public void removeCharactersFromMap(){
 		
-		int i;//List iterator
+		int listIndex;//List iterator
 		
-		for(i = 0; i < listOfCharacters.size(); i++){
-			listOfCharacters.get(i).characterSprite.detachSelf();
+		for(listIndex = 0; listIndex < listOfCharacters.size(); listIndex++){
+			listOfCharacters.get(listIndex).detachCharacterSprite();
 		}
 		
 		listOfCharacters.clear();
@@ -99,5 +124,6 @@ public class CharacterGroupManager {
 		}
 		return null;
 		
-	}	
+	}
+	
 }

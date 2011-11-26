@@ -1,6 +1,9 @@
 package com.android.mechawars.actionsRunner;
 
+import android.content.Intent;
 import android.widget.Toast;
+import android.os.Bundle;
+
 import com.android.mechawars.MechawarsActivity;
 import com.android.mechawars.SceneManager;
 import org.anddev.andengine.util.Debug;
@@ -49,6 +52,12 @@ public class ActionsList {
     public static boolean quitGame(ArrayList<String> parameters) {
         Debug.i("Called quitGame");
         SceneManager.getBase().finish();
+        return true;
+    }
+    
+    public static boolean callActivity(ArrayList<String> parameters) {
+        Debug.i("Calling "+ parameters.get(0));
+        //Intent activity1 = new Intent("MechaWars"+parameters.get(0)+"Activity");
         return true;
     }
 

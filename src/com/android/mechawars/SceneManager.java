@@ -13,15 +13,29 @@ import org.anddev.andengine.util.HorizontalAlign;
  */
 public class SceneManager {
     protected static MechawarsActivity base;
-
+    
+    protected static MechaWarsMapActivity mapBase;
+    
+    
     public SceneManager(MechawarsActivity base) {
 		SceneManager.base = base;
 	}
+    
+    
 
+    
     public static MechawarsActivity getBase() {
         return base;
     }
 
+    public SceneManager(MechaWarsMapActivity mapBase){
+    	SceneManager.mapBase = mapBase;
+    }
+    
+    public static MechaWarsMapActivity getMapBase() {
+        return mapBase;
+    }
+    
     /**
      * Menu principal
      */
