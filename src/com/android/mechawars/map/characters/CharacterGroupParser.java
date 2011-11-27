@@ -37,7 +37,7 @@ public class CharacterGroupParser {
 	public static CharacterGroupManager parseCharacters(int jsonResource, final int mapColumns, final int mapRows){
 		
         try {
-            InputStream is = SceneManager.getMapBase().getResources().openRawResource(jsonResource);
+            InputStream is = SceneManager.getBase().getResources().openRawResource(jsonResource);
             byte[] buffer = new byte[is.available()];
             while (is.read(buffer) != -1) ;
             String jsontext = new String(buffer);

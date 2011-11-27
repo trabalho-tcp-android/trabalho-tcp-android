@@ -57,8 +57,8 @@ public class GameMapEnvironmentManager {
 	public GameMapEnvironmentManager(Engine gameMapEngine,Scene gameMapScene, BoundCamera gameCamera, Context gameMapContext){
 		
 		initializeMapEnvironment(gameMapEngine, gameMapScene, gameMapContext);
-		setButton(gameMapEngine, gameMapScene, gameMapContext, gameCamera);
 		setController(gameMapEngine, gameMapScene, gameMapContext, gameCamera);
+		gameCamera.setChaseEntity(this.gamePlayer.getCharacterSprite());
 		
 	}
 	
@@ -90,10 +90,8 @@ public class GameMapEnvironmentManager {
 		Boolean canMove = !gameMap.isTheTileBlocked(characterNextColumn,characterNextRow) && !npcGroup.isOccupied(characterNextColumn, characterNextRow);
 		
 		if(canMove){
-				if(!gamePlayer.getCharacterSprite().isAnimationRunning()){
 					gamePlayer.movePlayer(characterNextColumn, characterNextRow);
-					this.gameIntButton.setButtonPosition(gamePlayer.getCharacterSprite().getX(), gamePlayer.getCharacterSprite().getY());
-				}
+					
 		}
 		else{
 			gamePlayer.turnPlayer(getXVariation(),getYVariation());
@@ -108,6 +106,7 @@ public class GameMapEnvironmentManager {
 	public void setController(Engine gameMapEngine, Scene gameMapScene,Context gameMapContext, BoundCamera gameCamera){
 		
 		loadTextures(gameMapEngine,gameMapContext);
+		
 		
 		lockController = false;
 		
@@ -183,7 +182,5 @@ public class GameMapEnvironmentManager {
 		
 	}
 	
-	public void setButton(Engine gameEngine, Scene gameMapScene,Context gameMapContext, BoundCamera gameMapCamera) {
-		gameIntButton = new GameInteractionButton(gameEngine, gameMapScene, gameMapContext, gameMapCamera);
-	}
+
 }

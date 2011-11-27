@@ -26,11 +26,12 @@ public class MechaWarsMapActivity extends BaseGameActivity{
 	private static final int CAMERA_HEIGHT = LoadAssets.CAMERA_HEIGHT;
 
 
-	private BoundCamera mBoundChaseCamera;
+	//private BoundCamera mBoundChaseCamera;
 	
-	private GameMapEnvironmentManager gameMapManager;
+	//private GameMapEnvironmentManager gameMapManager;
 	
-	private Scene gameMapScene;
+	//private Scene gameMapScene;
+
 	
 	private static SceneManager sceneManager;
 
@@ -41,8 +42,11 @@ public class MechaWarsMapActivity extends BaseGameActivity{
 
 	@Override
 	public Engine onLoadEngine() {
-		this.mBoundChaseCamera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-		return new Engine(new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mBoundChaseCamera));
+		sceneManager = new SceneManager(this);
+		
+		GameMapActivityManager.setMapEnvironment(this);
+		//this.mBoundChaseCamera = new BoundCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+		return GameMapActivityManager.getMapEngine();
 	}
 
 	@Override
@@ -53,15 +57,16 @@ public class MechaWarsMapActivity extends BaseGameActivity{
 
 	@Override
 	public Scene onLoadScene() {
-		gameMapScene = new Scene();
+		return GameMapActivityManager.getMapScene();
+		//gameMapScene = new Scene();
 		
-		sceneManager = new SceneManager(this);
+		//sceneManager = new SceneManager(this);
 		
-		gameMapManager = new GameMapEnvironmentManager(this.mEngine,this.gameMapScene,this.mBoundChaseCamera,this);
+		//gameMapManager = new GameMapEnvironmentManager(this.mEngine,this.gameMapScene,this.mBoundChaseCamera,this);
 		
-		this.mBoundChaseCamera.setChaseEntity(this.gameMapManager.getPlayerSprite());
+		//this.mBoundChaseCamera.setChaseEntity(this.gameMapManager.getPlayerSprite());
 		
-		return gameMapScene;
+		//return gameMapScene;
 	}
 	
 

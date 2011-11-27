@@ -3,6 +3,9 @@ package com.android.mechawars;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Intent;
+
+import com.android.mechawars.map.GameMapActivityManager;
+import com.android.mechawars.map.LoadAssets;
 import com.android.mechawars.utils.DbUtils;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
@@ -59,14 +62,21 @@ public class MechawarsActivity extends BaseGameActivity {
     protected Font mFontBoldGray;
     private static SceneManager sceneManager;
     private ModPlayer mModPlayer = ModPlayer.getInstance();
+    public Intent mapActivity;
 
 
     @Override
     public Engine onLoadEngine() {
         Debug.setDebugTag("MechaWars");
         Debug.setDebugLevel(Debug.DebugLevel.WARNING);
+        
+        
+        
         this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-        return new Engine(new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera));
+        
+        this.mEngine = new Engine(new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera));
+        
+        return this.mEngine;
     }
 
     @Override

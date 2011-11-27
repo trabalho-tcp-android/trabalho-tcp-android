@@ -1,8 +1,15 @@
 package com.android.mechawars.map.controller;
 
+import javax.microedition.khronos.opengles.GL10;
+
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.BoundCamera;
 import org.anddev.andengine.engine.camera.hud.HUD;
+import org.anddev.andengine.engine.camera.hud.controls.AnalogOnScreenControl;
+import org.anddev.andengine.engine.camera.hud.controls.AnalogOnScreenControl.IAnalogOnScreenControlListener;
+import org.anddev.andengine.engine.camera.hud.controls.BaseOnScreenControl;
+import org.anddev.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
+import org.anddev.andengine.engine.camera.hud.controls.BaseOnScreenControl.IOnScreenControlListener;
 import org.anddev.andengine.engine.handler.IUpdateHandler;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.sprite.TiledSprite;
@@ -24,9 +31,13 @@ public class GameInteractionButton{
 	private float cameraHeight;
 	private float cameraWidth;
 	
+	private float prevX = 0;
+	private float prevY = 0;
+	
+	AnalogOnScreenControl buttonHolder;
 	BitmapTextureAtlas buttonBitmapAtlas;
-	TiledTextureRegion buttonTextureRegion;
-	TiledSprite buttonSprite;
+	TextureRegion buttonTextureRegion;
+	TextureRegion buttonBlankKnob;
 	Boolean touched = false;
 	
 	public GameInteractionButton(Engine gameEngine, Scene gameMapScene,Context gameMapContext, final BoundCamera gameMapCamera) {
@@ -35,42 +46,41 @@ public class GameInteractionButton{
 		
 		//Forming the Bitmap Texture Atlas.
 		buttonBitmapAtlas = new BitmapTextureAtlas(LoadAssets.buttonWidth,LoadAssets.buttonHeight, TextureOptions.DEFAULT);
-		buttonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(buttonBitmapAtlas,gameMapContext,LoadAssets.buttonPath,0,0,1,1);
-		
+		buttonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(buttonBitmapAtlas,gameMapContext,LoadAssets.buttonPath,0,0);
+		buttonBlankKnob = BitmapTextureAtlasTextureRegionFactory.createFromAsset(buttonBitmapAtlas,gameMapContext,"blank.png",128,0);
 		//Loading the texture from the file
 		gameEngine.getTextureManager().loadTexture(buttonBitmapAtlas);
-
-		buttonSprite = new TiledSprite(gameMapCamera.getWidth() - buttonTextureRegion.getWidth(),gameMapCamera.getHeight() - buttonTextureRegion.getHeight(),buttonTextureRegion)
-		{
-			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				
-				//this.setPosition(gameMapCamera.getCenterX() - (gameMapCamera.),gameMapCamera.getCenterY() - (gameMapCamera.getHeight()/2));
-				if(pSceneTouchEvent.isActionDown()){
-					buttonSprite.setAlpha(1f);
-					touched = true;
-				}
-				if(pSceneTouchEvent.isActionUp()){
-					buttonSprite.setAlpha(0.5f);
-					touched = false;
-				}
-				
-				return touched;
-			}
-		};
 		
-		this.buttonSprite.setAlpha(0.5f);
-		
-		gameMapScene.attachChild(this.buttonSprite);
 		
 		cameraHeight = gameMapCamera.getHeight();
 		
 		cameraWidth = gameMapCamera.getWidth();
 		
-	}
-	
-	public void setButtonPosition(float playerPositionX, float playerPositionY){
+		this.buttonHolder = new AnalogOnScreenControl(cameraWidth - this.buttonTextureRegion.getWidth(),cameraHeight - this.buttonTextureRegion.getHeight(), gameMapCamera, this.buttonTextureRegion, this.buttonBlankKnob, 0.5f, new IAnalogOnScreenControlListener(){
+			
+			@Override
+			public void onControlClick(AnalogOnScreenControl arg0) {
+				System.out.println("LOOOOOOOOOOOOOOOOOL FOI");
+				
+			}
+
+			@Override
+			public void onControlChange(BaseOnScreenControl arg0, float arg1,
+					float arg2) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
-		this.buttonSprite.setPosition(playerPositionX + cameraWidth/2 - this.buttonSprite.getWidth(), playerPositionY + cameraHeight/2 - this.buttonSprite.getHeight());
+		gameMapScene.attachChild(buttonHolder);
+		
+		buttonHolder.getControlBase().setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		
+		buttonHolder.getControlBase().setAlpha(0.5f);
+		buttonHolder.getControlKnob().setAlpha(0.5f);
+		
+		gameMapScene.setChildScene(buttonHolder);
+		
 		
 	}
 	
