@@ -10,20 +10,13 @@ import org.anddev.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
 import org.anddev.andengine.engine.camera.hud.controls.BaseOnScreenControl.IOnScreenControlListener;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
-import org.anddev.andengine.entity.sprite.TiledSprite;
-import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
-import com.android.mechawars.MechaWarsMapActivity;
 import com.android.mechawars.SceneManager;
-import com.android.mechawars.TesteActivity;
-import com.android.mechawars.battle.BattleField;
-import com.android.mechawars.battle.BattleImageContainer;
-import com.android.mechawars.battle.BattleRobot;
+import com.android.mechawars.MechawarsBattleActivity;
 import com.android.mechawars.map.characters.CharacterGroupManager;
 import com.android.mechawars.map.characters.CharacterGroupParser;
 import com.android.mechawars.map.characters.Player;
@@ -116,7 +109,7 @@ public class GameMapEnvironmentManager {
 				//GameMapActivityManager.getMapEngine().setScene(lol.getScene());
 				
 				if(!npcGroup.getCharacter(characterNextColumn, characterNextRow).metAlready()){
-				Intent battlefield = new Intent(SceneManager.getMapBase(), TesteActivity.class);
+				Intent battlefield = new Intent(SceneManager.getMapBase(), MechawarsBattleActivity.class);
 		        
 
 		        SceneManager.getBase().startActivity(battlefield);

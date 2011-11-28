@@ -19,7 +19,7 @@
         <activity android:name=".MechaWarsMapActivity" android:label="@string/map_name">
         </activity>
         
-        <activity android:name=".TesteActivity" android:label="@string/bat_name">
+        <activity android:name=".MechawarsBattleActivity" android:label="@string/bat_name">
         </activity>
 
     </application>

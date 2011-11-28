@@ -18,7 +18,7 @@ import com.android.mechawars.battle.BattleWeapon;
 import android.widget.Toast;
 
 
-public class TesteActivity extends BaseGameActivity {
+public class MechawarsBattleActivity extends BaseGameActivity {
 
         private static final int CAMERA_WIDTH = 720;
         private static final int CAMERA_HEIGHT = 480;
