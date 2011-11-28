@@ -10,6 +10,7 @@ import com.android.mechawars.MechawarsActivity;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.map.GameMapActivityManager;
 
+import com.android.mechawars.utils.MusicManager;
 import org.anddev.andengine.util.Debug;
 
 import java.lang.reflect.InvocationTargetException;
@@ -62,9 +63,9 @@ public class ActionsList {
 
     public static boolean callMapActivity(ArrayList<String> parameters) {
         Debug.i("Trying to call map activity");
+        MusicManager.instance(SceneManager.getBase()).stop();
         SceneManager.getBase().mapActivity = new Intent(SceneManager.getBase(), MechaWarsMapActivity.class);
         SceneManager.getBase().startActivity(SceneManager.getBase().mapActivity);
-        SceneManager.getBase().finish();
         return true;
     }
 
