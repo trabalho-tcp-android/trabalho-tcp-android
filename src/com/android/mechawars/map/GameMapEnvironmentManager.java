@@ -18,6 +18,12 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextur
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
+import com.android.mechawars.MechaWarsMapActivity;
+import com.android.mechawars.SceneManager;
+import com.android.mechawars.TesteActivity;
+import com.android.mechawars.battle.BattleField;
+import com.android.mechawars.battle.BattleImageContainer;
+import com.android.mechawars.battle.BattleRobot;
 import com.android.mechawars.map.characters.CharacterGroupManager;
 import com.android.mechawars.map.characters.CharacterGroupParser;
 import com.android.mechawars.map.characters.Player;
@@ -25,6 +31,7 @@ import com.android.mechawars.map.controller.GameInteractionButton;
 
 
 import android.content.Context;
+import android.content.Intent;
 
 public class GameMapEnvironmentManager {
 	Player gamePlayer;
@@ -98,6 +105,23 @@ public class GameMapEnvironmentManager {
 			//Testing whether the next tile is occupied by another character.
 			if(npcGroup.isOccupied(characterNextColumn, characterNextRow)){
 				System.out.println("Character found! (" + npcGroup.getCharacterAt(characterNextColumn, characterNextRow) + ")");
+				
+				//BattleImageContainer k = new BattleImageContainer(SceneManager.getMapBase());
+				//k.putImageBodyIn("gfx/player.png", 0);
+				//k.putImageBodyIn("gfx/enemy.png", 1);
+				//k.putImageWeaponIn("gfx/onscreen_control_knob", 0);
+				//BattleRobot me = new BattleRobot(100, 100, 0);
+				//BattleRobot him = new BattleRobot(100,100,1);
+				//BattleField lol = new BattleField(k, GameMapActivityManager.getCamera(), me, him);
+				//GameMapActivityManager.getMapEngine().setScene(lol.getScene());
+				
+				if(!npcGroup.getCharacter(characterNextColumn, characterNextRow).metAlready()){
+				Intent battlefield = new Intent(SceneManager.getMapBase(), TesteActivity.class);
+		        
+
+		        SceneManager.getBase().startActivity(battlefield);
+		        npcGroup.getCharacter(characterNextColumn, characterNextRow).setMetAlready();
+				}
 			}
 			
 		}

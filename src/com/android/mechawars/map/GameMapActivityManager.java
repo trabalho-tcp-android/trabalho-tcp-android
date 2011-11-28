@@ -54,4 +54,9 @@ public class GameMapActivityManager {
 		
 		mapEngine.setScene(mapScene);
 	}
+	
+	public static BoundCamera getCamera(){
+		
+		return mapCamera;
+	}
 }

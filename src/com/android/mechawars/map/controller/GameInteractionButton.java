@@ -24,8 +24,12 @@ import android.content.Context;
 
 import com.android.mechawars.map.LoadAssets;
 
+/*
+ * Class used to implement an in-game interaction button.
+ * Was meant to become some sort of action button.
+ * Not used in the final release :(
+*/
 
-//Class used to implement the in-game interaction button.
 public class GameInteractionButton{
 	
 	private float cameraHeight;
@@ -40,6 +44,7 @@ public class GameInteractionButton{
 	TextureRegion buttonBlankKnob;
 	Boolean touched = false;
 	
+
 	public GameInteractionButton(Engine gameEngine, Scene gameMapScene,Context gameMapContext, final BoundCamera gameMapCamera) {
 		
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");

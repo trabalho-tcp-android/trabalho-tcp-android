@@ -15,6 +15,8 @@ public class CharacterNPC {
 	
 	protected CharacterResources characterResources;
 	
+	private Boolean battled = false;
+	
 	//TODO : Handle this case, when we have to load the texture!!!!! (THE TEXTURE AIN'T BEEN INITIALIZED!)
 	public CharacterNPC(final String name, final int posX, final int posY, final float tileWidth,final float tileHeight, final String npcTexturePath,final int spriteSizeX,final int spriteSizeY,Animations animationSet,String initialAnimation, int spriteSheetColumns, int spriteSheetRows){
 		this.characterName = name;
@@ -82,5 +84,13 @@ public class CharacterNPC {
 		
 		return this.characterResources.getInitialAnimationLabel();
 		
+	}
+	
+	public Boolean metAlready(){
+		return battled;
+	}
+	
+	public void setMetAlready(){
+		this.battled = true;
 	}
 }
