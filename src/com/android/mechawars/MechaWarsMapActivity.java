@@ -2,15 +2,10 @@ package com.android.mechawars;
 
 import com.android.mechawars.map.*;
 
+import com.android.mechawars.utils.MusicManager;
 import org.anddev.andengine.engine.Engine;
-import org.anddev.andengine.engine.camera.BoundCamera;
-import org.anddev.andengine.engine.options.EngineOptions;
-import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
-import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
-
-
 
 
 /**
@@ -51,6 +46,7 @@ public class MechaWarsMapActivity extends BaseGameActivity{
 
 	@Override
 	public void onLoadResources() {
+        MusicManager.instance(this).play("ingame.mod");
 		
 
 	}
@@ -68,6 +64,12 @@ public class MechaWarsMapActivity extends BaseGameActivity{
 		
 		//return gameMapScene;
 	}
+
+    @Override
+    protected void onDestroy() {
+        MusicManager.instance(this).stop();
+        super.onDestroy();
+    }
 	
 
 }

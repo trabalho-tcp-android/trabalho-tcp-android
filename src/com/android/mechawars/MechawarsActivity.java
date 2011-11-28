@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.android.mechawars.map.GameMapActivityManager;
 import com.android.mechawars.map.LoadAssets;
 import com.android.mechawars.utils.DbUtils;
+import com.android.mechawars.utils.MusicManager;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.handler.timer.ITimerCallback;
@@ -50,7 +51,6 @@ public class MechawarsActivity extends BaseGameActivity {
 
     private static final int CAMERA_WIDTH = 800;
     private static final int CAMERA_HEIGHT = 480;
-    private static final String MOD_DIRECTORY = "mfx/";
     private static final String MOD_FILENAME = "2nd_pm.s3m";
     private Camera mCamera;
     protected Texture mFontTexture;
@@ -105,17 +105,7 @@ public class MechawarsActivity extends BaseGameActivity {
         this.getEngine().getTextureManager().loadTexture(this.mBitmap);
 
         //Musica da abertura
-        if (FileUtils.isFileExistingOnExternalStorage(this, MOD_DIRECTORY + MOD_FILENAME)) {
-            this.startPlayingMod();
-        } else {
-            FileUtils.ensureDirectoriesExistOnExternalStorage(MechawarsActivity.this, MOD_DIRECTORY);
-            try {
-                FileUtils.copyToExternalStorage(MechawarsActivity.this, MOD_DIRECTORY + MOD_FILENAME, MOD_DIRECTORY + MOD_FILENAME);
-            } catch (IOException musicException) {
-                Log.e("MechaWars", "Music file not found " + musicException.getMessage(), musicException);
-            }
-            this.startPlayingMod();
-        }
+        MusicManager.instance(this).play(MOD_FILENAME);
         sceneManager = new SceneManager(this);
     }
 
@@ -215,8 +205,8 @@ public class MechawarsActivity extends BaseGameActivity {
 
     @Override
     protected void onDestroy() {
+        MusicManager.instance(this).stop();
         super.onDestroy();
-        MechawarsActivity.this.mModPlayer.stop();
     }
 
     public static int getCameraWidth() {
@@ -241,10 +231,6 @@ public class MechawarsActivity extends BaseGameActivity {
 
     public static SceneManager getSceneManager() {
         return sceneManager;
-    }
-
-    private void startPlayingMod() {
-        this.mModPlayer.play(FileUtils.getAbsolutePathOnExternalStorage(this, MOD_DIRECTORY + MOD_FILENAME));
     }
 
 }
