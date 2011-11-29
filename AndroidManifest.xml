@@ -22,5 +22,6 @@
         <activity android:name=".MechawarsBattleActivity" android:label="@string/bat_name">
         </activity>
 
+
     </application>
 </manifest>

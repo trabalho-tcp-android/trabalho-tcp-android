@@ -14,6 +14,8 @@ import com.android.mechawars.map.Animations;
 
 public class CharacterGroupParser {
 	
+	private static final int QNT_WEAPON_FEATURES = 3;
+	
 	private static CharacterGroupParser instance = new CharacterGroupParser();
 	
 	private static CharacterGroupManager charactersOnMapGroup;
@@ -59,7 +61,7 @@ public class CharacterGroupParser {
 		return fallbackGroup;
 	}
 	
-	//Loads the each and every character from the scene (except for the player)
+	//Loads the each and every character for the scene (except for the player).
 	private static CharacterGroupManager buildCharacterGroupManager(JSONArray characters, final int mapColumns, final int mapRows){
 		
 		CharacterGroupManager createdGroupManager = new CharacterGroupManager(mapColumns,mapRows);
@@ -70,11 +72,20 @@ public class CharacterGroupParser {
 			try {
 				JSONObject characterObject = characters.getJSONObject(i);
 				
-				//TODO: Fix the character animations loading part - Hope it's been done!
+				//Loading the characters from the files.
 				CharacterResources newResources = getCharacterResources(characterObject);
 				
 				CharacterNPC newCharacter = new CharacterNPC(characterObject.optString("name","<Unknown>_"+i),
 															 newResources);
+				
+				JSONObject battleRobotConfig = characterObject.getJSONObject("battle");
+				
+				int[][] weapons = initializeWeapons(battleRobotConfig.getJSONArray("weapons"),battleRobotConfig.optInt("numWeapons",0));
+				
+				newCharacter.setBattleRobot(battleRobotConfig.optInt("totalHp",100), battleRobotConfig.optInt("maxWeapons",4),
+						                    battleRobotConfig.optInt("initialImage",0),weapons
+						                    ,battleRobotConfig.optInt("numWeapons",0));
+				
 				
 				createdGroupManager.addCharacterNPC(newCharacter);
 				
@@ -153,6 +164,51 @@ public class CharacterGroupParser {
         //Error moment
 		return null;
 		
+	}
+	
+	public static void getPlayerRobot(Player gamePlayer){
+		
+		
+        try {
+            InputStream is = SceneManager.getBase().getResources().openRawResource(R.raw.mapcharacters);
+            byte[] buffer = new byte[is.available()];
+            while (is.read(buffer) != -1) ;
+            String jsontext = new String(buffer);
+            JSONObject jsonFile = new JSONObject(jsontext);
+            
+            JSONObject player = jsonFile.getJSONObject("player");
+            
+            JSONObject battleRobotConfig = player.getJSONObject("battle");
+			
+			int[][] weapons = initializeWeapons(battleRobotConfig.getJSONArray("weapons"),battleRobotConfig.optInt("numWeapons",0));
+			
+			gamePlayer.setBattleRobot(battleRobotConfig.optInt("totalHp",100), battleRobotConfig.optInt("maxWeapons",4),
+					                    battleRobotConfig.optInt("initialImage",0),weapons
+					                    ,battleRobotConfig.optInt("numWeapons",0));
+            
+            
+        } catch (IOException fe) {
+            Debug.e("Cannot load the player file", fe);
+        } catch (JSONException je) {
+            Debug.e("Malformed JSON: ",je);
+        }
+		
+	}
+	
+	
+	private static int[][] initializeWeapons(JSONArray weaponArray,int qntWeapons) throws JSONException{
+		
+		int[][] weapons = new int[qntWeapons][QNT_WEAPON_FEATURES];
+		
+		int i,j;
+		
+		for(i = 0; i < qntWeapons; i++){
+			for(j = 0; j < QNT_WEAPON_FEATURES; j++){
+				weapons[i][j] = weaponArray.getJSONArray(i).getInt(j);
+			}
+		}
+		
+		return weapons;
 		
 	}
 	
