@@ -84,16 +84,15 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
         this.box = Box.createEntity(0, 0, width, lineHeight * numLines + boxPadding * 2);
         this.letterWidth = new Float(new Text(0, 0, font, "QWER").getWidth() / 4).intValue();
 
-        SceneManager.getBase().getEngine().getScene().attachChild(this.box);
+        //SceneManager.getBase().getEngine().getScene().attachChild(this.box);
         //base.getEngine().getScene().attachChild(this.box);
         this.menuScene = new MenuScene(base.getEngine().getCamera(), this);
+        menuScene.setBackgroundEnabled(false);
+        this.menuScene.attachChild(this.box);
 
         this.createDummyLines(numLines);
 
         menuScene.buildAnimations();
-
-        menuScene.setBackgroundEnabled(false);
-
         this.setPosition(position);
 
     }

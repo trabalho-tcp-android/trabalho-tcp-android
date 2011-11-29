@@ -1,27 +1,41 @@
 {
     testDialog1: {
-        position: 7,
+        position: "bottomCenter",
         label: "NPC-One",
         portrait: "npcOne",
         lines: [
-            ["Lorem ipsum dolor sit amet, consectetur\n adipisicing elit, sed do eiusmod tem"],
-            ["incididunt ut labore et dolore magna aliqua.\n Ut enim ad minim veniam, quis nostrud"]
+            "Lorem ipsum dolor sit amet, consectetur\n adipisicing elit, sed do eiusmod tem",
+            "incididunt ut labore et dolore magna aliqua.\n Ut enim ad minim veniam, quis nostrud"
         ],
         onEnd: [
             ["switchDialog","testDialog2"]
         ]
     },
     testDialog2: {
-        position: 7,
+        position: "bottomCenter",
         label: "_myself",
         portrait: "myself",
         lines: [
-            ["At vero eos et accusamus et iusto\n odio dignissimos ducimus"],
-            ["qui blanditiis praesentium voluptatum\n deleniti atque corrupti quos dolores"]
+            "At vero eos et accusamus et iusto\n odio dignissimos ducimus",
+            "qui blanditiis praesentium voluptatum\n deleniti atque corrupti quos dolores"
         ],
         onEnd: [
             //["callBattle","battle1"],
             //["openMenu","lojinha1"]
         ]
+    },
+    credits: {
+        position: "bottomCenter",
+        label: "God",
+        portrait: "god",
+        lines: [
+            "Esta DEMO foi criada por Rafael Fonte,\n Rodrigo Dlugokenski e Felipe Fogazzi",
+            "Para a cadeira Tecnicas de Construção de Programas"
+        ],
+        onEnd: [
+            //["callBattle","battle1"],
+            //["openMenu","lojinha1"]
+        ]
+
     }
 }

@@ -1,18 +1,21 @@
 package com.android.mechawars.ffBox.ffDialog;
 
+import android.widget.Toast;
 import com.android.mechawars.MechawarsActivity;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.ffBox.Box;
 import org.anddev.andengine.entity.primitive.Rectangle;
+import org.anddev.andengine.entity.scene.CameraScene;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.menu.MenuScene;
 import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
 import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.opengl.font.Font;
+import org.anddev.andengine.util.Debug;
 
 import java.util.ArrayList;
 
-public class Dialog implements MenuScene.IOnMenuItemClickListener{
+public class Dialog implements MenuScene.IOnMenuItemClickListener {
 
     private Font font;
     private int numLines;
@@ -39,7 +42,7 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener{
         this.width = MechawarsActivity.getCameraWidth();
         this.label = label;
 
-        this.height = this.getLineHeight() * numLines;
+        this.height = this.getLineHeight() * numLines + boxPadding * 2;
 
         float centerX = MechawarsActivity.getCenterX() - this.width / 2;
         float centerY = MechawarsActivity.getCenterY() - this.height / 2;
@@ -53,31 +56,31 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener{
                 break;
             default:
                 //Bottom-Center
-                pX = centerX; pY = MechawarsActivity.getCameraHeight() - width;
+                pX = centerX; pY = MechawarsActivity.getCameraHeight() - this.height;
+                //pY = centerY;
                 break;
         }
 
-        this.box = Box.createEntity(pX, pY, width, lineHeight * numLines + boxPadding * 2);
-        SceneManager.getBase().getEngine().getScene().attachChild(this.box);
+        this.box = Box.createEntity(pX, pY, width, height);
         this.letterWidth = new Float(new Text(0, 0, font, "QWER").getWidth() / 4).intValue();
 
-        /*this.dialogScene = new MenuScene(SceneManager.getBase().getEngine().getCamera());
+        this.dialogScene = new MenuScene(SceneManager.getBase().getEngine().getCamera(),this);
+        dialogScene.setBackgroundEnabled(false);
 
-        //this.dialogScene.attachChild(this.box);
-        SceneManager.getBase().getEngine().getScene().attachChild(this.box);
+        this.dialogScene.attachChild(this.box);
+        //SceneManager.getBase().getEngine().getScene().attachChild(this.box);
 
         for(String itemText : itemsText) {
             String text = "["+label+"] "+itemText;
             DialogItem dialogItem = new DialogItem(box.getX()+boxPadding,box.getY()+boxPadding,text, new ArrayList<ArrayList<String>>());
             dialogItems.size();
             dialogItems.add(dialogItem);
-            String x = "";
-        }      */
+        }
 
-        //this.dialogScene.attachChild(dialogItems.get(0));
+        this.dialogScene.attachChild(dialogItems.get(0));
         //SceneManager.getBase().getEngine().getScene().attachChild(dialogItems.get(0));
 
-        //SceneManager.getBase().getEngine().getScene().attachChild(dialogScene);
+
     }
 
     public Dialog(int numLines, int position, ArrayList<String> itemsText, String label) {
@@ -92,12 +95,13 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener{
      * Attach the menu to the scene
      */
     public void attachToScene() {
-        SceneManager.getBase().getEngine().getScene().setChildScene(this.dialogScene, true, true, true);
+        SceneManager.getBase().getEngine().getScene().setChildScene(this.dialogScene, false, true, true);
     }
 
     @Override
     public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
-        //Toast.makeText(base, pMenuItem.getID()+": "+this.getMenuLine(pMenuItem.getID()).getText(), Toast.LENGTH_LONG).show();
+        Toast.makeText(SceneManager.getBase(), pMenuItem.getID() + ": Dialogo clicado", Toast.LENGTH_LONG).show();
+        Debug.w("Dialog Clicked");
         return true;
     }
 }

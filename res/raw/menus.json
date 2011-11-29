@@ -5,13 +5,6 @@
         type: "SimpleMenu",
         items: [
             {
-                label: "Continuar",
-                onSelected: [],
-                onUnselected: [
-                    ["changeScene","ContinueGame",[1,1]]
-                ]
-            },
-            {
                 label: "Novo Jogo",
                 onSelected: [],
                 onUnselected: [
@@ -22,6 +15,12 @@
                 label: "Opções",
                 onUnselected: [
                     ["changeScene","Options"]
+                ]
+            },
+            {
+                label: "Créditos",
+                onUnselected: [
+                    ["changeScene","Credits"]
                 ]
             },
             {
