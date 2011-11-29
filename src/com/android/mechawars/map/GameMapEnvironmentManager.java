@@ -5,6 +5,8 @@ import javax.microedition.khronos.opengles.GL10;
 import org.anddev.andengine.engine.Engine;
 
 import org.anddev.andengine.engine.camera.BoundCamera;
+import org.anddev.andengine.engine.handler.timer.ITimerCallback;
+import org.anddev.andengine.engine.handler.timer.TimerHandler;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
 
@@ -16,6 +18,7 @@ import com.android.mechawars.map.characters.CharacterGroupManager;
 import com.android.mechawars.map.characters.CharacterGroupParser;
 import com.android.mechawars.map.characters.Player;
 import com.android.mechawars.map.controller.GameDigitalController;
+import org.anddev.andengine.engine.handler.timer.TimerHandler;
 
 import android.content.Context;
 import android.content.Intent;
@@ -113,15 +116,25 @@ public class GameMapEnvironmentManager {
 	
 	//This method is called whenever a battle is finished.
 	public void showWon(){
-		if(BattleInterfaceManager.playerWonBattle()){
-			//Toast.makeText(SceneManager.getBase(), "You won the battle! Congratulations!",Toast.LENGTH_SHORT).show();
-			System.out.println("VENCEU A BATALHA!");
-		}
-		else{
-			//Toast.makeText(SceneManager.getBase(), "You lost the battle! So bad... Getting revived!",Toast.LENGTH_SHORT).show();
-			System.out.println("PERDEU A BATALHA! DROGA...");
-			BattleInterfaceManager.getPlayerRobot().recovery();
-		}
+		
+		TimerHandler myTimerHandler = new TimerHandler(2f, true, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+    			
+        		if(BattleInterfaceManager.playerWonBattle()){
+        			DialogManager.instance().fromJSON("youWonMessage").attachToScene();
+        			System.out.println("VENCEU A BATALHA!");
+        		}
+        		else{
+        			DialogManager.instance().fromJSON("youLostMessage").attachToScene();
+        			System.out.println("PERDEU A BATALHA! DROGA...");
+        			BattleInterfaceManager.getPlayerRobot().recovery();
+        		}
+            	
+            }
+		});
+		GameMapActivityManager.getMapScene().registerUpdateHandler(myTimerHandler);
+
 	}
 	
 

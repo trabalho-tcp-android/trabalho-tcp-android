@@ -37,5 +37,33 @@
             //["openMenu","lojinha1"]
         ]
 
-    }
+    },
+    
+    youWonMessage: {
+        position: "bottomCenter",
+        label: "God",
+        portrait: "god",
+        lines: [
+            "Congratulations, you won the battle!"
+        ],
+        onEnd: [
+            //["callBattle","battle1"],
+            //["openMenu","lojinha1"]
+        ]
+
+    },
+    youLostMessage: {
+        position: "bottomCenter",
+        label: "God",
+        portrait: "god",
+        lines: [
+            "You lost the battle.",
+            "Your robot, however, has been recovered."
+        ],
+        onEnd: [
+            //["callBattle","battle1"],
+            //["openMenu","lojinha1"]
+        ]
+
+    }      
 }
