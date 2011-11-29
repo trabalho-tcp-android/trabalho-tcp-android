@@ -16,6 +16,10 @@
 					quantity: "1"
 				}
 			],
+			battle:{
+				totalHp:"100",
+				weapon:"100"
+			}
 			
 			//This next structure holds the character animation set.
 			characterAnimations:{
@@ -60,6 +64,10 @@
 					quantity: "1"				
 				}
 			],
+			battle:{
+				totalHp:"100",
+				weapon:"100"
+			}
 			
 			
 			//This next structure holds the character animation set.
@@ -107,6 +115,10 @@
 					quantity: "1"				
 				}
 			],
+			battle:{
+				totalHp:"100",
+				weapon:"100"
+			}
 			
 			
 			//This next structure holds the character animation set.
