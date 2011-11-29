@@ -5,63 +5,35 @@ import javax.microedition.khronos.opengles.GL10;
 import org.anddev.andengine.engine.Engine;
 
 import org.anddev.andengine.engine.camera.BoundCamera;
-import org.anddev.andengine.engine.camera.hud.controls.BaseOnScreenControl;
-import org.anddev.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
-import org.anddev.andengine.engine.camera.hud.controls.BaseOnScreenControl.IOnScreenControlListener;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
-import org.anddev.andengine.opengl.texture.TextureOptions;
-import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
-import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
-import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 import com.android.mechawars.BattleInterfaceManager;
-import com.android.mechawars.MechaWarsMapActivity;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.MechawarsBattleActivity;
-import com.android.mechawars.ffBox.ffDialog.DialogManager;
 import com.android.mechawars.map.characters.CharacterGroupManager;
 import com.android.mechawars.map.characters.CharacterGroupParser;
 import com.android.mechawars.map.characters.Player;
 import com.android.mechawars.map.controller.GameDigitalController;
-import com.android.mechawars.map.controller.GameInteractionButton;
-
 
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+
+/*
+ * THIS CLASS LOADS THE MAP, ALONG WITH ITS MAIN CHARACTER AND NPCS.
+ */
 public class GameMapEnvironmentManager {
 	Player gamePlayer;
 	
 	MapManager gameMap;
 	
 	CharacterGroupManager npcGroup;
-	//BUTTON
-	//private GameInteractionButton gameIntButton;
-	
-	//CONTROLLER
-	/*
-	private DigitalOnScreenControl digitalController;
-	
-	private BitmapTextureAtlas controllerTexture;
-	
-	private TextureRegion digitalControllerBase;
-	
-	private TextureRegion digitalControllerKnob;
-	
-	private int moveHorizontally;
-	
-	private int moveVertically;
-	
-	private Boolean lockController;
-	
-	private Boolean initializedAnimations = false;*/
-	
-	//end CONTROLLER
 	
 	GameDigitalController digitalController;
 	
+	//Constructor for this class, which initializes the map environment features.
 	public GameMapEnvironmentManager(Engine gameMapEngine,Scene gameMapScene, BoundCamera gameCamera, Context gameMapContext){
 		
 		initializeMapEnvironment(gameMapEngine, gameMapScene, gameMapContext);
@@ -83,6 +55,7 @@ public class GameMapEnvironmentManager {
 		
 	}
 	
+	//This method both loads the NPCs from the files and adds them to the scene.
 	public void initializeNPCGroup(Engine gameEngine,Scene gameMapScene,Context gameMapContext){
 		
 		npcGroup = CharacterGroupParser.parseCharacters(gameMap.getMapColumns(), gameMap.getMapRows());
@@ -92,9 +65,12 @@ public class GameMapEnvironmentManager {
 		
 	}
 	
+	//This method implements the character movement through the map scene.
 	public void moveGamePlayer(){
 		int characterNextColumn = gamePlayer.getCharacterColumn() + digitalController.getXVariation();
 		int characterNextRow = gamePlayer.getCharacterRow() + digitalController.getYVariation();
+		
+		//Testing whether the passage is clear for the character to walk.
 		Boolean canMove = !gameMap.isTheTileBlocked(characterNextColumn,characterNextRow) && !npcGroup.isOccupied(characterNextColumn, characterNextRow);
 		
 		if(canMove){
@@ -107,8 +83,8 @@ public class GameMapEnvironmentManager {
 			if(npcGroup.isOccupied(characterNextColumn, characterNextRow)){
 				System.out.println("Character found! (" + npcGroup.getCharacterAt(characterNextColumn, characterNextRow) + ")");
 				
-
-				//Meeting up, maybe time to battle!
+				
+				//Meeting up, maybe it is time to battle!
 				if(!npcGroup.getCharacter(characterNextColumn, characterNextRow).metAlready()){
 					npcGroup.getCharacter(characterNextColumn, characterNextRow).setMetAlready();
 					BattleInterfaceManager.setPlayerRobot(this.gamePlayer.getRobot());
@@ -134,6 +110,7 @@ public class GameMapEnvironmentManager {
 		
 	}
 	
+	//This method is called whenever a battle is finished.
 	public void showWon(){
 		if(BattleInterfaceManager.playerWonBattle()){
 			//Toast.makeText(SceneManager.getBase(), "You won the battle! Congratulations!",Toast.LENGTH_SHORT).show();

@@ -72,7 +72,7 @@
 				totalHp:"100",
 				maxWeapons:"1",
 				numWeapons:"1",
-				initialImage:"0",
+				initialImage:"1",
 				weapons:[["10","10","0"]]
 			},
 			
@@ -126,7 +126,7 @@
 				totalHp:"100",
 				maxWeapons:"1",
 				numWeapons:"1",
-				initialImage:"0",
+				initialImage:"2",
 				weapons:[["10","10","0"]]
 			},
 			
