@@ -55,7 +55,7 @@ public class MechawarsActivity extends BaseGameActivity {
     private Camera mCamera;
     protected Texture mFontTexture;
     protected static Font mFont;
-    protected Font titleFont;
+    protected static Font titleFont;
     protected Font mFontBold;
     private BitmapTextureAtlas mBitmap;
     private TextureRegion mRobotTextureRegion;
@@ -94,7 +94,7 @@ public class MechawarsActivity extends BaseGameActivity {
         this.getEngine().getTextureManager().loadTexture(mFontMonoTexture);
         this.getEngine().getTextureManager().loadTexture(mTitleFontTexture);
         this.getEngine().getFontManager().loadFont(mFont);
-        this.getEngine().getFontManager().loadFont(this.titleFont);
+        this.getEngine().getFontManager().loadFont(titleFont);
         this.getEngine().getFontManager().loadFont(this.mFontBold);
         this.getEngine().getFontManager().loadFont(this.mFontBoldGray);
 
@@ -208,6 +208,13 @@ public class MechawarsActivity extends BaseGameActivity {
         MusicManager.instance(this).stop();
         super.onDestroy();
     }
+
+    @Override
+    protected void onPause() {
+        MusicManager.instance(this).stop();
+        super.onPause();
+    }
+
 
     public static int getCameraWidth() {
         return CAMERA_WIDTH;

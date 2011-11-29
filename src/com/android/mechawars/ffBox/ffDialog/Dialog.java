@@ -5,12 +5,14 @@ import com.android.mechawars.SceneManager;
 import com.android.mechawars.ffBox.Box;
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.Scene;
+import org.anddev.andengine.entity.scene.menu.MenuScene;
+import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
 import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.opengl.font.Font;
 
 import java.util.ArrayList;
 
-public class Dialog {
+public class Dialog implements MenuScene.IOnMenuItemClickListener{
 
     private Font font;
     private int numLines;
@@ -28,7 +30,7 @@ public class Dialog {
     public static final int TOP_CENTER = 1;
     public static final int CENTER_CENTER = 4;
     public static final int BOTTOM_CENTER = 7;
-    private Scene dialogScene;
+    private MenuScene dialogScene;
     private String label;
 
     public Dialog(int numLines,int position,Font font,ArrayList<String> itemsText, String label) {
@@ -56,7 +58,10 @@ public class Dialog {
         }
 
         this.box = Box.createEntity(pX, pY, width, lineHeight * numLines + boxPadding * 2);
+        SceneManager.getBase().getEngine().getScene().attachChild(this.box);
         this.letterWidth = new Float(new Text(0, 0, font, "QWER").getWidth() / 4).intValue();
+
+        /*this.dialogScene = new MenuScene(SceneManager.getBase().getEngine().getCamera());
 
         //this.dialogScene.attachChild(this.box);
         SceneManager.getBase().getEngine().getScene().attachChild(this.box);
@@ -67,7 +72,7 @@ public class Dialog {
             dialogItems.size();
             dialogItems.add(dialogItem);
             String x = "";
-        }
+        }      */
 
         //this.dialogScene.attachChild(dialogItems.get(0));
         //SceneManager.getBase().getEngine().getScene().attachChild(dialogItems.get(0));
@@ -88,5 +93,11 @@ public class Dialog {
      */
     public void attachToScene() {
         SceneManager.getBase().getEngine().getScene().setChildScene(this.dialogScene, true, true, true);
+    }
+
+    @Override
+    public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
+        //Toast.makeText(base, pMenuItem.getID()+": "+this.getMenuLine(pMenuItem.getID()).getText(), Toast.LENGTH_LONG).show();
+        return true;
     }
 }

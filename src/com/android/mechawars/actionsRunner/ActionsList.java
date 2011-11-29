@@ -64,8 +64,8 @@ public class ActionsList {
     public static boolean callMapActivity(ArrayList<String> parameters) {
         Debug.i("Trying to call map activity");
         MusicManager.instance(SceneManager.getBase()).stop();
-        SceneManager.getBase().mapActivity = new Intent(SceneManager.getBase(), MechaWarsMapActivity.class);
-        SceneManager.getBase().startActivity(SceneManager.getBase().mapActivity);
+        Intent mapActivity = new Intent(SceneManager.getBase(), MechaWarsMapActivity.class);
+        SceneManager.getBase().startActivity(mapActivity);
         return true;
     }
 

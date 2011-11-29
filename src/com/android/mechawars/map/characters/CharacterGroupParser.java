@@ -132,7 +132,7 @@ public class CharacterGroupParser {
 		
 		
         try {
-            InputStream is = SceneManager.getMapBase().getResources().openRawResource(R.raw.mapcharacters);
+            InputStream is = SceneManager.getBase().getResources().openRawResource(R.raw.mapcharacters);
             byte[] buffer = new byte[is.available()];
             while (is.read(buffer) != -1) ;
             String jsontext = new String(buffer);

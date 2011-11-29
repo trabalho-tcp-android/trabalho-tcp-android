@@ -109,7 +109,7 @@ public class GameMapEnvironmentManager {
 				//GameMapActivityManager.getMapEngine().setScene(lol.getScene());
 				
 				if(!npcGroup.getCharacter(characterNextColumn, characterNextRow).metAlready()){
-				Intent battlefield = new Intent(SceneManager.getMapBase(), MechawarsBattleActivity.class);
+				Intent battlefield = new Intent(SceneManager.getBase(), MechawarsBattleActivity.class);
 		        
 
 		        SceneManager.getBase().startActivity(battlefield);

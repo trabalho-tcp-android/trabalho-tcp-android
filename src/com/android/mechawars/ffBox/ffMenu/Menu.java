@@ -10,6 +10,7 @@ import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
 import org.anddev.andengine.entity.scene.menu.item.decorator.ColorMenuItemDecorator;
 import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.opengl.font.Font;
+import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.Debug;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * @author Rodrigo Dlugokenski
  */
 public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
-    private MechawarsActivity base;
+    private BaseGameActivity base;
     private Font font;
     private int numLines;
     protected int width;
@@ -61,7 +62,7 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
      * @param numLines
      * @param base
      */
-    public Menu(float widthPercent, int numLines, int position, MechawarsActivity base) {
+    public Menu(float widthPercent, int numLines, int position, BaseGameActivity base) {
         this(new Float(widthPercent * MechawarsActivity.getCameraWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), position, base);
     }
 
@@ -73,7 +74,7 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
      * @param font     Loaded font to create the texts
      * @param base     Activity base
      */
-    public Menu(int width, int numLines, Font font, int position, MechawarsActivity base) {
+    public Menu(int width, int numLines, Font font, int position, BaseGameActivity base) {
         this.base = base;
         this.font = font;
         this.numLines = numLines;
@@ -83,7 +84,8 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
         this.box = Box.createEntity(0, 0, width, lineHeight * numLines + boxPadding * 2);
         this.letterWidth = new Float(new Text(0, 0, font, "QWER").getWidth() / 4).intValue();
 
-        base.getEngine().getScene().attachChild(this.box);
+        SceneManager.getBase().getEngine().getScene().attachChild(this.box);
+        //base.getEngine().getScene().attachChild(this.box);
         this.menuScene = new MenuScene(base.getEngine().getCamera(), this);
 
         this.createDummyLines(numLines);

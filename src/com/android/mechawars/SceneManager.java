@@ -7,36 +7,23 @@ import com.android.mechawars.inventory.InventoryItem;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.entity.text.Text;
+import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.HorizontalAlign;
 
 /**
  * @author Rodrigo Dlugokenski
  */
 public class SceneManager {
-    protected static MechawarsActivity base;
-    
-    protected static MechaWarsMapActivity mapBase;
-    
-    
-    public SceneManager(MechawarsActivity base) {
+    protected static BaseGameActivity base;
+
+    public SceneManager(BaseGameActivity base) {
 		SceneManager.base = base;
 	}
     
-    
-
-    
-    public static MechawarsActivity getBase() {
+    public static BaseGameActivity getBase() {
         return base;
     }
 
-    public SceneManager(MechaWarsMapActivity mapBase){
-    	SceneManager.mapBase = mapBase;
-    }
-    
-    public static MechaWarsMapActivity getMapBase() {
-        return mapBase;
-    }
-    
     /**
      * Menu principal
      */
@@ -44,7 +31,7 @@ public class SceneManager {
 		final Scene scene = new Scene();
         scene.setBackground(new ColorBackground(0f, 0f, 0f));
 
-        final Text textCenter = new Text(MechawarsActivity.getCenterX(), 10, base.titleFont, "MECHAWARS", HorizontalAlign.LEFT);
+        final Text textCenter = new Text(MechawarsActivity.getCenterX(), 10, MechawarsActivity.titleFont, "MECHAWARS", HorizontalAlign.LEFT);
         textCenter.setPosition(MechawarsActivity.getCenterX()-textCenter.getWidth()/2,10);
         scene.attachChild(textCenter);
 
@@ -69,7 +56,7 @@ public class SceneManager {
         MenuManager.instance().fromJSON("optionsMenu").attachToScene();
     }
 
-    public static void loadNewGame() {
+    public static void loadCredits() {
         final Scene scene = new Scene();
         scene.setBackground(new ColorBackground(0f, 0f, 0f));
         final Text sceneTitle = new Text(MechawarsActivity.getCenterX(),4,MechawarsActivity.mFont,"Teste dialogo 1",HorizontalAlign.CENTER);
@@ -77,7 +64,8 @@ public class SceneManager {
         scene.attachChild(sceneTitle);
 
         base.getEngine().setScene(scene);
+        MenuManager.instance().fromJSON("optionsMenu").attachToScene();
 
-        DialogManager.instance().fromJSON("testDialog1").attachToScene();
+        DialogManager.instance().fromJSON("credits").attachToScene();
     }
 }
