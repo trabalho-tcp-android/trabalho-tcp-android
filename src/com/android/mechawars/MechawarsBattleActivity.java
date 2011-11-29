@@ -41,15 +41,9 @@ public class MechawarsBattleActivity extends BaseGameActivity {
         	this.mEngine.getTextureManager().loadTexture( mBattleImageContainer.putImageBodyIn("battleGfx/robotBody1.png", 1) );
         	this.mEngine.getTextureManager().loadTexture( mBattleImageContainer.putImageBodyIn("battleGfx/robotBody2.png", 2) );
         	
-        	BattleRobot mPlayerRobot = new BattleRobot(100, 2, 0);
-        	BattleWeapon mWeapon = new BattleWeapon(20,10,0);
-        	mPlayerRobot.putWeaponIn(mWeapon, 0);
-        	mWeapon = new BattleWeapon(10,10,1);
-        	mPlayerRobot.putWeaponIn(mWeapon, 1);
-        	
-        	BattleRobot mEnemyRobot = new BattleRobot(100, 2, 1);
-        	mEnemyRobot.putWeaponIn(mWeapon, 0);
-        	mBattleField = new BattleField(mBattleImageContainer, mCamera, mPlayerRobot, mEnemyRobot);
+        	//Loading the battlefield from the static class.
+        	SceneManager.setBattleActivity(this);
+        	mBattleField = new BattleField(mBattleImageContainer, mCamera, BattleInterfaceManager.getPlayerRobot(), BattleInterfaceManager.getEnemyRobot());
         	
         }
 
@@ -64,7 +58,16 @@ public class MechawarsBattleActivity extends BaseGameActivity {
 
         @Override
         public void onLoadComplete() {
-        	//Toast.makeText(this, "Teste", Toast.LENGTH_LONG).show();
+        	
         }
 
 }
+//For debugging.
+/*BattleRobot mPlayerRobot = new BattleRobot(100, 2, 0);
+BattleWeapon mWeapon = new BattleWeapon(20,10,0);
+mPlayerRobot.putWeaponIn(mWeapon, 0);
+mWeapon = new BattleWeapon(10,10,1);
+mPlayerRobot.putWeaponIn(mWeapon, 1);
+
+BattleRobot mEnemyRobot = new BattleRobot(100, 2, 1);
+mEnemyRobot.putWeaponIn(mWeapon, 0);*/

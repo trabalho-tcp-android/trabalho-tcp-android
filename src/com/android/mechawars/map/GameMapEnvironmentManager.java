@@ -23,11 +23,13 @@ import com.android.mechawars.ffBox.ffDialog.DialogManager;
 import com.android.mechawars.map.characters.CharacterGroupManager;
 import com.android.mechawars.map.characters.CharacterGroupParser;
 import com.android.mechawars.map.characters.Player;
+import com.android.mechawars.map.controller.GameDigitalController;
 import com.android.mechawars.map.controller.GameInteractionButton;
 
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 public class GameMapEnvironmentManager {
 	Player gamePlayer;
@@ -36,9 +38,10 @@ public class GameMapEnvironmentManager {
 	
 	CharacterGroupManager npcGroup;
 	//BUTTON
-	private GameInteractionButton gameIntButton;
+	//private GameInteractionButton gameIntButton;
 	
 	//CONTROLLER
+	/*
 	private DigitalOnScreenControl digitalController;
 	
 	private BitmapTextureAtlas controllerTexture;
@@ -53,14 +56,16 @@ public class GameMapEnvironmentManager {
 	
 	private Boolean lockController;
 	
-	private Boolean initializedAnimations = false;
+	private Boolean initializedAnimations = false;*/
 	
-	//end CONTROLLER	
+	//end CONTROLLER
+	
+	GameDigitalController digitalController;
 	
 	public GameMapEnvironmentManager(Engine gameMapEngine,Scene gameMapScene, BoundCamera gameCamera, Context gameMapContext){
 		
 		initializeMapEnvironment(gameMapEngine, gameMapScene, gameMapContext);
-		setController(gameMapEngine, gameMapScene, gameMapContext, gameCamera);
+		digitalController = new GameDigitalController(gameMapEngine, gameMapScene, gameMapContext, gameCamera);
 		gameCamera.setChaseEntity(this.gamePlayer.getCharacterSprite());
 		
 	}
@@ -87,9 +92,9 @@ public class GameMapEnvironmentManager {
 		
 	}
 	
-	private void moveGamePlayer(){
-		int characterNextColumn = gamePlayer.getCharacterColumn() + getXVariation();
-		int characterNextRow = gamePlayer.getCharacterRow() + getYVariation();
+	public void moveGamePlayer(){
+		int characterNextColumn = gamePlayer.getCharacterColumn() + digitalController.getXVariation();
+		int characterNextRow = gamePlayer.getCharacterRow() + digitalController.getYVariation();
 		Boolean canMove = !gameMap.isTheTileBlocked(characterNextColumn,characterNextRow) && !npcGroup.isOccupied(characterNextColumn, characterNextRow);
 		
 		if(canMove){
@@ -97,7 +102,7 @@ public class GameMapEnvironmentManager {
 					
 		}
 		else{
-			gamePlayer.turnPlayer(getXVariation(),getYVariation());
+			gamePlayer.turnPlayer(digitalController.getXVariation(),digitalController.getYVariation());
 			//Testing whether the next tile is occupied by another character.
 			if(npcGroup.isOccupied(characterNextColumn, characterNextRow)){
 				System.out.println("Character found! (" + npcGroup.getCharacterAt(characterNextColumn, characterNextRow) + ")");
@@ -116,73 +121,7 @@ public class GameMapEnvironmentManager {
 		}
 	}
 	
-	public void setController(Engine gameMapEngine, Scene gameMapScene,Context gameMapContext, BoundCamera gameCamera){
-		
-		loadTextures(gameMapEngine,gameMapContext);
-		
-		
-		lockController = false;
-		
-		digitalController = new DigitalOnScreenControl(0, LoadAssets.CAMERA_HEIGHT - this.controllerTexture.getHeight(), gameCamera, this.digitalControllerBase, this.digitalControllerKnob, LoadAssets.controllerRefreshTime, new IOnScreenControlListener() {
-			@Override
-			public void onControlChange(final BaseOnScreenControl pBaseOnScreenControl, final float pValueX, final float pValueY) {
-				if(!lockController){
-					if(!initializedAnimations)
-					{
-						initializeAnimations();
-						initializedAnimations = true;
-					}
-					if(pValueX != 0 || pValueY != 0){
-						moveHorizontally = (int)pValueX;
-						moveVertically = (int)pValueY;
-						moveGamePlayer();
-					}
-				}
-			}
-		});
-		
-		gameMapScene.attachChild(digitalController);
-		
-		digitalController.getControlBase().setBlendFunction(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		
-		digitalController.getControlBase().setAlpha(0.5f);
-		digitalController.getControlKnob().setAlpha(0.5f);
-		
-		gameMapScene.setChildScene(digitalController);
-	}
-	
-	
-	//Loading the textures for the controller.
-	private void loadTextures(Engine gameMapEngine, Context gameMapContext){
-		
-		controllerTexture = new BitmapTextureAtlas(256, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		digitalControllerBase = BitmapTextureAtlasTextureRegionFactory.createFromAsset(controllerTexture, gameMapContext, LoadAssets.controllerBody, 0, 0);
-		digitalControllerKnob = BitmapTextureAtlasTextureRegionFactory.createFromAsset(controllerTexture, gameMapContext, LoadAssets.controllerBodyKnob, 128, 0);
 
-		gameMapEngine.getTextureManager().loadTexture(controllerTexture);
-	}
-	
-	private int getXVariation(){
-		return moveHorizontally;
-	}
-	
-	private int getYVariation(){
-		return moveVertically;
-	}
-	
-	public DigitalOnScreenControl getController(){
-		return digitalController;
-	}
-	
-	public void lockGameController(){
-		lockController = true;
-		moveVertically = 0;
-		moveHorizontally = 0;
-	}
-	
-	public void unlockGameController(){
-		lockController = false;
-	}
 	
 	public AnimatedSprite getPlayerSprite(){
 		return this.gamePlayer.getCharacterSprite();
@@ -193,6 +132,18 @@ public class GameMapEnvironmentManager {
 		gamePlayer.changeAnimation(gamePlayer.getInitialAnimation(), false);
 		npcGroup.animateSprites();
 		
+	}
+	
+	public void showWon(){
+		if(BattleInterfaceManager.playerWonBattle()){
+			//Toast.makeText(SceneManager.getBase(), "You won the battle! Congratulations!",Toast.LENGTH_SHORT).show();
+			System.out.println("VENCEU A BATALHA!");
+		}
+		else{
+			//Toast.makeText(SceneManager.getBase(), "You lost the battle! So bad... Getting revived!",Toast.LENGTH_SHORT).show();
+			System.out.println("PERDEU A BATALHA! DROGA...");
+			BattleInterfaceManager.getPlayerRobot().recovery();
+		}
 	}
 	
 

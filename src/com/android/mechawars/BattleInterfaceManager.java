@@ -1,6 +1,8 @@
 package com.android.mechawars;
 
 import com.android.mechawars.battle.BattleRobot;
+import com.android.mechawars.map.GameMapActivityManager;
+import com.android.mechawars.map.GameMapEnvironmentManager;
 
 public class BattleInterfaceManager {
 	
@@ -40,6 +42,7 @@ public class BattleInterfaceManager {
 	
 	public static void finishBattle(){
 		SceneManager.battleActivity.finish();
+		GameMapActivityManager.getMapEnvironment().showWon();
 	}
 	
 	public static void setBattleCondition(Boolean wasItWon){
