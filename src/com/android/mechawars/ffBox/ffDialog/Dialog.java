@@ -26,6 +26,7 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener {
     protected int letterWidth;
     private int maxChars;
     protected int boxPadding = Box.getLinePadding() * 4;
+    protected int actualDialogItem = 0;
     private final ArrayList<String> itemsText = new ArrayList<String>();
     private final ArrayList<DialogItem> dialogItems = new ArrayList<DialogItem>();
 
@@ -77,8 +78,7 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener {
             dialogItems.add(dialogItem);
         }
 
-        //this.dialogScene.attachChild(dialogItems.get(0));
-        this.dialogScene.addMenuItem(dialogItems.get(0));
+        this.dialogScene.addMenuItem(dialogItems.get(actualDialogItem++));
     }
 
     public Dialog(int numLines, int position, ArrayList<String> itemsText, String label) {
@@ -98,8 +98,16 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener {
 
     @Override
     public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX, float pMenuItemLocalY) {
-        Toast.makeText(SceneManager.getBase(), pMenuItem.getID() + ": Dialogo clicado", Toast.LENGTH_LONG).show();
-        Debug.w("Dialog Clicked");
+        pMenuItem.detachSelf();
+        if(actualDialogItem < dialogItems.size())
+            this.dialogScene.addMenuItem(dialogItems.get(actualDialogItem++));
+        else {
+           /* SceneManager.getBase().getEngine().getScene().clearChildScene();
+            this.dialogScene.reset();*/
+            this.dialogScene.back();
+
+        }
+
         return true;
     }
 }

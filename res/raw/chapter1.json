@@ -30,7 +30,7 @@
         portrait: "god",
         lines: [
             "Esta DEMO foi criada por Rafael Fonte,\n Rodrigo Dlugokenski e Felipe Fogazzi",
-            "Para a cadeira Tecnicas de Construção de Programas"
+            "Para a cadeira Tecnicas de Construção \nde Programas"
         ],
         onEnd: [
             //["callBattle","battle1"],
