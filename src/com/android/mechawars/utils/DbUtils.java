@@ -1,5 +1,7 @@
 package com.android.mechawars.utils;
-
+/**
+ * @author Rodrigo Dlugokenski
+ */
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import com.android.mechawars.SceneManager;

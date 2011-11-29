@@ -7,7 +7,9 @@ import org.anddev.andengine.opengl.font.Font;
 import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
-
+/**
+ * @author Rodrigo Dlugokenski
+ */
 public class FontManager {
     protected static Texture mFontTexture = new BitmapTextureAtlas(1024, 1024, TextureOptions.BILINEAR);;
     static Texture mTitleFontTexture = new BitmapTextureAtlas(512, 512, TextureOptions.BILINEAR);

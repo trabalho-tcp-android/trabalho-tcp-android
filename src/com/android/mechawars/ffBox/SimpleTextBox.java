@@ -1,7 +1,9 @@
 package com.android.mechawars.ffBox;
 
 import org.anddev.andengine.entity.scene.Scene;
-
+/**
+ * @author Rodrigo Dlugokenski
+ */
 public class SimpleTextBox extends TextBox {
     public SimpleTextBox(float widthPercent, int numLines, Scene scene) {
         super(widthPercent, numLines,scene,true);

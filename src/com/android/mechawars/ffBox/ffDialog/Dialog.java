@@ -18,6 +18,9 @@ import org.anddev.andengine.util.Debug;
 
 import java.util.ArrayList;
 
+/**
+ * @author Rodrigo Dlugokenski
+ */
 public class Dialog implements MenuScene.IOnMenuItemClickListener {
 
     private Font font;

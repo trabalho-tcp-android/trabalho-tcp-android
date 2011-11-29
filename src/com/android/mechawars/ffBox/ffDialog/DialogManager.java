@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * @author Rodrigo Dlugokenski
+ */
 public class DialogManager {
     private static DialogManager instance = new DialogManager();
 

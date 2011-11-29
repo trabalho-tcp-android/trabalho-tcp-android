@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * Box - Cria uma textura em forma de 'caixa' para textos e outros (Interface com o usuario)
+ * @author Rodrigo Dlugokenski
  */
 public class Box {
 

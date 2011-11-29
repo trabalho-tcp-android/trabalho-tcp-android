@@ -1,5 +1,7 @@
 package com.android.mechawars.utils;
-
+/**
+ * @author Rodrigo Dlugokenski
+ */
 import android.util.Log;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.FileUtils;

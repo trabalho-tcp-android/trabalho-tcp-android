@@ -10,7 +10,9 @@ import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.opengl.font.Font;
-
+/**
+ * @author Rodrigo Dlugokenski
+ */
 public class TextBox {
     //Constants
     public static final int TOP_LEFT = 0;

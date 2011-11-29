@@ -10,7 +10,9 @@ import org.anddev.andengine.opengl.font.Font;
 import org.anddev.andengine.util.HorizontalAlign;
 
 import java.util.ArrayList;
-
+/**
+ * @author Rodrigo Dlugokenski
+ */
 public class DialogItem extends TickerText implements IMenuItem {
 
     private ArrayList<ArrayList<String>> onEndActions = new ArrayList<ArrayList<String>>();
