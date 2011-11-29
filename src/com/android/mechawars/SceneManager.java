@@ -15,6 +15,8 @@ import org.anddev.andengine.util.HorizontalAlign;
  */
 public class SceneManager {
     protected static BaseGameActivity base;
+    
+    protected static BaseGameActivity battleActivity;
 
     public SceneManager(BaseGameActivity base) {
 		SceneManager.base = base;
@@ -22,6 +24,14 @@ public class SceneManager {
     
     public static BaseGameActivity getBase() {
         return base;
+    }
+    
+    public static void setBattleActivity(BaseGameActivity inBattleActivity){
+    	SceneManager.battleActivity = inBattleActivity;
+    }
+    
+    public static BaseGameActivity getBattleBase(){
+    	return battleActivity;
     }
 
     /**

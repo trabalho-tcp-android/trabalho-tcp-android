@@ -10,6 +10,9 @@ public class BattleInterfaceManager {
 	
 	private static BattleRobot enemyRobot;
 	
+	private static Boolean wonBattle = false;
+	
+	
 	public static BattleInterfaceManager instance(){
 		return instance;
 	}
@@ -17,15 +20,31 @@ public class BattleInterfaceManager {
 	private BattleInterfaceManager(){
 	}
 	
-	public  void setBattleRobots(){
-		
+	public static  void setPlayerRobot(BattleRobot newPlayerRobot){
+		playerRobot = newPlayerRobot;
 	}
 	
-	public BattleRobot getPlayerRobot(){
+	public static  void setEnemyRobot(BattleRobot newEnemyRobot){
+		enemyRobot = newEnemyRobot;
+	}
+	
+	public static BattleRobot getPlayerRobot(){
 		return playerRobot;
 	}
 	
-	public BattleRobot getEnemyRobot(){
+	public static BattleRobot getEnemyRobot(){
 		return enemyRobot;
+	}
+	
+	public static void finishBattle(){
+		SceneManager.battleActivity.finish();
+	}
+	
+	public static void setBattleCondition(Boolean wasItWon){
+		wonBattle = wasItWon;
+	}
+	
+	public static Boolean playerWonBattle(){
+		return wonBattle;
 	}
 }
