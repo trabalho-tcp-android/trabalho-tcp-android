@@ -15,6 +15,8 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
+import com.android.mechawars.BattleInterfaceManager;
+import com.android.mechawars.MechaWarsMapActivity;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.MechawarsBattleActivity;
 import com.android.mechawars.ffBox.ffDialog.DialogManager;
@@ -100,15 +102,15 @@ public class GameMapEnvironmentManager {
 			if(npcGroup.isOccupied(characterNextColumn, characterNextRow)){
 				System.out.println("Character found! (" + npcGroup.getCharacterAt(characterNextColumn, characterNextRow) + ")");
 				
-				//Initializing the battle.
-//				if(!npcGroup.getCharacter(characterNextColumn, characterNextRow).metAlready()){
-//					Intent battlefield = new Intent(SceneManager.getBase(), MechawarsBattleActivity.class);
-//			        SceneManager.getBase().startActivity(battlefield);
-//			        npcGroup.getCharacter(characterNextColumn, characterNextRow).setMetAlready();
-//				}
-				if(!npcGroup.getCharacter(characterNextColumn, characterNextRow).metAlready())
-					DialogManager.instance().fromJSON("testDialog1").attachToScene();
-				
+
+				//Meeting up, maybe time to battle!
+				if(!npcGroup.getCharacter(characterNextColumn, characterNextRow).metAlready()){
+					npcGroup.getCharacter(characterNextColumn, characterNextRow).setMetAlready();
+					BattleInterfaceManager.setPlayerRobot(this.gamePlayer.getRobot());
+					BattleInterfaceManager.setEnemyRobot(npcGroup.getCharacter(characterNextColumn, characterNextRow).getRobot());
+					Intent battleActivity = new Intent(SceneManager.getBase(), MechawarsBattleActivity.class);
+			        SceneManager.getBase().startActivity(battleActivity);
+				}
 			}
 			
 		}

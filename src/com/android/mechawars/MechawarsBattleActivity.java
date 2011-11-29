@@ -6,17 +6,15 @@ import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
-import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
+
+import android.widget.Toast;
 
 import com.android.mechawars.battle.BattleField;
 import com.android.mechawars.battle.BattleImageContainer;
 import com.android.mechawars.battle.BattleRobot;
 import com.android.mechawars.battle.BattleWeapon;
-
-import android.widget.Toast;
-
 
 public class MechawarsBattleActivity extends BaseGameActivity {
 
@@ -44,9 +42,9 @@ public class MechawarsBattleActivity extends BaseGameActivity {
         	this.mEngine.getTextureManager().loadTexture( mBattleImageContainer.putImageBodyIn("battleGfx/robotBody2.png", 2) );
         	
         	BattleRobot mPlayerRobot = new BattleRobot(100, 2, 0);
-        	BattleWeapon mWeapon = new BattleWeapon(10,10,0);
+        	BattleWeapon mWeapon = new BattleWeapon(20,10,0);
         	mPlayerRobot.putWeaponIn(mWeapon, 0);
-        	mWeapon = new BattleWeapon(10,10,0);
+        	mWeapon = new BattleWeapon(10,10,1);
         	mPlayerRobot.putWeaponIn(mWeapon, 1);
         	
         	BattleRobot mEnemyRobot = new BattleRobot(100, 2, 1);

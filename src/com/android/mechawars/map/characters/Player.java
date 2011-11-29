@@ -10,12 +10,14 @@ import android.content.Context;
 
 public class Player extends CharacterNPC{
 	
-	//Keeps the character movement necessary
+	//Keeps the character movement necessary.
 	final float movementDuration = LoadAssets.movementTiming;
 
 	public Player(Engine gameMapEngine,Context gameMapContext, String name, CharacterResources resourcesToBeLoaded) {
 		super(name, resourcesToBeLoaded);
 		this.loadNPCTextures(gameMapEngine, gameMapContext);
+		//Setting up the player's robot.
+		CharacterGroupParser.getPlayerRobot(this);
 	}
 	
 	public void attachPlayerToScene(Scene gameMapScene){

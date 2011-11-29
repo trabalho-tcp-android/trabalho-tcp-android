@@ -18,8 +18,13 @@
 			],
 			battle:{
 				totalHp:"100",
-				weapon:"100"
-			}
+				maxWeapons:"3",
+				numWeapons:"3",
+				initialImage:"0",
+				weapons:[["100","100","0"],
+						  ["100","100","1"],
+						  ["100","100","2"]]
+			},
 			
 			//This next structure holds the character animation set.
 			characterAnimations:{
@@ -66,8 +71,13 @@
 			],
 			battle:{
 				totalHp:"100",
-				weapon:"100"
-			}
+				maxWeapons:"3",
+				numWeapons:"3",
+				initialImage:"0",
+				weapons:[["100","100","0"],
+						  ["100","100","1"],
+						  ["100","100","2"]]
+			},
 			
 			
 			//This next structure holds the character animation set.
@@ -117,8 +127,13 @@
 			],
 			battle:{
 				totalHp:"100",
-				weapon:"100"
-			}
+				maxWeapons:"3",
+				numWeapons:"3",
+				initialImage:"0",
+				weapons:[["100","100","0"],
+						  ["100","100","1"],
+						  ["100","100","2"]]
+			},
 			
 			
 			//This next structure holds the character animation set.

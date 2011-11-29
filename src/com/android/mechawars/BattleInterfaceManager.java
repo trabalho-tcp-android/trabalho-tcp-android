@@ -10,6 +10,8 @@ public class BattleInterfaceManager {
 	
 	private static BattleRobot enemyRobot;
 	
+	
+	
 	private static Boolean wonBattle = false;
 	
 	
