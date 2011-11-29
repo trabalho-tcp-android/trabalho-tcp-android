@@ -45,11 +45,11 @@ public class CharacterResources {
 	private String characterInitialAnimation;
 		
 	
-	
+	//Initializes the informations regarding the character to be exhibited on the map.
 	public CharacterResources(final int posX, final int posY, final float tileWidth,final float tileHeight, final String npcTexturePath,final int spriteSizeX,final int spriteSizeY,Animations animationSet,String initialAnimation, int spriteSheetColumns, int spriteSheetRows){
 		
 		characterCoordinates[0] = ((float)posX)*tileWidth + offsetX;
-		characterCoordinates[1] = ((float)posY)*tileWidth - offsetY;
+		characterCoordinates[1] = ((float)posY)*tileHeight - offsetY;
 		
 		characterPosition[0] = posX;
 		characterPosition[1] = posY;
@@ -83,10 +83,14 @@ public class CharacterResources {
 
 	
 	//These methods are concerned about the character position in the TMX Map	
-	public void updateCharacterPosition(final int column,final int row){
+	private void updateCharacterPosition(final int column,final int row){
 		
 		characterPosition[0] = column;
 		characterPosition[1] = row;
+		
+		characterCoordinates[0] = ((float)column)*mapTileWidth + offsetX;
+		characterCoordinates[1] = ((float)row)*mapTileHeight - offsetY;
+				
 	}
 	
 	public int getColumn(){
@@ -127,8 +131,6 @@ public class CharacterResources {
 	//Initializes the Sprite	
 	public void initializeSprite(String initialAnimation){
 		characterSprite = new AnimatedSprite(characterCoordinates[0],characterCoordinates[1],characterResourceLoader.getTextureRegion());
-		//TODO: kill the next line of code.
-		System.out.println("Called Animation: " + initialAnimation);
 		characterSprite.animate(characterAnimationSet.getAnimation(initialAnimation),false);
 	}
 	

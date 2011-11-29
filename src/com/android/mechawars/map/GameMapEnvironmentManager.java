@@ -17,6 +17,7 @@ import org.anddev.andengine.opengl.texture.region.TextureRegion;
 
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.MechawarsBattleActivity;
+import com.android.mechawars.ffBox.ffDialog.DialogManager;
 import com.android.mechawars.map.characters.CharacterGroupManager;
 import com.android.mechawars.map.characters.CharacterGroupParser;
 import com.android.mechawars.map.characters.Player;
@@ -99,22 +100,15 @@ public class GameMapEnvironmentManager {
 			if(npcGroup.isOccupied(characterNextColumn, characterNextRow)){
 				System.out.println("Character found! (" + npcGroup.getCharacterAt(characterNextColumn, characterNextRow) + ")");
 				
-				//BattleImageContainer k = new BattleImageContainer(SceneManager.getMapBase());
-				//k.putImageBodyIn("gfx/player.png", 0);
-				//k.putImageBodyIn("gfx/enemy.png", 1);
-				//k.putImageWeaponIn("gfx/onscreen_control_knob", 0);
-				//BattleRobot me = new BattleRobot(100, 100, 0);
-				//BattleRobot him = new BattleRobot(100,100,1);
-				//BattleField lol = new BattleField(k, GameMapActivityManager.getCamera(), me, him);
-				//GameMapActivityManager.getMapEngine().setScene(lol.getScene());
+				//Initializing the battle.
+//				if(!npcGroup.getCharacter(characterNextColumn, characterNextRow).metAlready()){
+//					Intent battlefield = new Intent(SceneManager.getBase(), MechawarsBattleActivity.class);
+//			        SceneManager.getBase().startActivity(battlefield);
+//			        npcGroup.getCharacter(characterNextColumn, characterNextRow).setMetAlready();
+//				}
+				if(!npcGroup.getCharacter(characterNextColumn, characterNextRow).metAlready())
+					DialogManager.instance().fromJSON("testDialog1").attachToScene();
 				
-				if(!npcGroup.getCharacter(characterNextColumn, characterNextRow).metAlready()){
-				Intent battlefield = new Intent(SceneManager.getBase(), MechawarsBattleActivity.class);
-		        
-
-		        SceneManager.getBase().startActivity(battlefield);
-		        npcGroup.getCharacter(characterNextColumn, characterNextRow).setMetAlready();
-				}
 			}
 			
 		}

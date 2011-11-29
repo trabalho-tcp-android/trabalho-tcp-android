@@ -60,7 +60,7 @@ public class DialogManager {
             Debug.e("Malformed JSON: "+jsonNode,je);
         }
 
-        //Fallback para imprimir um menu genÃ©rico na tela (e o cabra buscar no log a causa)
+        //Fallback para gerar um dialog genérico.
         ArrayList<String> fallbackText = new ArrayList<String>();
         fallbackText.add("Dialog Exception on "+jsonNode);
         return new Dialog(1,7,fallbackText,"NoName");
