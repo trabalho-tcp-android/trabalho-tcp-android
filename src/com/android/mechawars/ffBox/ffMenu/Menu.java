@@ -4,6 +4,7 @@ import android.util.Log;
 import com.android.mechawars.MechawarsActivity;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.ffBox.Box;
+import com.android.mechawars.ffBox.ffFont.FontManager;
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.menu.MenuScene;
 import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
@@ -52,7 +53,7 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
      * @param numLines     Number of menu lines
      */
     public Menu(float widthPercent, int numLines, int position) {
-        this(new Float(widthPercent * SceneManager.getBase().getEngine().getCamera().getWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), position, SceneManager.getBase());
+        this(new Float(widthPercent * SceneManager.getBase().getEngine().getCamera().getWidth()).intValue(), numLines, FontManager.instance().getFont(), position, SceneManager.getBase());
     }
 
     /**
@@ -63,7 +64,7 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
      * @param base
      */
     public Menu(float widthPercent, int numLines, int position, BaseGameActivity base) {
-        this(new Float(widthPercent * SceneManager.getBase().getEngine().getCamera().getWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), position, base);
+        this(new Float(widthPercent * SceneManager.getBase().getEngine().getCamera().getWidth()).intValue(), numLines, FontManager.instance().getFont(), position, base);
     }
 
     /**

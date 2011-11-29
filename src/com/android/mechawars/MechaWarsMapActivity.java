@@ -19,7 +19,8 @@ public class MechaWarsMapActivity extends BaseGameActivity{
 
 	@Override
 	public void onLoadComplete() {
-		DialogManager.instance().fromJSON("credits").attachToScene();
+
+	
 	}
 
 	@Override

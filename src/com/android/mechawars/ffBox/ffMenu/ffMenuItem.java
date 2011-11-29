@@ -5,6 +5,7 @@ import android.widget.Toast;
 import com.android.mechawars.MechawarsActivity;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.actionsRunner.ActionsManager;
+import com.android.mechawars.ffBox.ffFont.FontManager;
 import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
 import org.anddev.andengine.entity.text.ChangeableText;
 import org.anddev.andengine.opengl.font.Font;
@@ -47,7 +48,7 @@ public class ffMenuItem extends ChangeableText implements IMenuItem {
     
     public static ffMenuItem itemFromJSON(int pID, JSONObject itemJSON) {
         String label = itemJSON.optString("label","labelError");
-        ffMenuItem menuItem = new ffMenuItem(pID,MechawarsActivity.getBasicFont(),label);
+        ffMenuItem menuItem = new ffMenuItem(pID, FontManager.instance().getFont(),label);
         menuItem.setActionsFromJSON(itemJSON);
         return menuItem;
     }
