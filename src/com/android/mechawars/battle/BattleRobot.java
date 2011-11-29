@@ -1,20 +1,27 @@
 package com.android.mechawars.battle;
 
-
+/*
+ * Classe responsável pelas informações sobre os robôs
+ * */
 import com.android.mechawars.battle.BattleWeapon;
 
 public class BattleRobot {
-	public static final int MAX_NUMBER_WEAPON = 4;
+	public static final int MAX_NUMBER_WEAPON = 4; //número máximo de armas que QUALQUER robô pode carregar
 	
-	private int maxHp;
-	private int currentHp;
-	private boolean live;
+	private int maxHp;    //HP máximo
+	private int currentHp;//HP atual
+	private boolean live; //se esta vivo
 	
-	private int numberWeapon;
-	private BattleWeapon[] weapons;
+	private int numberWeapon;      //número máximo de armas que ESTE robô pode carregar
+	private BattleWeapon[] weapons;//array das armas
 	
 	private int imageNumber;
-
+	/*
+	 * Contrutor:
+	 * int initialMaxHp: HP máximo
+	 * int initialMaxWeapon: número de armas que o robô pode carregar
+	 * int initialImageNumber: número da imagem do corpo do robô
+	 * */
 	public BattleRobot(int initialMaxHp, int initialMaxWeapon, int initialImageNumber) {
 		maxHp = initialMaxHp;
 		currentHp = maxHp;
@@ -29,16 +36,19 @@ public class BattleRobot {
 		imageNumber = initialImageNumber;
 	}
 	
+	//retorna o HP atual
 	public int getHp() {
 		return currentHp;
 	}
 	
+	//coloca uma arma em um determinado slot
 	public void putWeaponIn(BattleWeapon newWeapon, int slot) {
 		if(slot < numberWeapon && slot >= 0) {
 			weapons[slot] = newWeapon;
 		}
 	}
 	
+	//retorna uma arma de um determinado slot
 	public BattleWeapon getWeaponIn(int slot) {
 		if(slot < numberWeapon && slot >= 0) {
 			return weapons[slot];
@@ -48,16 +58,19 @@ public class BattleRobot {
 		}
 	}
 	
+	//remove uma arma de um determinado slot
 	public void removeWeaponIn(int slot) {
 		if(slot < numberWeapon && slot >= 0) {
 			weapons[slot] = null;
 		}	
 	}
 	
+	//recupera o HP
 	public void recovery() {
 		currentHp = maxHp;
 	}
 	
+	//toma um determinado dano
 	public void takeDamage(int damage) {
 		if(damage < currentHp) {
 			currentHp -=  damage;
@@ -68,10 +81,12 @@ public class BattleRobot {
 		}
 	}
 	
+	//retorna se esta vivo
 	public boolean isLive(){
 		return live;
 	}
 	
+	//número da imagem do corpo do robô
 	public int getImageNumber() {
 		return imageNumber;
 	}

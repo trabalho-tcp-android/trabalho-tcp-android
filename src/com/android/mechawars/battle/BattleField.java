@@ -1,5 +1,8 @@
 package com.android.mechawars.battle;
 
+/*
+ * Classe responsável pelos gráficos e comandos da batalha
+ * */
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.handler.timer.ITimerCallback;
 import org.anddev.andengine.engine.handler.timer.TimerHandler;
@@ -17,29 +20,36 @@ import com.android.mechawars.battle.BattleWeapon;
 
 public class BattleField {
 	
-	private static final int PLAYER_TURN = 0;
-	private static final int ENEMY_TURN = 1;
-	private static final int END_TURN = 2;
-	private int currentTurn;
+	private static final int PLAYER_TURN = 0; //constante do turno do jogador
+	private static final int ENEMY_TURN = 1;  //constante do turno do inimigo
+	private static final int END_TURN = 2;    //constante do turno do fim da luta
+	private int currentTurn;                  //turno atual
 	
-	private BattleImageContainer myContainer;
-	private Camera myCamera;
+	private BattleImageContainer myContainer; //container com as imagens 
+	private Camera myCamera;                  //camera do jogo
 	
-	private BattleRobot playerRobot;
-	private BattleRobot enemyRobot;
+	private BattleRobot playerRobot; //robô do jogador
+	private BattleRobot enemyRobot;  //robô do inimigo
 	
-	private Scene myScene;
-	private TimerHandler myTimerHandler;
-	private Sprite playerRobotBody;
-	private Sprite[] playerRobotWeapons;
-	private Sprite enemyRobotBody;
-	private Sprite[] enemyRobotWeapons;
-	private Sprite[] buttons;
-	private Rectangle playerRobotHpBar;
-	private Rectangle enemyRobotHpBar;
+	private Scene myScene;               //cena com o objetos da luta
+	private TimerHandler myTimerHandler; //um timer
+	private Sprite playerRobotBody;      //sprite do corpo do robô do jogador
+	private Sprite[] playerRobotWeapons; //sprites das armas do robô do jogador
+	private Sprite enemyRobotBody;       //sprite do corpo do robô do inimigo
+	private Sprite[] enemyRobotWeapons;  //sprites das armas do robô do inimigo
+	private Sprite[] buttons;            //sprites dos botões
+	private Rectangle playerRobotHpBar;  //barra de HP do robô do jogador
+	private Rectangle enemyRobotHpBar;   //barra de HP do robô do inimigo
 	
-	private boolean buttonBugFix;
+	private boolean buttonBugFix; //corretor de um erro nos botões
 	
+	/*
+	 * Contrutor:
+	 * BattleImageContainer initContainer: container com as imagens
+	 * Camera initCamera: camera do jogo
+	 * BattleRobot initPlayerRobot: robô do jogador
+	 * BattleRobot initEnemyRobot: robô do inimigo
+	 * */
 	public BattleField (BattleImageContainer initContainer, Camera initCamera, BattleRobot initPlayerRobot, BattleRobot initEnemyRobot) {
 		currentTurn = PLAYER_TURN;
 		
@@ -60,10 +70,12 @@ public class BattleField {
 		makeSceneTimer();
 	}
 	
+	//retorna uma cena com todos os objetos da batalha
 	public Scene getScene() {
 		return myScene;
 	}
-			
+	
+	//desenha o jogador e as suas armas
 	private void makeScenePlayer() {
 		playerRobotBody = new Sprite(0, myCamera.getHeight() - BattleImageContainer.BODY_HEIGHT - BattleImageContainer.WEAPON_HEIGHT, myContainer.getImageBodyIn(playerRobot.getImageNumber()));
 		
@@ -84,6 +96,7 @@ public class BattleField {
 		}
 	}
 	
+	//desenha o inimigo e as suas armas
 	private void makeSceneEnemy() {
 		enemyRobotBody = new Sprite(myCamera.getWidth() - BattleImageContainer.BODY_WIDTH, 0, myContainer.getImageBodyIn(enemyRobot.getImageNumber()));
 		
@@ -105,6 +118,7 @@ public class BattleField {
 		}
 	}
 	
+	//desenha ambas as barras de HP
 	private void makeSceneLiveBar() {
 		playerRobotHpBar = new Rectangle(BattleImageContainer.BODY_WIDTH, myCamera.getHeight() - BattleImageContainer.BODY_HEIGHT - BattleImageContainer.WEAPON_HEIGHT + BattleImageContainer.WEAPON_HEIGHT , playerRobot.getHp(), 10);
 		playerRobotHpBar.setColor(0f, 1f, 0f);
@@ -115,6 +129,8 @@ public class BattleField {
 		myScene.attachChild(enemyRobotHpBar);
 	}
 	
+	//desenha e configura os botões para o jogador escolher qual arma usar
+	//por questões de configuração da engine cada botão tem que ser configurado manualmente sem o uso de loops
 	private void makeSceneButtons () {
 		buttons = new Sprite[BattleRobot.MAX_NUMBER_WEAPON];
 		
@@ -187,7 +203,8 @@ public class BattleField {
 		}
 		myScene.setTouchAreaBindingEnabled(true);	
 	}
-		
+	
+	//configura o timer	
 	private void makeSceneTimer() {
 		myTimerHandler = new TimerHandler(3f, true, new ITimerCallback() {
             @Override
@@ -209,6 +226,7 @@ public class BattleField {
 		myScene.registerUpdateHandler(myTimerHandler);
 	}
 	
+	//apaga a imagem do robô do jogador se seu HP é zero
 	private void upDatePlayer() {
 		if(playerRobot.getHp() == 0) {
 			myScene.detachChild(playerRobotBody);
@@ -219,6 +237,7 @@ public class BattleField {
 		}
 	}
 	
+	//apaga a imagem do robô do inimigo se seu HP é zero
 	private void upDateEnemy() {
 		if(enemyRobot.getHp() == 0) {
 			myScene.detachChild(enemyRobotBody);
@@ -242,6 +261,7 @@ public class BattleField {
 		myScene.registerUpdateHandler(myTimerHandler);
 	}
 	
+	//atualiza as barras de HP de ambos os robôs
 	private void upDateLiveBar() {
 		myScene.detachChild(playerRobotHpBar);
 		playerRobotHpBar = new Rectangle(BattleImageContainer.BODY_WIDTH, myCamera.getHeight() - BattleImageContainer.BODY_HEIGHT - BattleImageContainer.WEAPON_HEIGHT + BattleImageContainer.WEAPON_HEIGHT , playerRobot.getHp(), 10);
@@ -254,6 +274,7 @@ public class BattleField {
 		myScene.attachChild(enemyRobotHpBar);
 	}
 	
+	//atualiza as imagens do jogador, inimigo e barra de HP
 	private void upDateAll() {
     	upDatePlayer();
     	upDateEnemy();
@@ -264,6 +285,7 @@ public class BattleField {
     	
 	}
 	
+	//faz o movimento do inimigo
 	private void makeEnemyMove() {
 		playerRobot.takeDamage( enemyRobot.getWeaponIn(0).doDamage() );
 	}

@@ -22,17 +22,19 @@ public class MechawarsBattleActivity extends BaseGameActivity {
         private static final int CAMERA_HEIGHT = 480;
 
         private Camera mCamera;
-        private BattleImageContainer mBattleImageContainer;
-        private BattleField mBattleField;
+        private BattleImageContainer mBattleImageContainer; //container onde armazenar as imagens
+        private BattleField mBattleField; //objeto da batalha
 
         @Override
         public Engine onLoadEngine() {
-                mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+                //configurar a engine do jogo
+        		mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
                 return new Engine(new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), mCamera));
         }
 
         @Override
         public void onLoadResources() {
+        	//carregando imagens no mBattleImageContainer
         	mBattleImageContainer = new BattleImageContainer(this);
         	this.mEngine.getTextureManager().loadTexture( mBattleImageContainer.putImageWeaponIn("battleGfx/robotWeapon0.png", 0) );
         	this.mEngine.getTextureManager().loadTexture( mBattleImageContainer.putImageWeaponIn("battleGfx/robotWeapon1.png", 1) );
@@ -51,6 +53,7 @@ public class MechawarsBattleActivity extends BaseGameActivity {
         public Scene onLoadScene() {
                 this.mEngine.registerUpdateHandler(new FPSLogger());
 
+                //criando cena com todos os objetos da batalha
                 Scene scene = mBattleField.getScene();
                 
                 return scene;

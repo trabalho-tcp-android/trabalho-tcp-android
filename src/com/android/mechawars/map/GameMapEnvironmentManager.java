@@ -11,6 +11,7 @@ import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import com.android.mechawars.BattleInterfaceManager;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.MechawarsBattleActivity;
+import com.android.mechawars.ffBox.ffDialog.DialogManager;
 import com.android.mechawars.map.characters.CharacterGroupManager;
 import com.android.mechawars.map.characters.CharacterGroupParser;
 import com.android.mechawars.map.characters.Player;
@@ -25,13 +26,13 @@ import android.widget.Toast;
  * THIS CLASS LOADS THE MAP, ALONG WITH ITS MAIN CHARACTER AND NPCS.
  */
 public class GameMapEnvironmentManager {
-	Player gamePlayer;
+	private Player gamePlayer;
 	
-	MapManager gameMap;
+	private MapManager gameMap;
 	
-	CharacterGroupManager npcGroup;
+	private CharacterGroupManager npcGroup;
 	
-	GameDigitalController digitalController;
+	public GameDigitalController digitalController;
 	
 	//Constructor for this class, which initializes the map environment features.
 	public GameMapEnvironmentManager(Engine gameMapEngine,Scene gameMapScene, BoundCamera gameCamera, Context gameMapContext){

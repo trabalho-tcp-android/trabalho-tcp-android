@@ -1,6 +1,8 @@
 package com.android.mechawars.battle;
 
-
+/*
+ * Classe que guarda as texturas usadas palos robô e pelas armas
+ * */
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
@@ -9,21 +11,25 @@ import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 public class BattleImageContainer {
 	
-	public static final int MAX_WEAPON_NUMBER = 10;
-	public static final int MAX_BODY_NUMBER = 10;
+	public static final int MAX_WEAPON_NUMBER = 10; //número máximo de slot para armas
+	public static final int MAX_BODY_NUMBER = 10;   //número máximo de slot para corpos
     
-	public static final int WEAPON_WIDTH = 32;
-    public static final int WEAPON_HEIGHT = 32;
+	public static final int WEAPON_WIDTH = 32;  //largura máxima para a imagem da arma
+    public static final int WEAPON_HEIGHT = 32; //altura máxima para a imagem da arma
     
-    public static final int BODY_WIDTH = 128;
-    public static final int BODY_HEIGHT = 128;
+    public static final int BODY_WIDTH = 128;  //largura máxima para a imagem de um corpo
+    public static final int BODY_HEIGHT = 128; //altura máxima para a imagem de um corpo
 	
 	private BaseGameActivity mBaseGameActivity;
 	
 	private BitmapTextureAtlas mBitmapTextureAtlas;
 	private TextureRegion[] robotWeaponTextureRegion;
 	private TextureRegion[] robotBodyTextureRegion;
-		
+	
+	/*
+	 * Contrutor:
+	 * BaseGameActivity initialBaseGameActivity: BaseGameActivity do jogo
+	 * */
 	public BattleImageContainer(BaseGameActivity initialBaseGameActivity) {
 		mBaseGameActivity = initialBaseGameActivity;
 		
@@ -38,6 +44,7 @@ public class BattleImageContainer {
 		}
 	}
 	
+	//coloca a textura de uma arma de um arquivo em um determinado slot
 	public BitmapTextureAtlas putImageWeaponIn(String path, int slot) {
 		if( slot < MAX_WEAPON_NUMBER && slot >= 0) {
 			mBitmapTextureAtlas = new BitmapTextureAtlas(WEAPON_WIDTH, WEAPON_HEIGHT, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
@@ -48,6 +55,7 @@ public class BattleImageContainer {
 			return null;
 	}
 	
+	//coloca a textura de um corpo de um arquivo em um determinado slot
 	public BitmapTextureAtlas putImageBodyIn(String path, int slot) {
 		if( slot < MAX_BODY_NUMBER && slot >= 0) {
 			mBitmapTextureAtlas = new BitmapTextureAtlas(BODY_WIDTH, BODY_HEIGHT, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
@@ -58,6 +66,7 @@ public class BattleImageContainer {
 			return null;
 	}
 	
+	//retorna a textura de uma arma de um slot
 	public TextureRegion getImageWeaponIn(int slot) {
 		if( slot < MAX_WEAPON_NUMBER && slot >= 0) {
 			return robotWeaponTextureRegion[slot];
@@ -67,6 +76,7 @@ public class BattleImageContainer {
 		}
 	}
 	
+	//retorna a textura de um corpo de um slot
 	public TextureRegion getImageBodyIn(int slot) {
 		if( slot < MAX_BODY_NUMBER && slot >= 0) {
 			return robotBodyTextureRegion[slot];

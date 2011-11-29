@@ -5,6 +5,8 @@ import com.android.mechawars.MechawarsActivity;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.ffBox.Box;
 import com.android.mechawars.ffBox.ffFont.FontManager;
+import com.android.mechawars.map.GameMapActivityManager;
+
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.CameraScene;
 import org.anddev.andengine.entity.scene.Scene;
@@ -106,6 +108,7 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener {
            /* SceneManager.getBase().getEngine().getScene().clearChildScene();
             this.dialogScene.reset();*/
             this.dialogScene.back();
+            GameMapActivityManager.getMapEnvironment().digitalController.setControllerToScene(GameMapActivityManager.getMapScene());
 
         }
 

@@ -74,6 +74,10 @@ public class GameDigitalController {
 		gameMapScene.setChildScene(digitalController);
 	}
 	
+	public void setControllerToScene(Scene gameMapScene){
+		gameMapScene.setChildScene(digitalController);
+	}
+	
 	
 	//Loading the textures for the controller.
 	private void loadTextures(Engine gameMapEngine, Context gameMapContext){
