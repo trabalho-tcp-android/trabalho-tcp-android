@@ -18,11 +18,9 @@ import com.android.mechawars.map.characters.CharacterGroupManager;
 import com.android.mechawars.map.characters.CharacterGroupParser;
 import com.android.mechawars.map.characters.Player;
 import com.android.mechawars.map.controller.GameDigitalController;
-import org.anddev.andengine.engine.handler.timer.TimerHandler;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 
 /*
@@ -117,23 +115,13 @@ public class GameMapEnvironmentManager {
 	//This method is called whenever a battle is finished.
 	public void showWon(){
 		
-		TimerHandler myTimerHandler = new TimerHandler(2f, true, new ITimerCallback() {
-            @Override
-            public void onTimePassed(final TimerHandler pTimerHandler) {
-    			
         		if(BattleInterfaceManager.playerWonBattle()){
-        			DialogManager.instance().fromJSON("youWonMessage").attachToScene();
         			System.out.println("VENCEU A BATALHA!");
         		}
         		else{
-        			DialogManager.instance().fromJSON("youLostMessage").attachToScene();
         			System.out.println("PERDEU A BATALHA! DROGA...");
         			BattleInterfaceManager.getPlayerRobot().recovery();
         		}
-            	
-            }
-		});
-		GameMapActivityManager.getMapScene().registerUpdateHandler(myTimerHandler);
 
 	}
 	

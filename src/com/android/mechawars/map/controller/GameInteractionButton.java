@@ -27,7 +27,8 @@ import com.android.mechawars.map.LoadAssets;
 /*
  * Class used to implement an in-game interaction button.
  * Was meant to become some sort of action button.
- * Not used in the final release :(
+ * Not used in the final release :( sorry.
+ * This is due to some problems related to the engine.
 */
 
 public class GameInteractionButton{
@@ -61,6 +62,7 @@ public class GameInteractionButton{
 		
 		cameraWidth = gameMapCamera.getWidth();
 		
+
 		this.buttonHolder = new AnalogOnScreenControl(cameraWidth - this.buttonTextureRegion.getWidth(),cameraHeight - this.buttonTextureRegion.getHeight(), gameMapCamera, this.buttonTextureRegion, this.buttonBlankKnob, 0.5f, new IAnalogOnScreenControlListener(){
 			
 			@Override

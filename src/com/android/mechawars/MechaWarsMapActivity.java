@@ -16,6 +16,7 @@ import org.anddev.andengine.ui.activity.BaseGameActivity;
 public class MechaWarsMapActivity extends BaseGameActivity{
 	
 	private static SceneManager sceneManager;
+	private static BaseGameActivity parent;
 
 	@Override
 	public void onLoadComplete() {
@@ -26,6 +27,8 @@ public class MechaWarsMapActivity extends BaseGameActivity{
 	@Override
 	public Engine onLoadEngine() {
 		//Initializing the engine.
+		
+		parent = sceneManager.getBase();
 		sceneManager = new SceneManager(this);
 		
 		GameMapActivityManager.setMapEnvironment(this);
@@ -48,7 +51,10 @@ public class MechaWarsMapActivity extends BaseGameActivity{
     protected void onDestroy() {
         MusicManager.instance(this).stop();
         super.onDestroy();
+        parent.finish();
     }
+    
+    
 	
 
 }
