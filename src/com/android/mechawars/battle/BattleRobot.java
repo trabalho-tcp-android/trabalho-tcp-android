@@ -1,26 +1,26 @@
 package com.android.mechawars.battle;
 
 /*
- * Classe responsável pelas informações sobre os robôs
+ * Classe responsavel pelas informacoes sobre os robos
  * */
 import com.android.mechawars.battle.BattleWeapon;
 
 public class BattleRobot {
-	public static final int MAX_NUMBER_WEAPON = 4; //número máximo de armas que QUALQUER robô pode carregar
+	public static final int MAX_NUMBER_WEAPON = 4; //numero maximo de armas que QUALQUER robo pode carregar
 	
-	private int maxHp;    //HP máximo
+	private int maxHp;    //HP maximo
 	private int currentHp;//HP atual
 	private boolean live; //se esta vivo
 	
-	private int numberWeapon;      //número máximo de armas que ESTE robô pode carregar
+	private int numberWeapon;      //numero maximo de armas que ESTE robo pode carregar
 	private BattleWeapon[] weapons;//array das armas
 	
 	private int imageNumber;
 	/*
 	 * Contrutor:
-	 * int initialMaxHp: HP máximo
-	 * int initialMaxWeapon: número de armas que o robô pode carregar
-	 * int initialImageNumber: número da imagem do corpo do robô
+	 * int initialMaxHp: HP mï¿½ximo
+	 * int initialMaxWeapon: nï¿½mero de armas que o robï¿½ pode carregar
+	 * int initialImageNumber: nï¿½mero da imagem do corpo do robï¿½
 	 * */
 	public BattleRobot(int initialMaxHp, int initialMaxWeapon, int initialImageNumber) {
 		maxHp = initialMaxHp;
@@ -86,7 +86,7 @@ public class BattleRobot {
 		return live;
 	}
 	
-	//número da imagem do corpo do robô
+	//nï¿½mero da imagem do corpo do robï¿½
 	public int getImageNumber() {
 		return imageNumber;
 	}

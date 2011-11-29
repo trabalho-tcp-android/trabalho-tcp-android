@@ -1,7 +1,7 @@
 package com.android.mechawars.battle;
 
 /*
- * Classe que guarda as texturas usadas palos robô e pelas armas
+ * Classe que guarda as texturas usadas palos robo e pelas armas
  * */
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
@@ -11,14 +11,14 @@ import org.anddev.andengine.ui.activity.BaseGameActivity;
 
 public class BattleImageContainer {
 	
-	public static final int MAX_WEAPON_NUMBER = 10; //número máximo de slot para armas
-	public static final int MAX_BODY_NUMBER = 10;   //número máximo de slot para corpos
+	public static final int MAX_WEAPON_NUMBER = 10; //numero maximo de slot para armas
+	public static final int MAX_BODY_NUMBER = 10;   //numero maximo de slot para corpos
     
-	public static final int WEAPON_WIDTH = 32;  //largura máxima para a imagem da arma
-    public static final int WEAPON_HEIGHT = 32; //altura máxima para a imagem da arma
+	public static final int WEAPON_WIDTH = 32;  //largura maxima para a imagem da arma
+    public static final int WEAPON_HEIGHT = 32; //altura maxima para a imagem da arma
     
-    public static final int BODY_WIDTH = 128;  //largura máxima para a imagem de um corpo
-    public static final int BODY_HEIGHT = 128; //altura máxima para a imagem de um corpo
+    public static final int BODY_WIDTH = 128;  //largura maxima para a imagem de um corpo
+    public static final int BODY_HEIGHT = 128; //altura maxima para a imagem de um corpo
 	
 	private BaseGameActivity mBaseGameActivity;
 	

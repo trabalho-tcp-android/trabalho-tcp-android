@@ -1,7 +1,7 @@
 package com.android.mechawars.battle;
 
 /*
- * Classe responsável pelos gráficos e comandos da batalha
+ * Classe responsavel pelos graficos e comandos da batalha
  * */
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.handler.timer.ITimerCallback;
@@ -28,27 +28,27 @@ public class BattleField {
 	private BattleImageContainer myContainer; //container com as imagens 
 	private Camera myCamera;                  //camera do jogo
 	
-	private BattleRobot playerRobot; //robô do jogador
-	private BattleRobot enemyRobot;  //robô do inimigo
+	private BattleRobot playerRobot; //robo do jogador
+	private BattleRobot enemyRobot;  //robo do inimigo
 	
 	private Scene myScene;               //cena com o objetos da luta
 	private TimerHandler myTimerHandler; //um timer
-	private Sprite playerRobotBody;      //sprite do corpo do robô do jogador
-	private Sprite[] playerRobotWeapons; //sprites das armas do robô do jogador
-	private Sprite enemyRobotBody;       //sprite do corpo do robô do inimigo
-	private Sprite[] enemyRobotWeapons;  //sprites das armas do robô do inimigo
-	private Sprite[] buttons;            //sprites dos botões
-	private Rectangle playerRobotHpBar;  //barra de HP do robô do jogador
-	private Rectangle enemyRobotHpBar;   //barra de HP do robô do inimigo
+	private Sprite playerRobotBody;      //sprite do corpo do robo do jogador
+	private Sprite[] playerRobotWeapons; //sprites das armas do robo do jogador
+	private Sprite enemyRobotBody;       //sprite do corpo do robo do inimigo
+	private Sprite[] enemyRobotWeapons;  //sprites das armas do robo do inimigo
+	private Sprite[] buttons;            //sprites dos botoes
+	private Rectangle playerRobotHpBar;  //barra de HP do robo do jogador
+	private Rectangle enemyRobotHpBar;   //barra de HP do robo do inimigo
 	
-	private boolean buttonBugFix; //corretor de um erro nos botões
+	private boolean buttonBugFix; //corretor de um erro nos botoes
 	
 	/*
 	 * Contrutor:
 	 * BattleImageContainer initContainer: container com as imagens
 	 * Camera initCamera: camera do jogo
-	 * BattleRobot initPlayerRobot: robô do jogador
-	 * BattleRobot initEnemyRobot: robô do inimigo
+	 * BattleRobot initPlayerRobot: robo do jogador
+	 * BattleRobot initEnemyRobot: robo do inimigo
 	 * */
 	public BattleField (BattleImageContainer initContainer, Camera initCamera, BattleRobot initPlayerRobot, BattleRobot initEnemyRobot) {
 		currentTurn = PLAYER_TURN;
@@ -129,8 +129,8 @@ public class BattleField {
 		myScene.attachChild(enemyRobotHpBar);
 	}
 	
-	//desenha e configura os botões para o jogador escolher qual arma usar
-	//por questões de configuração da engine cada botão tem que ser configurado manualmente sem o uso de loops
+	//desenha e configura os botoes para o jogador escolher qual arma usar
+	//por questï¿½es de configuracao da engine cada botao tem que ser configurado manualmente sem o uso de loops
 	private void makeSceneButtons () {
 		buttons = new Sprite[BattleRobot.MAX_NUMBER_WEAPON];
 		
@@ -226,7 +226,7 @@ public class BattleField {
 		myScene.registerUpdateHandler(myTimerHandler);
 	}
 	
-	//apaga a imagem do robô do jogador se seu HP é zero
+	//apaga a imagem do robï¿½ do jogador se seu HP ï¿½ zero
 	private void upDatePlayer() {
 		if(playerRobot.getHp() == 0) {
 			myScene.detachChild(playerRobotBody);
@@ -237,7 +237,7 @@ public class BattleField {
 		}
 	}
 	
-	//apaga a imagem do robô do inimigo se seu HP é zero
+	//apaga a imagem do robï¿½ do inimigo se seu HP ï¿½ zero
 	private void upDateEnemy() {
 		if(enemyRobot.getHp() == 0) {
 			myScene.detachChild(enemyRobotBody);
@@ -261,7 +261,7 @@ public class BattleField {
 		myScene.registerUpdateHandler(myTimerHandler);
 	}
 	
-	//atualiza as barras de HP de ambos os robôs
+	//atualiza as barras de HP de ambos os robï¿½s
 	private void upDateLiveBar() {
 		myScene.detachChild(playerRobotHpBar);
 		playerRobotHpBar = new Rectangle(BattleImageContainer.BODY_WIDTH, myCamera.getHeight() - BattleImageContainer.BODY_HEIGHT - BattleImageContainer.WEAPON_HEIGHT + BattleImageContainer.WEAPON_HEIGHT , playerRobot.getHp(), 10);

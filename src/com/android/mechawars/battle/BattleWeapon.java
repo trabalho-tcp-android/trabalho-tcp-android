@@ -1,19 +1,19 @@
 package com.android.mechawars.battle;
 /* 
- * Classe responsável pelas informações sobre as armas
+ * Classe responsavel pelas informacoes sobre as armas
  * */
 public class BattleWeapon {
 	
 	private int damage;            //dano que a arma vai causar
-	private int maxAmmunition;     //máximo de munição que uma arma pode carregar
-	private int currentAmmunition; //munição atual da arma
-	private int imageNumber;       //número da imagem de arma
+	private int maxAmmunition;     //mï¿½ximo de municao que uma arma pode carregar
+	private int currentAmmunition; //muniï¿½ï¿½o atual da arma
+	private int imageNumber;       //nï¿½mero da imagem de arma
 	
 	/*
 	 * Contrutor:
 	 * int initialDamage: dano que a arma vai causar
-	 * int initialMaxAmmunition: máximo de munição que uma arma pode carregar
-	 * int initialImageNumber: número da imagem de arma
+	 * int initialMaxAmmunition: maximo de municao que uma arma pode carregar
+	 * int initialImageNumber: numero da imagem de arma
 	 * */
 	public BattleWeapon (int initialDamage, int initialMaxAmmunition, int initialImageNumber ) {
 		damage = initialDamage;
@@ -27,7 +27,7 @@ public class BattleWeapon {
 		currentAmmunition = maxAmmunition;
 	}
 	
-	//retorna o dano da arma se houver munição
+	//retorna o dano da arma se houver municao
 	public int doDamage() {
 		if ( currentAmmunition > 0 ){
 			currentAmmunition--;
@@ -38,7 +38,7 @@ public class BattleWeapon {
 		}
 	}
 	
-	//número da imagem da arma
+	//nï¿½mero da imagem da arma
 	public int getImageNumber() {
 		return imageNumber;
 	}
