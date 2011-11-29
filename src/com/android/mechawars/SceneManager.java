@@ -1,6 +1,7 @@
 package com.android.mechawars;
 
 import com.android.mechawars.ffBox.ffDialog.DialogManager;
+import com.android.mechawars.ffBox.ffFont.FontManager;
 import com.android.mechawars.ffBox.ffMenu.Menu;
 import com.android.mechawars.ffBox.ffMenu.MenuManager;
 import com.android.mechawars.inventory.InventoryItem;
@@ -41,7 +42,7 @@ public class SceneManager {
 		final Scene scene = new Scene();
         scene.setBackground(new ColorBackground(0f, 0f, 0f));
 
-        final Text textCenter = new Text(SceneManager.getBase().getEngine().getCamera().getCenterX(), 10, MechawarsActivity.titleFont, "MECHAWARS", HorizontalAlign.LEFT);
+        final Text textCenter = new Text(SceneManager.getBase().getEngine().getCamera().getCenterX(), 10, FontManager.instance().getTitleFont(), "MECHAWARS", HorizontalAlign.LEFT);
         textCenter.setPosition(SceneManager.getBase().getEngine().getCamera().getCenterX()-textCenter.getWidth()/2,10);
         scene.attachChild(textCenter);
 
@@ -55,7 +56,7 @@ public class SceneManager {
         final Scene scene = new Scene();
         scene.setBackground(new ColorBackground(0f, 0.31f, 0.53f));
         
-        final Text sceneTitle = new Text((SceneManager.getBase().getEngine().getCamera().getCenterX()),4,MechawarsActivity.mFont,"Opções do Jogo",HorizontalAlign.CENTER);
+        final Text sceneTitle = new Text((SceneManager.getBase().getEngine().getCamera().getCenterX()),4,FontManager.instance().getFont(),"Opções do Jogo",HorizontalAlign.CENTER);
         sceneTitle.setPosition((SceneManager.getBase().getEngine().getCamera().getCenterX()-sceneTitle.getWidth()/2),10);
         scene.attachChild(sceneTitle);
 
@@ -67,7 +68,7 @@ public class SceneManager {
     public static void loadCredits() {
         final Scene scene = new Scene();
         scene.setBackground(new ColorBackground(0f, 0f, 0f));
-        final Text sceneTitle = new Text((SceneManager.getBase().getEngine().getCamera().getCenterX()),4,MechawarsActivity.mFont,"Créditos",HorizontalAlign.CENTER);
+        final Text sceneTitle = new Text((SceneManager.getBase().getEngine().getCamera().getCenterX()),4,FontManager.instance().getFont(),"Créditos",HorizontalAlign.CENTER);
         sceneTitle.setPosition((SceneManager.getBase().getEngine().getCamera().getCenterX()-sceneTitle.getWidth())/2,10);
         scene.attachChild(sceneTitle);
 

@@ -2,11 +2,8 @@ package com.android.mechawars;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Intent;
 
-import com.android.mechawars.map.GameMapActivityManager;
-import com.android.mechawars.map.LoadAssets;
-import com.android.mechawars.utils.DbUtils;
+import com.android.mechawars.ffBox.ffFont.FontManager;
 import com.android.mechawars.utils.MusicManager;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
@@ -37,11 +34,6 @@ import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.entity.util.FPSCounter;
 
-import android.util.Log;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import org.helllabs.android.xmp.ModPlayer;
-
 import java.io.IOException;
 
 /**
@@ -49,20 +41,13 @@ import java.io.IOException;
  */
 public class MechawarsActivity extends BaseGameActivity {
 
-    private static final int CAMERA_WIDTH = 800;
-    private static final int CAMERA_HEIGHT = 480;
+    private static final int CAMERA_WIDTH = 400;
+    private static final int CAMERA_HEIGHT = 300;
     private static final String MOD_FILENAME = "2nd_pm.s3m";
     private Camera mCamera;
-    protected Texture mFontTexture;
-    protected static Font mFont;
-    protected static Font titleFont;
-    protected Font mFontBold;
     private BitmapTextureAtlas mBitmap;
     private TextureRegion mRobotTextureRegion;
-    protected Font mFontBoldGray;
     private static SceneManager sceneManager;
-    private ModPlayer mModPlayer = ModPlayer.getInstance();
-    public Intent mapActivity;
 
 
     @Override
@@ -81,22 +66,6 @@ public class MechawarsActivity extends BaseGameActivity {
 
     @Override
     public void onLoadResources() {
-        this.mFontTexture = new BitmapTextureAtlas(1024, 1024, TextureOptions.BILINEAR);
-        Texture mTitleFontTexture = new BitmapTextureAtlas(512, 512, TextureOptions.BILINEAR);
-        Texture mFontMonoTexture = new BitmapTextureAtlas(256, 256, TextureOptions.BILINEAR);
-
-        mFont = new Font(mFontMonoTexture, Typeface.createFromAsset(getAssets(), "fonts/UbuntuMono-B.ttf"), 32, true, Color.WHITE);
-        this.titleFont = new Font(mTitleFontTexture, Typeface.createFromAsset(getAssets(), "fonts/FFFAccess.ttf"), 64, true, Color.WHITE);
-        this.mFontBold = new Font(this.mFontTexture, Typeface.createFromAsset(getAssets(), "fonts/Ubuntu-B.ttf"), 32, true, Color.BLACK);
-        this.mFontBoldGray = new Font(this.mFontTexture, Typeface.createFromAsset(getAssets(), "fonts/Ubuntu-B.ttf"), 64, true, Color.DKGRAY);
-
-        this.getEngine().getTextureManager().loadTexture(this.mFontTexture);
-        this.getEngine().getTextureManager().loadTexture(mFontMonoTexture);
-        this.getEngine().getTextureManager().loadTexture(mTitleFontTexture);
-        this.getEngine().getFontManager().loadFont(mFont);
-        this.getEngine().getFontManager().loadFont(titleFont);
-        this.getEngine().getFontManager().loadFont(this.mFontBold);
-        this.getEngine().getFontManager().loadFont(this.mFontBoldGray);
 
         this.mBitmap = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
@@ -121,7 +90,7 @@ public class MechawarsActivity extends BaseGameActivity {
 
         // Cria o simbolo do robo e Texto
         final Sprite robotCreations = new Sprite(centerX, centerY - 100, this.mRobotTextureRegion);
-        final Text textCenter = new Text(CAMERA_WIDTH, CAMERA_HEIGHT + 50, this.mFontBoldGray, "RobotCreations!", HorizontalAlign.LEFT);
+        final Text textCenter = new Text(CAMERA_WIDTH, CAMERA_HEIGHT + 50, FontManager.instance().getFontBoldGray(), "RobotCreations!", HorizontalAlign.LEFT);
         textCenter.setPosition((CAMERA_WIDTH / 2) - textCenter.getWidth() / 2f, centerY + 25);
 
         //Cria um timer para segurar a tela em branco e evitar um pulo de lag do aparelho
@@ -213,11 +182,6 @@ public class MechawarsActivity extends BaseGameActivity {
     protected void onPause() {
         MusicManager.instance(this).stop();
         super.onPause();
-    }
-
-
-    public static Font getBasicFont() {
-        return mFont;
     }
 
     public static SceneManager getSceneManager() {

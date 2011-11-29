@@ -4,6 +4,7 @@ import android.widget.Toast;
 import com.android.mechawars.MechawarsActivity;
 import com.android.mechawars.SceneManager;
 import com.android.mechawars.ffBox.Box;
+import com.android.mechawars.ffBox.ffFont.FontManager;
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.CameraScene;
 import org.anddev.andengine.entity.scene.Scene;
@@ -82,7 +83,7 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener {
     }
 
     public Dialog(int numLines, int position, ArrayList<String> itemsText, String label) {
-        this(numLines, position, MechawarsActivity.getBasicFont(), itemsText,label);
+        this(numLines, position, FontManager.instance().getFont(), itemsText,label);
     }
 
     public int getLineHeight() {

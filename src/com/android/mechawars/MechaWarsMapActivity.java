@@ -1,5 +1,6 @@
 package com.android.mechawars;
 
+import com.android.mechawars.ffBox.ffDialog.DialogManager;
 import com.android.mechawars.map.*;
 
 import com.android.mechawars.utils.MusicManager;
@@ -32,7 +33,7 @@ public class MechaWarsMapActivity extends BaseGameActivity{
 
 	@Override
 	public void onLoadComplete() {
-		
+        DialogManager.instance().fromJSON("credits").attachToScene();
 	}
 
 	@Override

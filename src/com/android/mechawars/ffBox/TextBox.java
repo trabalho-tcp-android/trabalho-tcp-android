@@ -3,6 +3,7 @@ package com.android.mechawars.ffBox;
 import android.util.Log;
 import com.android.mechawars.MechawarsActivity;
 import com.android.mechawars.SceneManager;
+import com.android.mechawars.ffBox.ffFont.FontManager;
 import org.anddev.andengine.entity.primitive.Line;
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.Scene;
@@ -57,11 +58,11 @@ public class TextBox {
     }
 
     public TextBox(float widthPercent, int numLines, Scene scene, boolean visible) {
-        this(new Float(widthPercent*(SceneManager.getBase().getEngine().getCamera().getWidth())).intValue(),numLines,MechawarsActivity.getBasicFont(),scene,visible);
+        this(new Float(widthPercent*(SceneManager.getBase().getEngine().getCamera().getWidth())).intValue(),numLines, FontManager.instance().getFont(),scene,visible);
     }
 
     public TextBox(int width,int numLines, Scene scene) {
-        this(width, numLines, MechawarsActivity.getBasicFont(),scene,true);
+        this(width, numLines, FontManager.instance().getFont(),scene,true);
     }
 
     public void setVisibility(boolean visibility) {
