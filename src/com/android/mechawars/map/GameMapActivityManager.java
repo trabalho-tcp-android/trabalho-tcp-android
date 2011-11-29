@@ -59,4 +59,8 @@ public class GameMapActivityManager {
 		
 		return mapCamera;
 	}
+	
+	public static GameMapEnvironmentManager getMapEnvironment(){
+		return gameMapEnvironment;
+	}
 }

@@ -9,6 +9,8 @@ import org.anddev.andengine.entity.sprite.Sprite;
 
 import org.anddev.andengine.input.touch.TouchEvent;
 
+import com.android.mechawars.BattleInterfaceManager;
+import com.android.mechawars.SceneManager;
 import com.android.mechawars.battle.BattleImageContainer;
 import com.android.mechawars.battle.BattleRobot;
 import com.android.mechawars.battle.BattleWeapon;
@@ -210,13 +212,34 @@ public class BattleField {
 	private void upDatePlayer() {
 		if(playerRobot.getHp() == 0) {
 			myScene.detachChild(playerRobotBody);
+			
+			//Battle was lost :(
+			BattleInterfaceManager.setBattleCondition(false);
+			finishMyBattle();
 		}
 	}
 	
 	private void upDateEnemy() {
 		if(enemyRobot.getHp() == 0) {
 			myScene.detachChild(enemyRobotBody);
+			
+			//Victory! xD
+			BattleInterfaceManager.setBattleCondition(true);
+			finishMyBattle();
+			
 		}
+	}
+	
+	private void finishMyBattle(){
+		myTimerHandler = new TimerHandler(3f, true, new ITimerCallback() {
+            @Override
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+    			
+    			BattleInterfaceManager.finishBattle();
+            	
+            }
+		});
+		myScene.registerUpdateHandler(myTimerHandler);
 	}
 	
 	private void upDateLiveBar() {
