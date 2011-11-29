@@ -39,16 +39,14 @@ public class DialogItem extends TickerText implements IMenuItem {
 
     @Override
     public int getID() {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return 0;
     }
 
     @Override
     public void onSelected() {
-        Toast.makeText(SceneManager.getBase(), this.getID() + " Unselected: " + this.getText(), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onUnselected() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

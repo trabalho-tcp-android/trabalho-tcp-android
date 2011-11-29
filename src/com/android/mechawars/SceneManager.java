@@ -41,15 +41,13 @@ public class SceneManager {
 		final Scene scene = new Scene();
         scene.setBackground(new ColorBackground(0f, 0f, 0f));
 
-        final Text textCenter = new Text(MechawarsActivity.getCenterX(), 10, MechawarsActivity.titleFont, "MECHAWARS", HorizontalAlign.LEFT);
-        textCenter.setPosition(MechawarsActivity.getCenterX()-textCenter.getWidth()/2,10);
+        final Text textCenter = new Text(SceneManager.getBase().getEngine().getCamera().getCenterX(), 10, MechawarsActivity.titleFont, "MECHAWARS", HorizontalAlign.LEFT);
+        textCenter.setPosition(SceneManager.getBase().getEngine().getCamera().getCenterX()-textCenter.getWidth()/2,10);
         scene.attachChild(textCenter);
 
         base.getEngine().setScene(scene);
 
         MenuManager.instance().fromJSON("mainMenu").attachToScene();
-        InventoryItem test = new InventoryItem("testWeapon");
-                test.activate();
 
 	}
 
@@ -57,8 +55,8 @@ public class SceneManager {
         final Scene scene = new Scene();
         scene.setBackground(new ColorBackground(0f, 0.31f, 0.53f));
         
-        final Text sceneTitle = new Text(MechawarsActivity.getCenterX(),4,MechawarsActivity.mFont,"Opções do Jogo",HorizontalAlign.CENTER);
-        sceneTitle.setPosition(MechawarsActivity.getCenterX()-sceneTitle.getWidth()/2,10);
+        final Text sceneTitle = new Text((SceneManager.getBase().getEngine().getCamera().getCenterX()),4,MechawarsActivity.mFont,"Opções do Jogo",HorizontalAlign.CENTER);
+        sceneTitle.setPosition((SceneManager.getBase().getEngine().getCamera().getCenterX()-sceneTitle.getWidth()/2),10);
         scene.attachChild(sceneTitle);
 
         base.getEngine().setScene(scene);
@@ -69,12 +67,11 @@ public class SceneManager {
     public static void loadCredits() {
         final Scene scene = new Scene();
         scene.setBackground(new ColorBackground(0f, 0f, 0f));
-        final Text sceneTitle = new Text(MechawarsActivity.getCenterX(),4,MechawarsActivity.mFont,"Créditos",HorizontalAlign.CENTER);
-        sceneTitle.setPosition(MechawarsActivity.getCenterX()-sceneTitle.getWidth()/2,10);
+        final Text sceneTitle = new Text((SceneManager.getBase().getEngine().getCamera().getCenterX()),4,MechawarsActivity.mFont,"Créditos",HorizontalAlign.CENTER);
+        sceneTitle.setPosition((SceneManager.getBase().getEngine().getCamera().getCenterX()-sceneTitle.getWidth())/2,10);
         scene.attachChild(sceneTitle);
 
         base.getEngine().setScene(scene);
-       // MenuManager.instance().fromJSON("optionsMenu").attachToScene();
 
         DialogManager.instance().fromJSON("credits").attachToScene();
     }

@@ -39,13 +39,14 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener {
     public Dialog(int numLines,int position,Font font,ArrayList<String> itemsText, String label) {
         this.font = font;
         this.numLines = numLines;
-        this.width = MechawarsActivity.getCameraWidth();
+        this.width = new Float(SceneManager.getBase().getEngine().getCamera().getWidth()).intValue();
         this.label = label;
 
         this.height = this.getLineHeight() * numLines + boxPadding * 2;
 
-        float centerX = MechawarsActivity.getCenterX() - this.width / 2;
-        float centerY = MechawarsActivity.getCenterY() - this.height / 2;
+
+        float centerX = SceneManager.getBase().getEngine().getCamera().getCenterX() - this.width / 2;
+        float centerY = SceneManager.getBase().getEngine().getCamera().getCenterY() - this.height / 2;
         float pX, pY;
         switch (position) {
             case 1:
@@ -56,7 +57,7 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener {
                 break;
             default:
                 //Bottom-Center
-                pX = centerX; pY = MechawarsActivity.getCameraHeight() - this.height;
+                pX = centerX; pY = SceneManager.getBase().getEngine().getCamera().getHeight() - this.height;
                 //pY = centerY;
                 break;
         }
@@ -64,11 +65,10 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener {
         this.box = Box.createEntity(pX, pY, width, height);
         this.letterWidth = new Float(new Text(0, 0, font, "QWER").getWidth() / 4).intValue();
 
+        //Cria uma cena para ser utilizada como cena filho
         this.dialogScene = new MenuScene(SceneManager.getBase().getEngine().getCamera(),this);
         dialogScene.setBackgroundEnabled(false);
-
         this.dialogScene.attachChild(this.box);
-        //SceneManager.getBase().getEngine().getScene().attachChild(this.box);
 
         for(String itemText : itemsText) {
             String text = "["+label+"] "+itemText;
@@ -77,10 +77,8 @@ public class Dialog implements MenuScene.IOnMenuItemClickListener {
             dialogItems.add(dialogItem);
         }
 
-        this.dialogScene.attachChild(dialogItems.get(0));
-        //SceneManager.getBase().getEngine().getScene().attachChild(dialogItems.get(0));
-
-
+        //this.dialogScene.attachChild(dialogItems.get(0));
+        this.dialogScene.addMenuItem(dialogItems.get(0));
     }
 
     public Dialog(int numLines, int position, ArrayList<String> itemsText, String label) {

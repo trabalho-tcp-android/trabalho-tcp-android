@@ -216,22 +216,6 @@ public class MechawarsActivity extends BaseGameActivity {
     }
 
 
-    public static int getCameraWidth() {
-        return CAMERA_WIDTH;
-    }
-
-    public static int getCenterX() {
-        return CAMERA_WIDTH / 2;
-    }
-
-    public static int getCenterY() {
-        return CAMERA_HEIGHT / 2;
-    }
-
-    public static int getCameraHeight() {
-        return CAMERA_HEIGHT;
-    }
-
     public static Font getBasicFont() {
         return mFont;
     }
