@@ -1,19 +1,21 @@
 package com.android.mechawars.ffBox.ffDialog;
 
+import android.widget.Toast;
 import com.android.mechawars.MechawarsActivity;
 import com.android.mechawars.SceneManager;
+import org.anddev.andengine.entity.scene.menu.item.IMenuItem;
 import org.anddev.andengine.entity.text.TickerText;
 import org.anddev.andengine.opengl.font.Font;
 import org.anddev.andengine.util.HorizontalAlign;
 
 import java.util.ArrayList;
 
-public class DialogItem extends TickerText {
+public class DialogItem extends TickerText implements IMenuItem {
 
     private ArrayList<ArrayList<String>> onEndActions = new ArrayList<ArrayList<String>>();
     
     public DialogItem(float pX, float pY, String pText, ArrayList<ArrayList<String>> onEndActions) {
-        this(pX,pY, MechawarsActivity.getBasicFont(),pText,HorizontalAlign.LEFT,5,onEndActions);
+        this(pX,pY, MechawarsActivity.getBasicFont(),pText,HorizontalAlign.LEFT,10,onEndActions);
     }
 
     public DialogItem(float pX, float pY, Font pFont, String pText, HorizontalAlign pHorizontalAlign, float pCharactersPerSecond, ArrayList<ArrayList<String>> onEndActions) {
@@ -32,6 +34,19 @@ public class DialogItem extends TickerText {
     }
 
     private void executeOnEnd() {
-        //To change body of created methods use File | Settings | File Templates.
+
+    }
+
+    @Override
+    public int getID() {
+        return 0;
+    }
+
+    @Override
+    public void onSelected() {
+    }
+
+    @Override
+    public void onUnselected() {
     }
 }

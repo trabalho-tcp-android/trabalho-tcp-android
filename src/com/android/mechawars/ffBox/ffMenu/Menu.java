@@ -52,7 +52,7 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
      * @param numLines     Number of menu lines
      */
     public Menu(float widthPercent, int numLines, int position) {
-        this(new Float(widthPercent * MechawarsActivity.getCameraWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), position, SceneManager.getBase());
+        this(new Float(widthPercent * SceneManager.getBase().getEngine().getCamera().getWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), position, SceneManager.getBase());
     }
 
     /**
@@ -63,7 +63,7 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
      * @param base
      */
     public Menu(float widthPercent, int numLines, int position, BaseGameActivity base) {
-        this(new Float(widthPercent * MechawarsActivity.getCameraWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), position, base);
+        this(new Float(widthPercent * SceneManager.getBase().getEngine().getCamera().getWidth()).intValue(), numLines, MechawarsActivity.getBasicFont(), position, base);
     }
 
     /**
@@ -84,16 +84,15 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
         this.box = Box.createEntity(0, 0, width, lineHeight * numLines + boxPadding * 2);
         this.letterWidth = new Float(new Text(0, 0, font, "QWER").getWidth() / 4).intValue();
 
-        SceneManager.getBase().getEngine().getScene().attachChild(this.box);
+        //SceneManager.getBase().getEngine().getScene().attachChild(this.box);
         //base.getEngine().getScene().attachChild(this.box);
         this.menuScene = new MenuScene(base.getEngine().getCamera(), this);
+        menuScene.setBackgroundEnabled(false);
+        this.menuScene.attachChild(this.box);
 
         this.createDummyLines(numLines);
 
         menuScene.buildAnimations();
-
-        menuScene.setBackgroundEnabled(false);
-
         this.setPosition(position);
 
     }
@@ -153,8 +152,8 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
     }
 
     public void setPosition(int position) {
-        float centerX = MechawarsActivity.getCenterX() - this.box.getWidth() / 2;
-        float centerY = MechawarsActivity.getCenterY() - this.box.getHeight() / 2;
+        float centerX = SceneManager.getBase().getEngine().getCamera().getCenterX()- this.box.getWidth() / 2;
+        float centerY = SceneManager.getBase().getEngine().getCamera().getCenterY() - this.box.getHeight() / 2;
         float menuZeroX = (base.getEngine().getCamera().getWidth() - width - boxPadding) / -2;
         float menuZeroY = (base.getEngine().getCamera().getHeight() - height - boxPadding * 2) / -2;
         //TODO: As outras posicoes
@@ -169,7 +168,7 @@ public abstract class Menu implements MenuScene.IOnMenuItemClickListener {
                 break;
             default:
                 //Bottom-Center
-                float posY = MechawarsActivity.getCameraHeight() - this.box.getHeight();
+                float posY =  SceneManager.getBase().getEngine().getCamera().getHeight() - this.box.getHeight();
                 box.setPosition(centerX, posY);
                 menuScene.setPosition(boxPadding / 2, menuZeroY * -1);
                 break;

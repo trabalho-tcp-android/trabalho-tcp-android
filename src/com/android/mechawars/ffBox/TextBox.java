@@ -2,6 +2,7 @@ package com.android.mechawars.ffBox;
 
 import android.util.Log;
 import com.android.mechawars.MechawarsActivity;
+import com.android.mechawars.SceneManager;
 import org.anddev.andengine.entity.primitive.Line;
 import org.anddev.andengine.entity.primitive.Rectangle;
 import org.anddev.andengine.entity.scene.Scene;
@@ -56,7 +57,7 @@ public class TextBox {
     }
 
     public TextBox(float widthPercent, int numLines, Scene scene, boolean visible) {
-        this(new Float(widthPercent*MechawarsActivity.getCameraWidth()).intValue(),numLines,MechawarsActivity.getBasicFont(),scene,visible);
+        this(new Float(widthPercent*(SceneManager.getBase().getEngine().getCamera().getWidth())).intValue(),numLines,MechawarsActivity.getBasicFont(),scene,visible);
     }
 
     public TextBox(int width,int numLines, Scene scene) {
@@ -113,8 +114,8 @@ public class TextBox {
     }
 
     public void setPosition(int position) {
-        float centerX = MechawarsActivity.getCenterX()-this.box.getWidth()/2;
-        float centerY = MechawarsActivity.getCenterY()-this.box.getHeight()/2;
+        float centerX = SceneManager.getBase().getEngine().getCamera().getCenterX()-this.box.getWidth()/2;
+        float centerY = SceneManager.getBase().getEngine().getCamera().getCenterY()-this.box.getHeight()/2;
         //TODO: As outras posicoes
         switch (position) {
             case 0:
@@ -125,7 +126,7 @@ public class TextBox {
                 break;
             default:
                 //Bottom-Center
-                float posY = MechawarsActivity.getCameraHeight()-this.box.getHeight();
+                float posY = SceneManager.getBase().getEngine().getCamera().getHeight()-this.box.getHeight();
                 this.setPosition(centerX,posY);
                 break;
         }
